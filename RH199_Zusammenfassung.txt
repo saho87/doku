@@ -533,6 +533,15 @@ mount: /mnt/mountfolder: mount point does not exist.
 [user@host ~]$ ss -tulpna
 [user@host ~]$ netstat -tulpna
 
+# Check, welcher Prozess einen Port verwendet
+[user@host ~]$ sudo lsof -i :8080
+
+# Portweiterleitung des lokalen Ports 8080 auf den entfernten Server 128.140.77.235  
+# dort wird die Anfrage an die IP 172.19.0.2 auf Port 80 weitergeleitet.
+# Voraussetzung: der eigene public key muss auf dem remote rechner unter /home/cnbc/.ssh/autorized_keys abgelegt sein
+[user@host ~]$ ssh -fN -L 8080:172.19.0.2:80 cnbc@128.140.77.235
+
+
 # Netzwerk Config Files sind in /etc/NetworkManager/system-connections/
 
 # Status aller NW-Geräte anzeigen
