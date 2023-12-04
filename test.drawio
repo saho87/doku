@@ -1,9 +1,15 @@
-<mxfile host="app.diagrams.net" modified="2023-12-04T09:59:32.051Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36" version="22.1.5" etag="jBxWR1_qTFM8FkcahVUR" type="github">
+<mxfile host="app.diagrams.net" modified="2023-12-04T10:00:58.220Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36" etag="KjzRo9agemEHnjOBLrYi" version="22.1.5" type="github">
   <diagram name="Seite-1" id="JlqT8sNjKlX6EemMNDqn">
-    <mxGraphModel>
+    <mxGraphModel dx="1234" dy="1107" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
+        <mxCell id="Nfs3ii-5Esie5aItVBIX-1" value="Test1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="330" y="230" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Nfs3ii-5Esie5aItVBIX-2" value="Test2" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="320" y="400" width="120" height="80" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
