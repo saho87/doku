@@ -12,6 +12,7 @@
 
 `kubectl cluster-info`
 
+
 ### Cluster erstellen und in debug mode Neustarten
 
 `minikube delete`
@@ -19,6 +20,7 @@
 `minikube start --v=7 --alsologtostderr`
 
 `minikube status`
+
 
 ### kubectl Kommandos
 
@@ -94,7 +96,9 @@
 `kubectl proxy`
 ###### Podname in externer Variable speichern und auf Pod zugreifen
 `export POD_NAME=$(kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}')`
+
 `echo $POD_NAME`
+
 `curl http://localhost:8001/api/v1/namespaces/default/pods/$POD_NAME/`
 
   
