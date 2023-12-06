@@ -50,6 +50,7 @@
 ##### Zusätzliche Befehle auf Pod ausführen (Umgebungsvariablen anzeigen, Shell öffnen)
 
 `kubectl exec $POD_NAME -- env`
+
 `kubectl exec -it $POD_NAME -- bash`  
 
 ##### Erstellen eines SErvices Typ LoadBalancer
@@ -98,12 +99,12 @@
 
 `minikube addons enable dashboard`
 
-###### Dashboard
+##### Dashboard
 `minicube dashboard` 
   
-###### Proxy, der den Zugriff auf Pods ohne Service zulässt
+##### Proxy, der den Zugriff auf Pods ohne Service zulässt
 `kubectl proxy`
-###### Podname in externer Variable speichern und auf Pod zugreifen
+##### Podname in externer Variable speichern und auf Pod zugreifen
 `export POD_NAME=$(kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}')`
 
 `echo $POD_NAME`
