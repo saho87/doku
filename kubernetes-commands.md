@@ -1,4 +1,4 @@
-##### Quelle https://gitlab.com/nanuchi/youtube-tutorial-series/-/blob/master/basic-kubectl-commands/cli-commands.md?plain=0
+##### Quelle: https://gitlab.com/nanuchi/youtube-tutorial-series/-/blob/master/basic-kubectl-commands/cli-commands.md?plain=0
 
 ###  Minikube Cluster erstellen
 
@@ -22,6 +22,7 @@
 
 `minikube status`
 
+&nbsp;
 
 ### kubectl Kommandos
 
@@ -45,6 +46,7 @@
 
 `kubectl edit deployment nginx-depl`
 
+
 ##### Zusätzliche Befehle auf Pod ausführen (Umgebungsvariablen anzeigen, Shell öffnen)
 
 `kubectl exec $POD_NAME -- env`
@@ -54,6 +56,8 @@
 
 `kubectl expose deployment hello-node --type=LoadBalancer --port=8080`
 
+&nbsp;
+
 ### debugging
 
 `kubectl logs {pod-name}`
@@ -61,6 +65,8 @@
 `kubectl exec -it {pod-name} -- bin/bash`
 
 `kubectl describe service httpd-service`
+
+&nbsp;
 
 ### create or edit config file
 
@@ -73,9 +79,7 @@
 ##### vorhandene Ressource wird durch neue Version ersetzt (Ressource ist ggf. kurzzeitig nicht verfügbar)
 `kubectl replace -f nginx-deployment.yaml`
   
-
-
-
+&nbsp;
 
 ### Zusatz
 ##### Ausgabe der URL eines gewählten Services
