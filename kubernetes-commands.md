@@ -2,9 +2,9 @@
 
 ###  Minikube Cluster erstellen
 ```bash
-    minikube start            # test
+minikube start            # start
 
-    kubectl get nodes
+kubectl get nodes
 
 `minikube status`
 
