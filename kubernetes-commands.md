@@ -2,7 +2,7 @@
 
 ###  Minikube Cluster erstellen
 
-`minikube start`
+    minikube start
 
 `kubectl get nodes`
 
