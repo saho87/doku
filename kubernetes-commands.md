@@ -1,7 +1,7 @@
 ##### Quelle: https://gitlab.com/nanuchi/youtube-tutorial-series/-/blob/master/basic-kubectl-commands/cli-commands.md?plain=0
 
 ###  Minikube Cluster erstellen
-
+```bash
     minikube start            # test
 
     kubectl get nodes
@@ -11,7 +11,7 @@
 `kubectl version`
 
 `kubectl cluster-info`
-
+```
 &nbsp;
 
 ### Cluster erstellen und in debug mode Neustarten
