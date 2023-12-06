@@ -2,7 +2,7 @@
 
 ###  Minikube Cluster erstellen
 
-    minikube start            #test
+    minikube start            # test
 
     kubectl get nodes
 
