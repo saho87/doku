@@ -1,15 +1,55 @@
-  ### create minikube cluster
-  `minikube start --vm-driver=hyperkit`
+### create minikube cluster
+`minikube start`
 
-  `kubectl get nodes`
+`kubectl get nodes`
 
-  `minikube status`
+`minikube status`
 
-  `kubectl version`
+`kubectl version`
 
-  
-  # neue Ressource zu Cluster hinzufügen
-  kubectl create deployment hello-node --image=registry.k8s.io/echoserver:1.4
+### delete cluster and restart in debug mode
+
+`minikube delete`
+
+`minikube start --vm-driver=hyperkit --v=7 --alsologtostderr`
+
+`minikube status`
+
+### kubectl commands
+`kubectl get nodes`
+
+`kubectl get pod`
+
+`kubectl get services`
+
+`kubectl create deployment hello-node --image=registry.k8s.io/echoserver:1.4`
+
+`kubectl get deployment`
+
+`kubectl get events`
+
+`kubectl get pod,svc`
+
+`kubectl get replicaset`
+
+`kubectl edit deployment nginx-depl`
+
+### debugging
+
+`kubectl logs {pod-name}`
+
+`kubectl exec -it {pod-name} -- bin/bash`
+
+`kubectl describe service httpd-service`
+
+### create or edit config file
+###### test
+`vim nginx-deployment.yaml`
+
+`kubectl apply -f nginx-deployment.yaml`
+
+
+
   # Ressource im Cluster aktualisieren (auch für das Hinzufügen neuer Ressourcen)
   kubectl apply -f dashboard-admin-sa.yml
   # vorhandene Ressource wird durch neue Version ersetzt
