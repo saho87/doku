@@ -74,6 +74,7 @@
 
 ##### Ressource im Cluster aktualisieren (auch für das Hinzufügen neuer Ressourcen) -> bevorzugt
 `kubectl apply -f nginx-deployment.yaml`
+
 `kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.4.0/aio/deploy/recommended.yaml`
 
 ##### vorhandene Ressource wird durch neue Version ersetzt (Ressource ist ggf. kurzzeitig nicht verfügbar)
@@ -87,11 +88,14 @@
  
 ##### Service URL wird automatisch im Browser geöffnet bztw. nur die URL ausgegeben
 `minikube service hello-node`
+
 `minikube service hello-node --url`
   
 ##### Addons Minikube verwalten
 `minikube addons list (alle anzeigen)`
+
 `minikube addons disable metrics-server` 
+
 `minikube addons enable dashboard`
 
 ###### Dashboard
