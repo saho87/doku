@@ -4,7 +4,7 @@
 
     minikube start
 
-`kubectl get nodes`
+    kubectl get nodes
 
 `minikube status`
 
