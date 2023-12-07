@@ -3,13 +3,9 @@
 ###  Minikube Cluster erstellen
 ```bash
 minikube start                  # start
-
 kubectl get nodes
-
 minikube status
-
 kubectl version
-
 kubectl cluster-info
 
 ```
