@@ -29,7 +29,7 @@ minikube status
 &nbsp;
 
 ### kubectl Kommandos
-<code>
+```bash
 
 kubectl help
 
@@ -60,7 +60,7 @@ kubectl exec -it $POD_NAME -- bash
 # Erstellen eines Services Typ LoadBalancer
 
 kubectl expose deployment hello-node --type=LoadBalancer --port=8080
-</code>
+```
 &nbsp;
 
 ### debugging
