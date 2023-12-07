@@ -51,19 +51,15 @@ kubectl get replicaset
 
 kubectl edit deployment nginx-depl
 
+kubectl exec $POD_NAME -- env                                           # Zusätzlichen Befehl auf Pod ausführen -Umgebungsvariablen anzeigen
 
-##### Zusätzliche Befehle auf Pod ausführen (Umgebungsvariablen anzeigen, Shell öffnen)
+kubectl exec -it $POD_NAME -- bash                                      # Zusätzlichen Befehl auf Pod ausführen -bash ausführen
 
 
-kubectl exec $POD_NAME -- env
-
-kubectl exec -it $POD_NAME -- bash  
-
-```
 ##### Erstellen eines SErvices Typ LoadBalancer
 
-kubectl expose deployment hello-node --type=LoadBalancer --port=8080
-
+kubectl expose deployment hello-node --type=LoadBalancer --port=8080    # Erstellen eines SErvices Typ LoadBalancer
+```
 &nbsp;
 
 ### debugging
