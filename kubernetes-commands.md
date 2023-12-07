@@ -29,7 +29,7 @@ minikube status
 &nbsp;
 
 ### kubectl Kommandos
-```bash
+```sh
 
 kubectl help
 
