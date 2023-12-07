@@ -78,7 +78,7 @@ kubectl replace -f nginx-deployment.yaml
 
 ### Zusatz
 
-```sh
+```text
 # Ausgabe der URL eines gewählten Services
 
 minikube service mysql-service --url
