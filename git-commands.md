@@ -21,6 +21,9 @@ git commit -am "Commit ohne add"
 # Status von Arbeitsbereich und Staging Bereich anzeigen
 git status
 
+# git history - letzte Commits anzeigen
+git log
+
 # Unterschied von Arbeits- und Stagingbereich anzeigen
 git diff [file]
 
