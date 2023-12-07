@@ -1,8 +1,9 @@
 # Git Befehle
 
-##### Hilfe
-git --help
-git branch --help
+```bash
+
+git --help                                      # Hilfe
+git branch --help                               
 
 ##### neues leeres Repository anlegen
 git init
@@ -15,7 +16,7 @@ git rm [file]
 git mv [file] 
 
 ##### Commit durchführen
-git commit -m "Standard Commit durchführen
+git commit -m "Standard Commit durchführen"
 git commit -am "Commit ohne add"
 
 ##### Status von Arbeitsbereich und Staging Bereich anzeigen
@@ -53,3 +54,4 @@ git config --global user.email "sascha.hoffmann@itzbund.de"
 
 ##### Farbe verstellen
 git config --global color.ui auto
+```
