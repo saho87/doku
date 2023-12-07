@@ -60,7 +60,7 @@ kubectl describe service httpd-service
 
 ### create or edit config file
 
-```md
+```bash
 
 vim nginx-deployment.yaml
 
@@ -78,7 +78,7 @@ kubectl replace -f nginx-deployment.yaml
 
 ### Zusatz
 
-```md
+```bash
 # Ausgabe der URL eines gewählten Services
 
 minikube service mysql-service --url
