@@ -1,13 +1,14 @@
-# ############################# Kapitel 1: System Access und Support ###########################################
+# Kapitel 1: System Access und Support 
+```bash
 	ssh-keygen -f .ssh/key-with-pass
 	ssh-copy-id -i .ssh/key-with-pass.pub user@remotehost
 	eval $(ssh-agent)
-
-# ############################# Kapitel 2: Verwalten von Dateien über Befehlszeile #############################
+```
+# Kapitel 2: Verwalten von Dateien über Befehlszeile
 	# Zeitstempel anzeigen
 	stat
 
-# ############################# Kapitel 3: Verwalten lokaler Benutzer und Gruppen ##############################
+# Kapitel 3: Verwalten lokaler Benutzer und Gruppen
 	# Befehle:
 	id, su -, sudo -i, sudo 
 	useradd, userdmod, userdel - r, passwd
@@ -21,7 +22,7 @@
 	/etc/sudoers.d/ und /etc/sudoers
 
 
-# ############################# Kapitel 4: Steuern des Zugriffs auf Dateien ####################################
+# Kapitel 4: Steuern des Zugriffs auf Dateien
 	# Befehle:
 	chmod, chown, (chgrp)
 	umask
@@ -30,7 +31,7 @@
 	/etc/profile, /etc/profile.d, /etc/bashrc (zusätzlich im Home)
 
 
-# ############################# Kapitel 5: SELinux #############################################################
+# Kapitel 5: SELinux 
 	# Befehle:
 	• getenforce, setenforce
 	• semanage fcontext, restorecon, chcon
@@ -43,7 +44,7 @@
 	• /var/log/messages
 
 
-# ############################# Kapitel 6: Tunen der Systemleistung ############################################
+# Kapitel 6: Tunen der Systemleistung 
 	• Command Substitution (https://www.youtube.com/watch?v=hMGHqDz6fPc)
 	ps -o pid,pcpu,nice,comm \
 	$(pgrep sha1sum;pgrep md5sum)
@@ -68,7 +69,7 @@
 	• man ps
 	• man nice/renice
 
-# ############################# Kapitel 7: zukünftige Tasks terminieren ########################################
+# Kapitel 7: zukünftige Tasks terminieren 
 	# Befehle:
 	• crontab
 
@@ -86,7 +87,7 @@
 	• man systemd-tmpfiles (Befehle wie --create, --clean)
 
 
-# ############################# Kapitel 8: Installieren von SW Paketen #########################################
+# Kapitel 8: Installieren von SW Paketen
 	# Befehle:
 	• dnf list, dnf search, dnf info, dnf provides, dnf install, dnf update, dnf remove, dnf group list
 	• dnf repolist all, dnf config-manager --enable rhel-server-debug-pms, dnf update
@@ -97,12 +98,8 @@
 	# man/help
 	• man dnf, man dnf -config-manager, man dnf.conf
 
-Chapter 9
 
-
-
-
-# ############################# Kapitel 9: Basic Storage ####################################################### 
+# Kapitel 9: Basic Storage  
 	# Befehle:
 	• lsblk -fp, parted, udevadm settle, mkfs.xfs, mkswap, mount, free -h, swapon -a
 	# wichtige Dateien/Ordner
@@ -110,7 +107,7 @@ Chapter 9
 
 	# man/help
 	• man fstab
-# ############################# Partitionen und FS #############################################################
+### Partitionen und FS 
 	# Ein Disk- Label erstellen ->  GPT / Definieren des GPT-Partitionsschema
 	parted /dev/sdb mklabel 
 
@@ -153,7 +150,7 @@ Chapter 9
 	systemctl reboot
 
 
-# ############################# SWAP-Space ##############################################
+### SWAP-Space 
 
 
 	# SWAP-Partition erstellen
@@ -198,7 +195,7 @@ Chapter 9
 
 
 
-########################### fstab ###########################################
+### fstab 
 
 # Infos: man fstab
 
@@ -219,7 +216,7 @@ UUID=39e2667a-9458-42fe-9665-c5c854605881 swap swap defaults 0 0
 1. UUID 2. swap (eigentlich MP-hier Platzhalter) 3.
 
 
-############################## Kapitel 10: Storage Stack ####################################################### 
+# Kapitel 10: Storage Stack  
 
 # Klassisch: 	Harddrive (sdb) -> Partition/PD (sdb1) 						-> File System -> mounten
 # PVM: 			Harddrive (sdb) -> Partition/PD (sdb1)-> PD -> PV -> VGs -> LV -> File System -> mounten
@@ -297,7 +294,7 @@ mount -a
 
 # Stratis - stratis create pool /dev/sdb hat nicht funktioniert!
 
-############################## Kapitel 11: Kontrolldienste und Bootvorgang #####################################
+# Kapitel 11: Kontrolldienste und Bootvorgang 
 
 # alle unit types von systemctl anzeigen
 [root@host ~]# systemctl -t help
