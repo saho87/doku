@@ -51,9 +51,9 @@ kubectl get replicaset
 
 kubectl edit deployment nginx-depl
 
-```
+
 ##### Zusätzliche Befehle auf Pod ausführen (Umgebungsvariablen anzeigen, Shell öffnen)
-```bash
+
 
 kubectl exec $POD_NAME -- env
 
