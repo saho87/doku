@@ -59,7 +59,7 @@ kubectl exec -it $POD_NAME -- bash
 
 # Erstellen eines Services Typ LoadBalancer
 
-kubectl expose deployment hello-node --type=LoadBalancer --port=8080    # Erstellen eines SErvices Typ LoadBalancer
+kubectl expose deployment hello-node --type=LoadBalancer --port=8080
 ```
 &nbsp;
 
@@ -82,12 +82,12 @@ kubectl describe service httpd-service
 
 vim nginx-deployment.yaml
 
-##### Ressource im Cluster aktualisieren (auch für das Hinzufügen neuer Ressourcen) -> bevorzugt
+# Ressource im Cluster aktualisieren (auch für das Hinzufügen neuer Ressourcen) -> bevorzugt
 kubectl apply -f nginx-deployment.yaml
 
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.4.0/aio/deploy/recommended.yaml
 
-##### vorhandene Ressource wird durch neue Version ersetzt (Ressource ist ggf. kurzzeitig nicht verfügbar)
+# vorhandene Ressource wird durch neue Version ersetzt (Ressource ist ggf. kurzzeitig nicht verfügbar)
 kubectl replace -f nginx-deployment.yaml
 
 ``````  
