@@ -6,117 +6,122 @@ eval $(ssh-agent)
 ```
 # Kapitel 2: Verwalten von Dateien über Befehlszeile
 ```bash
-	# Zeitstempel anzeigen
-	stat
-
+stat				# Zeitstempel anzeigen
+```
 # Kapitel 3: Verwalten lokaler Benutzer und Gruppen
 ```bash
-	# Befehle:
-	id, su -, sudo -i, sudo 
-	useradd, userdmod, userdel - r, passwd
-	groupadd, groupmod, groupdel, newgrp
-	chage, date
-	
-	wichtige Dateien/Ordner:
-	/etc/passwd
-	/etc/group
-	/etc/login.defs
-	/etc/sudoers.d/ und /etc/sudoers
+# Befehle:
+id, su -, sudo -i, sudo 
+useradd, userdmod, userdel - r, passwd
+groupadd, groupmod, groupdel, newgrp
+chage, date
+
+wichtige Dateien/Ordner:
+/etc/passwd
+/etc/group
+/etc/login.defs
+/etc/sudoers.d/ und /etc/sudoers
 
 ```
 # Kapitel 4: Steuern des Zugriffs auf Dateien
 ```bash
-	# Befehle:
-	chmod, chown, (chgrp)
-	umask
+# Befehle:
+chmod, chown, (chgrp)
+umask
 
-	# wichtige Dateien/Ordner:
-	/etc/profile, /etc/profile.d, /etc/bashrc (zusätzlich im Home)
+# wichtige Dateien/Ordner:
+/etc/profile, /etc/profile.d, /etc/bashrc (zusätzlich im Home)
 
 ```
 # Kapitel 5: SELinux 
 ```bash
-	# Befehle:
-	• getenforce, setenforce
-	• semanage fcontext, restorecon, chcon
-	• getsebool -a, setsebool (-P), semanage boolean -l
-	• sealert, ausearch -n AVC -ts today
-	
-	# wichtige Dateien/Ordner:
-	• /etc/selinux/config
-	• /var/log/audit/audit.log
-	• /var/log/messages
+# Befehle:
+getenforce
+setenforce
+semanage fcontext
+restorecon
+chcon
+getsebool -a
+setsebool (-P)
+semanage boolean -l
+sealert
+ausearch -n AVC -ts today
+
+# wichtige Dateien/Ordner:
+• /etc/selinux/config
+• /var/log/audit/audit.log
+• /var/log/messages
 
 ```
 # Kapitel 6: Tunen der Systemleistung 
 ```bash
-	• Command Substitution (https://www.youtube.com/watch?v=hMGHqDz6fPc)
-	ps -o pid,pcpu,nice,comm \
-	$(pgrep sha1sum;pgrep md5sum)
-	
-	# Befehle:
-	• ps, kill, killall, pkill, w, pgrep, pstree, jobs
-	• uptime, lscpu, top
-	• tuned-adm, (sysctl) 
-	• ps axo pid, comm, nice, cls --sort=-nice
-	• ps -o pid,pcpu,nice,comm $(pgrep sha1sum;pgrep md5sum)
-	• ps u $(pgrep sha1sum)
-	• nice sleep 600 &, renice -n 12 {pid}
+• Command Substitution (https://www.youtube.com/watch?v=hMGHqDz6fPc)
+ps -o pid,pcpu,nice,comm \
+$(pgrep sha1sum;pgrep md5sum)
 
-	# wichtige Dateien/Ordner:
-	• etc/tuned/tuned-main.conf
-	• /usr/lib/tuned
-	• /proc/cpu
-	
-	# Man/help
-	• man tuned
-	• man tuned.conf
-	• man ps
-	• man nice/renice
+# Befehle:
+• ps, kill, killall, pkill, w, pgrep, pstree, jobs
+• uptime, lscpu, top
+• tuned-adm, (sysctl) 
+• ps axo pid, comm, nice, cls --sort=-nice
+• ps -o pid,pcpu,nice,comm $(pgrep sha1sum;pgrep md5sum)
+• ps u $(pgrep sha1sum)
+• nice sleep 600 &, renice -n 12 {pid}
+
+# wichtige Dateien/Ordner:
+• etc/tuned/tuned-main.conf
+• /usr/lib/tuned
+• /proc/cpu
+
+# Man/help
+• man tuned
+• man tuned.conf
+• man ps
+• man nice/renice
 ```
 # Kapitel 7: zukünftige Tasks terminieren 
 ```bash
-	# Befehle:
-	• crontab
+# Befehle:
+• crontab
 
-	# wichtige Dateien/Ordner
-	• /etc/cron.d -> da cronjob files rein
-	• /etc/crontab
-	• /etc/cron.hourly, /etc/cron.daily… -> ausführbare Scripte werden automatisch ausgeführt, keine crontabs
-	• /etc/anacrontab, /var/spool/anacron
-	• /etc/systemd/system, (/usr/lib/systemd/system)
-	• /usr/lib/systemd/system/systemd-tmpfiles-clean.timer
+# wichtige Dateien/Ordner
+• /etc/cron.d -> da cronjob files rein
+• /etc/crontab
+• /etc/cron.hourly, /etc/cron.daily… -> ausführbare Scripte werden automatisch ausgeführt, keine crontabs
+• /etc/anacrontab, /var/spool/anacron
+• /etc/systemd/system, (/usr/lib/systemd/system)
+• /usr/lib/systemd/system/systemd-tmpfiles-clean.timer
 
-	# man/help:
-	• man 5 crontab, man crontab, man chrond
-	• man tmpfiles.d (Rangfolge Verzeichnisse, Beispiel)
-	• man systemd-tmpfiles (Befehle wie --create, --clean)
+# man/help:
+• man 5 crontab, man crontab, man chrond
+• man tmpfiles.d (Rangfolge Verzeichnisse, Beispiel)
+• man systemd-tmpfiles (Befehle wie --create, --clean)
 
 ```
 # Kapitel 8: Installieren von SW Paketen
 ```bash
-	# Befehle:
-	• dnf list, dnf search, dnf info, dnf provides, dnf install, dnf update, dnf remove, dnf group list
-	• dnf repolist all, dnf config-manager --enable rhel-server-debug-pms, dnf update
+# Befehle:
+• dnf list, dnf search, dnf info, dnf provides, dnf install, dnf update, dnf remove, dnf group list
+• dnf repolist all, dnf config-manager --enable rhel-server-debug-pms, dnf update
 
-	# wichtige Dateien/Ordner
-	• /etc/yum.repos.d
+# wichtige Dateien/Ordner
+• /etc/yum.repos.d
 
-	# man/help
-	• man dnf, man dnf -config-manager, man dnf.conf
+# man/help
+• man dnf, man dnf -config-manager, man dnf.conf
 
 ```
 # Kapitel 9: Basic Storage  
 ```bash
-	# Befehle:
-	• lsblk -fp, parted, udevadm settle, mkfs.xfs, mkswap, mount, free -h, swapon -a
-	# wichtige Dateien/Ordner
-	• /etc/fstab
+# Befehle:
+• lsblk -fp, parted, udevadm settle, mkfs.xfs, mkswap, mount, free -h, swapon -a
+# wichtige Dateien/Ordner
+• /etc/fstab
 
-	# man/help
-	• man fstab
+# man/help
+• man fstab
 ### Partitionen und FS 
-```bash
+
 	# Ein Disk- Label erstellen ->  GPT / Definieren des GPT-Partitionsschema
 	parted /dev/sdb mklabel 
 
