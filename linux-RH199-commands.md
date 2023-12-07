@@ -1,14 +1,16 @@
 # Kapitel 1: System Access und Support 
 ```bash
-	ssh-keygen -f .ssh/key-with-pass
-	ssh-copy-id -i .ssh/key-with-pass.pub user@remotehost
-	eval $(ssh-agent)
+ssh-keygen -f .ssh/key-with-pass
+ssh-copy-id -i .ssh/key-with-pass.pub user@remotehost
+eval $(ssh-agent)
 ```
 # Kapitel 2: Verwalten von Dateien über Befehlszeile
+```bash
 	# Zeitstempel anzeigen
 	stat
 
 # Kapitel 3: Verwalten lokaler Benutzer und Gruppen
+```bash
 	# Befehle:
 	id, su -, sudo -i, sudo 
 	useradd, userdmod, userdel - r, passwd
@@ -21,8 +23,9 @@
 	/etc/login.defs
 	/etc/sudoers.d/ und /etc/sudoers
 
-
+```
 # Kapitel 4: Steuern des Zugriffs auf Dateien
+```bash
 	# Befehle:
 	chmod, chown, (chgrp)
 	umask
@@ -30,8 +33,9 @@
 	# wichtige Dateien/Ordner:
 	/etc/profile, /etc/profile.d, /etc/bashrc (zusätzlich im Home)
 
-
+```
 # Kapitel 5: SELinux 
+```bash
 	# Befehle:
 	• getenforce, setenforce
 	• semanage fcontext, restorecon, chcon
@@ -43,8 +47,9 @@
 	• /var/log/audit/audit.log
 	• /var/log/messages
 
-
+```
 # Kapitel 6: Tunen der Systemleistung 
+```bash
 	• Command Substitution (https://www.youtube.com/watch?v=hMGHqDz6fPc)
 	ps -o pid,pcpu,nice,comm \
 	$(pgrep sha1sum;pgrep md5sum)
@@ -68,8 +73,9 @@
 	• man tuned.conf
 	• man ps
 	• man nice/renice
-
+```
 # Kapitel 7: zukünftige Tasks terminieren 
+```bash
 	# Befehle:
 	• crontab
 
@@ -86,8 +92,9 @@
 	• man tmpfiles.d (Rangfolge Verzeichnisse, Beispiel)
 	• man systemd-tmpfiles (Befehle wie --create, --clean)
 
-
+```
 # Kapitel 8: Installieren von SW Paketen
+```bash
 	# Befehle:
 	• dnf list, dnf search, dnf info, dnf provides, dnf install, dnf update, dnf remove, dnf group list
 	• dnf repolist all, dnf config-manager --enable rhel-server-debug-pms, dnf update
@@ -98,8 +105,9 @@
 	# man/help
 	• man dnf, man dnf -config-manager, man dnf.conf
 
-
+```
 # Kapitel 9: Basic Storage  
+```bash
 	# Befehle:
 	• lsblk -fp, parted, udevadm settle, mkfs.xfs, mkswap, mount, free -h, swapon -a
 	# wichtige Dateien/Ordner
@@ -108,6 +116,7 @@
 	# man/help
 	• man fstab
 ### Partitionen und FS 
+```bash
 	# Ein Disk- Label erstellen ->  GPT / Definieren des GPT-Partitionsschema
 	parted /dev/sdb mklabel 
 
@@ -215,8 +224,9 @@ UUID=39e2667a-9458-42fe-9665-c5c854605881 swap swap defaults 0 0
 
 1. UUID 2. swap (eigentlich MP-hier Platzhalter) 3.
 
-
+```
 # Kapitel 10: Storage Stack  
+```bash
 
 # Klassisch: 	Harddrive (sdb) -> Partition/PD (sdb1) 						-> File System -> mounten
 # PVM: 			Harddrive (sdb) -> Partition/PD (sdb1)-> PD -> PV -> VGs -> LV -> File System -> mounten
@@ -417,8 +427,9 @@ mount: /mnt/mountfolder: mount point does not exist.
 # anschließend korrigiere ich den Fehler und registriere neue fstab
 [root@host ~]# systemctl daemon-reload
 [root@host ~]# mount --all
-
+```
 ############################## Kapitel 12: Kontrolldienste und Bootvorgang #####################################
+```bash
 
 # Regeln für rsyslog unter /etc/rsyslog.conf bzw. /etc/rsyslog.d (*.conf) --> wie werden logs behandelt?
 # man rsyslog.conf
@@ -492,8 +503,9 @@ mount: /mnt/mountfolder: mount point does not exist.
 
 # NTP Quellen anzeigen:
 [root@host ~]# chronyc sources -v
-
+```
 ############################## Kapitel 13: Networking ##########################################################
+```bash
 
 # Auflisten aller Netzwerkschnittstellen
 [user@host ~]$ ip link show
@@ -548,10 +560,13 @@ mount: /mnt/mountfolder: mount point does not exist.
 [user@host ~]$ nmcli con show --active 
 
 
-
+```
 ############################## Kapitel 14: Network-Attached Storage ############################################
-
+```bash
+```
 ############################## Kapitel 15: Network Security ####################################################
-
+```bash
+```
 ############################## Kapitel 16: Container ###########################################################
-
+```bash
+```
