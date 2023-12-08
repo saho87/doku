@@ -4,8 +4,8 @@ ssh-keygen -f .ssh/key-with-pass
 ssh-copy-id -i .ssh/key-with-pass.pub user@remotehost			# kopiert den pub Key in /.ssh/authorized_keys
 
 # SSH-Agent-Prozess wird gestartet und die ENV, die vom Agenten gesetzt werden, in der aktuellen Shell-Umgebung aktiviert 
-eval $(ssh-agent)							# Zwischenspeichern von Passphrasen
-ssh-add .ssh/key-with-pass						# Hinzufügen eines priv Keys zum ssh agent
+eval $(ssh-agent)								# Start SSH-Agent - nur in aktueller Shell
+ssh-add .ssh/key-with-pass						# Hinzufügen eines priv Keys (passphrase muss dann nicht mehr eingegeben werden)
 
 ssh -v -i .ssh/key-with-pass user@remotehost				# SSH-Verbindung mit Debugging und speziellem Key
 ```
