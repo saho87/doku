@@ -9,7 +9,7 @@ https://docs.github.com/de/get-started/writing-on-github/getting-started-with-wr
 ssh-keygen, ssh-copy-id, ssh-add, ssh
 
 # wichtige Dateien/Ordner:
-~/.ssh
+/home/user/.ssh
 
 ssh-keygen -f .ssh/key-with-pass
 ssh-copy-id -i .ssh/key-with-pass.pub user@remotehost	# Ablage in /.ssh/authorized_keys
