@@ -5,20 +5,12 @@ https://docs.github.com/de/get-started/writing-on-github/getting-started-with-wr
 # Kapitel 1: System Access und Support 
 
 ```bash 
-#kopiert den pub Key in /.ssh/authorized_keys:
 ssh-keygen -f .ssh/key-with-pass
-
-ssh-copy-id -i .ssh/key-with-pass.pub user@remotehost`	
-
+ssh-copy-id -i .ssh/key-with-pass.pub user@remotehost`	# Ablage in /.ssh/authorized_keys
 ssh-keygen -f .ssh/key-with-pass`
-
-
-#kopiert den pub Key in /.ssh/authorized_keys:
-`ssh-copy-id -i .ssh/key-with-pass.pub user@remotehost`
 
 # SSH-Agent wird gestartet und  ENV, die vom Agenten gesetzt werden, in aktuellen Shell-Umgebung aktiviert
 eval $(ssh-agent)
-
 # Hinzufügen eines priv Keys (passphrase muss dann nicht mehr eingegeben werden)		
 ssh-add .ssh/key-with-pass				
 
