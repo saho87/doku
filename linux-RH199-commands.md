@@ -7,7 +7,7 @@ https://docs.github.com/de/get-started/writing-on-github/getting-started-with-wr
 ```bash
 ssh-keygen -f .ssh/key-with-pass
 ```
-# kopiert den pub Key in /.ssh/authorized_keys
+kopiert den pub Key in /.ssh/authorized_keys
 ```bash
 ssh-copy-id -i .ssh/key-with-pass.pub user@remotehost	
 ```
