@@ -5,6 +5,11 @@ https://docs.github.com/de/get-started/writing-on-github/getting-started-with-wr
 # Kapitel 1: System Access und Support 
 
 ```bash 
+# Befehle:
+ssh-keygen, ssh-copy-id, ssh-add, ssh
+
+wichtige Dateien/Ordner:
+
 ssh-keygen -f .ssh/key-with-pass
 ssh-copy-id -i .ssh/key-with-pass.pub user@remotehost	# Ablage in /.ssh/authorized_keys
 ssh-keygen -f .ssh/key-with-pass
