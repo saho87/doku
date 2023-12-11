@@ -7,15 +7,15 @@ https://docs.github.com/de/get-started/writing-on-github/getting-started-with-wr
 ssh-keygen -f .ssh/key-with-pass
 
 # kopiert den pub Key in /.ssh/authorized_keys
-ssh-copy-id -i .ssh/key-with-pass.pub user@remotehost			
+ssh-copy-id -i .ssh/key-with-pass.pub user@remotehost	
 
-# SSH-Agent wird gestartet und  ENV, die vom Agenten gesetzt werden, in aktuellen Shell-Umgebung aktiviert 
+# SSH-Agent wird gestartet und  ENV, die vom Agenten gesetzt werden, in aktuellen Shell-Umgebung aktiviert
 eval $(ssh-agent)
-# Hinzufügen eines priv Keys (passphrase muss dann nicht mehr eingegeben werden)					
-ssh-add .ssh/key-with-pass						
+# Hinzufügen eines priv Keys (passphrase muss dann nicht mehr eingegeben werden)		
+ssh-add .ssh/key-with-pass				
 
 # SSH-Verbindung mit Debugging und speziellem Key
-ssh -v -i .ssh/key-with-pass user@remotehost				
+ssh -v -i .ssh/key-with-pass user@remotehost	
 ```
 # Kapitel 2: Verwalten von Dateien über Befehlszeile
 ```bash
