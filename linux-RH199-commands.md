@@ -7,7 +7,7 @@ https://docs.github.com/de/get-started/writing-on-github/getting-started-with-wr
 ```bash 
 # Befehle:
 ssh-keygen, ssh-copy-id, ssh-add, ssh
-
+* ~/.ssh
 wichtige Dateien/Ordner:
 
 ssh-keygen -f .ssh/key-with-pass
