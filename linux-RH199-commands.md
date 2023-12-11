@@ -9,10 +9,12 @@ kopiert den pub Key in /.ssh/authorized_keys:
 ```bash 
 ssh-keygen -f .ssh/key-with-pass
 ```
-
-`ssh-copy-id -i .ssh/key-with-pass.pub user@remotehost`	
-
-`ssh-keygen -f .ssh/key-with-pass`
+```bash 
+ssh-copy-id -i .ssh/key-with-pass.pub user@remotehost`	
+```
+```bash 
+ssh-keygen -f .ssh/key-with-pass`
+``` 
 
 kopiert den pub Key in /.ssh/authorized_keys
 `ssh-copy-id -i .ssh/key-with-pass.pub user@remotehost`
