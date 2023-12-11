@@ -1,6 +1,14 @@
 Formatierung:
 https://docs.github.com/de/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax
 
+``mermaid
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+```
+
 # Kapitel 1: System Access und Support 
 ```command
 ssh-keygen -f .ssh/key-with-pass
