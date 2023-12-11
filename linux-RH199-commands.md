@@ -3,10 +3,9 @@ https://docs.github.com/de/get-started/writing-on-github/getting-started-with-wr
 
 ```mermaid
 graph TD;
-    A-->B;
-    A-->C;
-    B-->D;
-    C-->D;
+	Basis --> Komponenten
+	Basis --> Temperatur
+	Basis --> Essen
 ```
 
 # Kapitel 1: System Access und Support 
