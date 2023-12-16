@@ -170,6 +170,9 @@ $(pgrep sha1sum;pgrep md5sum)
 	# Eintrag in /etc/fstab vornehmen
 	vim /etc/fstab
 
+	# Alternative zum fstab: temporäres Einbinden eines FS bis zum nächsten Neustart
+	mount /dev/vda4 /mnt/data
+
 	# den systemd daemon updaten um die config/neuen Eintrag der fstab zu übernehmen
 	systemctl daemon-reload
 
@@ -181,6 +184,7 @@ $(pgrep sha1sum;pgrep md5sum)
 
 	#reboot
 	systemctl reboot
+
 
 
 ### SWAP-Space 
