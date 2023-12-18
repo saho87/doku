@@ -64,18 +64,16 @@ Sunday.log Monday.log Tuesday.log Wednesday.log
 filea1.txt filea2.txt fileb.txt filec.txt
 
 # Befehlssubstitution
-
 [user@host glob]$ echo The time is $(date +%M) minutes past $(date +%l%p).
 The time is 26 minutes past 11AM.
 
 # Schützen von Argumenten vor Erweiterung
-
 [user@host glob]$ echo \$HOME # nur für ein Wort
 $HOME
 [user@host glob]$ echo "Will variable $myhost evaluate to $(hostname -s)?"
-Will variable host evaluate to host?
+Will variable host evaluate to host? # Auflösung der Variablen
 [user@host glob]$ echo 'Will variable $myhost evaluate to $(hostname -s)?'
-Will variable $myhost evaluate to $(hostname -s)?
+Will variable $myhost evaluate to $(hostname -s)? # keine Auflösung der Variablen
 
 stat				# Zeitstempel anzeigen
 ```
