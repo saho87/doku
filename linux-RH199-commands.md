@@ -46,6 +46,11 @@ ln, stat
 ln file.txt /tmp/file-hlink.txt # Hardlink
 ln -s file.txt /tmp/file-slink.txt # Softlink
 
+# Globbing
+
+[user@host glob]$ ls [ac]* # Anfang mit a oder c
+able alpha cast charlie
+
 # Klammererweiterung
 
 [user@host glob]$ mkdir RHEL{7..9}
