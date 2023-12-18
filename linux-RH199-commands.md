@@ -2,18 +2,18 @@ Formatierung:
 https://docs.github.com/de/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax
 
 
-# Kapitel 1: System Access und Support 
+# Kapitel 1: System Access und SSH
 
 ```bash 
 # Befehle:
 ssh-keygen, ssh-copy-id, ssh-add, ssh
 
 # wichtige Dateien/Ordner:
-/home/user/.ssh
+/home/user/.ssh/
 
+# key-pair erstellen
 ssh-keygen -f .ssh/key-with-pass
 ssh-copy-id -i .ssh/key-with-pass.pub user@remotehost	# Ablage in /.ssh/authorized_keys
-ssh-keygen -f .ssh/key-with-pass
 
 # SSH-Agent wird gestartet und  ENV, die vom Agenten gesetzt werden, in aktuellen Shell-Umgebung aktiviert
 eval $(ssh-agent)
