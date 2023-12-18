@@ -47,12 +47,13 @@ ln file.txt /tmp/file-hlink.txt # Hardlink
 ln -s file.txt /tmp/file-slink.txt # Softlink
 
 # Globbing
-
 [user@host glob]$ ls [ac]* # Anfang mit a oder c
 able alpha cast charlie
 
-# Klammererweiterung
+[user@host glob]$ ls ???? # 4 Zeichen lang
+able alpha cast easy echo
 
+# Klammererweiterung
 [user@host glob]$ mkdir RHEL{7..9}
 RHEL7 RHEL8 RHEL9
 
@@ -61,6 +62,20 @@ Sunday.log Monday.log Tuesday.log Wednesday.log
 
 [user@host glob]$ echo file{a{1,2},b,c}.txt
 filea1.txt filea2.txt fileb.txt filec.txt
+
+# Befehlssubstitution
+
+[user@host glob]$ echo The time is $(date +%M) minutes past $(date +%l%p).
+The time is 26 minutes past 11AM.
+
+# Schützen von Argumenten vor Erweiterung
+
+[user@host glob]$ echo \$HOME # nur für ein Wort
+$HOME
+[user@host glob]$ echo "Will variable $myhost evaluate to $(hostname -s)?"
+Will variable host evaluate to host?
+[user@host glob]$ echo 'Will variable $myhost evaluate to $(hostname -s)?'
+Will variable $myhost evaluate to $(hostname -s)?
 
 stat				# Zeitstempel anzeigen
 ```
