@@ -25,6 +25,23 @@ ssh -v -i .ssh/key-with-pass user@remotehost
 ```
 # Kapitel 2: Verwalten von Dateien über Befehlszeile
 ```bash
+# Befehle:
+stat
+
+# wichtige Dateien/Ordner (detaillierter in pdf):
+/boot # Dateien für Startvorgang
+/dev # Spezielle Gerätedateien
+/etc # Systemspezifische Konfigurationsdateien
+/home # Benutzerverzeichnis für reguläre Benutzer
+/root # Benutzerverzeichnis für root Benutzer
+/run # Laufzeizdaten für Prozesse
+/tmp # temporärer Dateiablage, automatische Löschung
+/usr # installierte SW, Bibliotheken, Dateien
+/usr/bin # Benutzerbefehle
+/usr/sbin # Befehle Systemadministration
+/usr/local # lokal angepasste SW
+/var # Systemspezifische variable Daten (Logs, DB)
+
 stat				# Zeitstempel anzeigen
 ```
 # Kapitel 3: Verwalten lokaler Benutzer und Gruppen
