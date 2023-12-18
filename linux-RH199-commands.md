@@ -26,7 +26,7 @@ ssh -v -i .ssh/key-with-pass user@remotehost
 # Kapitel 2: Verwalten von Dateien über Befehlszeile
 ```bash
 # Befehle:
-stat
+ln, stat
 
 # wichtige Dateien/Ordner (detaillierter in pdf):
 /boot # Dateien für Startvorgang
@@ -41,6 +41,15 @@ stat
 /usr/sbin # Befehle Systemadministration
 /usr/local # lokal angepasste SW
 /var # Systemspezifische variable Daten (Logs, DB)
+
+# Hard- und Softlinks
+ln file.txt /tmp/file-hlink.txt # Hardlink
+ln -s file.txt /tmp/file-slink.txt # Softlink
+
+# Klammererweiterung
+
+[user@host glob]$ echo file{a{1,2},b,c}.txt
+filea1.txt filea2.txt fileb.txt filec.txt
 
 stat				# Zeitstempel anzeigen
 ```
