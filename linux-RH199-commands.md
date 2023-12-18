@@ -106,7 +106,7 @@ sudo -i 	# Wechsel auf root mit userPW
 # Erstellen, Löschen und Ändern von Benutzern
 useradd user01
 userdel -r user01 				# Löschen inklusive Benutzerdateien/Ordner
-usermod -c "Benutzer01" user01 	# Kommentarte Benutzerkonto aktualisieren
+usermod -c "Benutzer01" user01 		# Kommentarte Benutzerkonto aktualisieren
 passwd user01 					# Passwort vergeben
 
 # Vergabe von root-Rechten an group01
@@ -115,15 +115,15 @@ echo "%group01 ALL=(ALL) ALL" >> /etc/sudoers.d/group01
 # Erstellen, Löschen und Ändern von Gruppen
 groupadd -g 10000 group01  		# mit bestimmter GID erstellen
 groupadd -r group01 			# Systemgruppe erstellen
-usermod -aG group01 user01	# neuer Sekundäre Gruppenzuweisung
+usermod -aG group01 user01		# neuer Sekundäre Gruppenzuweisung
 groupdel group01
-newgrp group01					# temporäre Änderung der Primären Gruppe (Shell-Sitzung)
+newgrp group01				# temporäre Änderung der Primären Gruppe (Shell-Sitzung)
 
 # Ändern der Passwort-Richtlinien (m-Mindestalter, M-Höchstalter, W-Warnzeitraum, I-Inaktivitätszeitraum)
 chage -m 0 -M 90 -W 7 -I 14 user01
 chage -E $(date -d "+30 days" +%F) user01	# Ablaufdatum auf +30 Tage setzen
 chage -l user01 | grep "Account expires"	# Anzeige PW Richtlinien | Ablaufdatum
-chage -d 0 user01							# User muss PW bei nächster Anmeldung ändern
+chage -d 0 user01					# User muss PW bei nächster Anmeldung ändern
 
 ```
 # Kapitel 4: Steuern des Zugriffs auf Dateien
