@@ -106,8 +106,9 @@ sudo -i 	# Wechsel auf root mit userPW
 # Erstellen, Löschen und Ändern von Benutzern
 useradd user01
 userdel -r user01 				# Löschen inklusive Benutzerdateien/Ordner
-usermod -c "Benutzer01" user01 		# Kommentarte Benutzerkonto aktualisieren
+usermod -c "Benutzer01" user01 			# Kommentarte Benutzerkonto aktualisieren
 passwd user01 					# Passwort vergeben
+usermod -L -e 2022-08-14 user01			# Benutzer sperren
 
 # Vergabe von root-Rechten an group01
 echo "%group01 ALL=(ALL) ALL" >> /etc/sudoers.d/group01
@@ -136,6 +137,8 @@ umask
 /etc/profile, /etc/profile.d, /etc/bashrc (zusätzlich im Home)
 
 ```
+### Todo: weiter mit nologin-Shell
+
 # Kapitel 5: SELinux 
 ```bash
 # Befehle:
