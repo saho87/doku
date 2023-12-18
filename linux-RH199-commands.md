@@ -48,6 +48,12 @@ ln -s file.txt /tmp/file-slink.txt # Softlink
 
 # Klammererweiterung
 
+[user@host glob]$ mkdir RHEL{7..9}
+RHEL7 RHEL8 RHEL9
+
+[user@host glob]$ echo {Sunday,Monday,Tuesday,Wednesday}.log
+Sunday.log Monday.log Tuesday.log Wednesday.log
+
 [user@host glob]$ echo file{a{1,2},b,c}.txt
 filea1.txt filea2.txt fileb.txt filec.txt
 
