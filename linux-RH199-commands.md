@@ -75,7 +75,7 @@ Will variable host evaluate to host? # Auflösung der Variablen
 [user@host glob]$ echo 'Will variable $myhost evaluate to $(hostname -s)?'
 Will variable $myhost evaluate to $(hostname -s)? # keine Auflösung der Variablen
 
-stat				# Zeitstempel anzeigen
+stat file			# Zeitstempel und Infos einer Datei anzeigen
 ```
 # Kapitel 3: Verwalten lokaler Benutzer und Gruppen
 ```bash
@@ -85,11 +85,19 @@ useradd, userdmod, userdel - r, passwd
 groupadd, groupmod, groupdel, newgrp
 chage, date
 
-wichtige Dateien/Ordner:
-/etc/passwd
-/etc/group
-/etc/login.defs
+# wichtige Dateien/Ordner:
+/etc/passwd # Infos zu Benutzerkonten
+/etc/group # Infos zu Gruppen
+/etc/login.defs # 
 /etc/sudoers.d/ und /etc/sudoers
+
+# Gruppenmitgliedschaft eines Benutzers anzeigen
+id sascha
+
+# Benutzer wechseln
+su - user1 
+su user1 	# Non-Login-Shell - nicht empfohlen
+su - 		# auf root wechseln
 
 ```
 # Kapitel 4: Steuern des Zugriffs auf Dateien
