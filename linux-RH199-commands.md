@@ -47,10 +47,10 @@ ln file.txt /tmp/file-hlink.txt 	# Hardlink
 ln -s file.txt /tmp/file-slink.txt 	# Softlink
 
 # Globbing
-[user@host glob]$ ls [ac]* 	# Anfang mit a oder c
+[user@host glob]$ ls [ac]* 		# Anfang mit a oder c
 able alpha cast charlie
 
-[user@host glob]$ ls ???? 	# 4 Zeichen lang
+[user@host glob]$ ls ???? 		# 4 Zeichen lang
 able alpha cast easy echo
 
 # Klammererweiterung
