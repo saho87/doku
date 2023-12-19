@@ -114,17 +114,17 @@ usermod -L -e 2022-08-14 user01			# Benutzer sperren
 echo "%group01 ALL=(ALL) ALL" >> /etc/sudoers.d/group01
 
 # Erstellen, Löschen und Ändern von Gruppen
-groupadd -g 10000 group01  		# mit bestimmter GID erstellen
-groupadd -r group01 			# Systemgruppe erstellen
-usermod -aG group01 user01		# neuer Sekundäre Gruppenzuweisung
+groupadd -g 10000 group01  			# mit bestimmter GID erstellen
+groupadd -r group01 				# Systemgruppe erstellen
+usermod -aG group01 user01			# neuer Sekundäre Gruppenzuweisung
 groupdel group01
-newgrp group01				# temporäre Änderung der Primären Gruppe (Shell-Sitzung)
+newgrp group01					# temporäre Änderung der Primären Gruppe (Shell-Sitzung)
 
 # Ändern der Passwort-Richtlinien (m-Mindestalter, M-Höchstalter, W-Warnzeitraum, I-Inaktivitätszeitraum)
 chage -l user01			# Anzeige PW Richtlinien des Users
 chage -m 0 -M 90 -W 7 -I 14 user01
 chage -E $(date -d "+30 days" +%F) user01	# Ablaufdatum auf +30 Tage setzen
-chage -d 0 user01					# User muss PW bei nächster Anmeldung ändern
+chage -d 0 user01				# User muss PW bei nächster Anmeldung ändern
 
 # nologin-Shell
 usermod -s /sbin/nologin user01
