@@ -150,8 +150,8 @@ chmod 750 sampledir 			# RWX für User, WX für Gruppe und nichts für andere (X
 # Anderung der Benutzer- oder Gruppeneigentümer für Dateien und Verzeichnisse
 chown -R user01 pictures 		# kompletter Verzeichnisbaum
 chown user01 app.conf 			# Benutzeränderung
-chown :admins pictures 			# Gruppenänderung
-chgrp admins pictures 			# Gruppenänderung Alternative
+chown :group01 pictures 		# Gruppenänderung
+chgrp group01 pictures 			# Gruppenänderung Alternative
 chown user01:admins Pictures 		# Benutzer- und Gruppenänderung
 
 # Spezielle Berechtigungen
