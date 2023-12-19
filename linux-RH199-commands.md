@@ -88,9 +88,9 @@ chage, date
 # wichtige Dateien/Ordner:
 /etc/passwd # Infos zu Benutzerkonten
 /etc/group # Infos zu Gruppen
-/etc/login.defs # Standardwerte für UID
-/etc/sudoers.d/ 
-/etc/sudoers
+/etc/login.defs # Standardwerte für UID, Passwort Gültigkeit, UMASK
+/etc/sudoers.d/ # Ablage Files für User Berechtigungen
+/etc/sudoers 
 /etc/shadow # Passwörter
 /var/log/secure # Protokollierung von sudo Befehlen
 
@@ -121,10 +121,14 @@ groupdel group01
 newgrp group01				# temporäre Änderung der Primären Gruppe (Shell-Sitzung)
 
 # Ändern der Passwort-Richtlinien (m-Mindestalter, M-Höchstalter, W-Warnzeitraum, I-Inaktivitätszeitraum)
+chage -l user01			# Anzeige PW Richtlinien des Users
 chage -m 0 -M 90 -W 7 -I 14 user01
 chage -E $(date -d "+30 days" +%F) user01	# Ablaufdatum auf +30 Tage setzen
-chage -l user01 | grep "Account expires"	# Anzeige PW Richtlinien | Ablaufdatum
 chage -d 0 user01					# User muss PW bei nächster Anmeldung ändern
+
+# nologin-Shell
+usermod -s /sbin/nologin user01
+su - user # Anmeldung hier nicht mehr möglich
 
 ```
 # Kapitel 4: Steuern des Zugriffs auf Dateien
@@ -136,8 +140,28 @@ umask
 # wichtige Dateien/Ordner:
 /etc/profile, /etc/profile.d, /etc/bashrc (zusätzlich im Home)
 
+
+# Änderungen von Berechtigungen 
+chmod go-rw document.pdf
+chmod -R ugoa+rwx /home/user/myfolder # rekursiv nur für Verzeichnisse
+chmod -R g+rwX demodir # Ausführungsberechtigung nur für Verzeichnisse setzen
+chmod 750 sampledir # RWX für User, WX für Gruppe und nichts für andere (X=1, W=2, R=4)
+
+# Anderung der Benutzer- oder Gruppeneigentümer für Dateien und Verzeichnisse
+chown -R user01 pictures # kompletter Verzeichnisbaum
+chown user01 app.conf # Benutzeränderung
+chown :admins pictures # Gruppenänderung
+chgrp admins pictures # Gruppenänderung Alternative
+chown user01:admins Pictures # Benutzer- und Gruppenänderung
+
+# Spezielle Berechtigungen
+
+# Standardberechtigungen umask
+umask 0027 # temporärer umask - User RW, Group R, Other -
+
+# umask permanent ändern in /etc/profile.d/local-umask.sh
+
 ```
-### Todo: weiter mit nologin-Shell
 
 # Kapitel 5: SELinux 
 ```bash
