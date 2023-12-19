@@ -29,28 +29,28 @@ ssh -v -i .ssh/key-with-pass user@remotehost
 ln, stat
 
 # wichtige Dateien/Ordner (detaillierter in pdf):
-/boot # Dateien für Startvorgang
-/dev # Spezielle Gerätedateien
-/etc # Systemspezifische Konfigurationsdateien
-/home # Benutzerverzeichnis für reguläre Benutzer
-/root # Benutzerverzeichnis für root Benutzer
-/run # Laufzeizdaten für Prozesse
-/tmp # temporärer Dateiablage, automatische Löschung
-/usr # installierte SW, Bibliotheken, Dateien
-/usr/bin # Benutzerbefehle
-/usr/sbin # Befehle Systemadministration
-/usr/local # lokal angepasste SW
-/var # Systemspezifische variable Daten (Logs, DB)
+/boot 		# Dateien für Startvorgang
+/dev 		# Spezielle Gerätedateien
+/etc 		# Systemspezifische Konfigurationsdateien
+/home 		# Benutzerverzeichnis für reguläre Benutzer
+/root 		# Benutzerverzeichnis für root Benutzer
+/run 		# Laufzeizdaten für Prozesse
+/tmp 		# temporärer Dateiablage, automatische Löschung
+/usr 		# installierte SW, Bibliotheken, Dateien
+/usr/bin 	# Benutzerbefehle
+/usr/sbin 	# Befehle Systemadministration
+/usr/local 	# lokal angepasste SW
+/var 		# Systemspezifische variable Daten (Logs, DB)
 
 # Hard- und Softlinks
-ln file.txt /tmp/file-hlink.txt # Hardlink
-ln -s file.txt /tmp/file-slink.txt # Softlink
+ln file.txt /tmp/file-hlink.txt 	# Hardlink
+ln -s file.txt /tmp/file-slink.txt 	# Softlink
 
 # Globbing
-[user@host glob]$ ls [ac]* # Anfang mit a oder c
+[user@host glob]$ ls [ac]* 	# Anfang mit a oder c
 able alpha cast charlie
 
-[user@host glob]$ ls ???? # 4 Zeichen lang
+[user@host glob]$ ls ???? 	# 4 Zeichen lang
 able alpha cast easy echo
 
 # Klammererweiterung
@@ -68,12 +68,12 @@ filea1.txt filea2.txt fileb.txt filec.txt
 The time is 26 minutes past 11AM.
 
 # Schützen von Argumenten vor Erweiterung
-[user@host glob]$ echo \$HOME # nur für ein Wort
+[user@host glob]$ echo \$HOME 				# nur für ein Wort
 $HOME
 [user@host glob]$ echo "Will variable $myhost evaluate to $(hostname -s)?"
-Will variable host evaluate to host? # Auflösung der Variablen
+Will variable host evaluate to host? 			# Auflösung der Variablen
 [user@host glob]$ echo 'Will variable $myhost evaluate to $(hostname -s)?'
-Will variable $myhost evaluate to $(hostname -s)? # keine Auflösung der Variablen
+Will variable $myhost evaluate to $(hostname -s)? 	# keine Auflösung der Variablen
 
 stat file			# Zeitstempel und Infos einer Datei anzeigen
 ```
@@ -121,7 +121,7 @@ groupdel group01
 newgrp group01					# temporäre Änderung der Primären Gruppe (Shell-Sitzung)
 
 # Ändern der Passwort-Richtlinien (m-Mindestalter, M-Höchstalter, W-Warnzeitraum, I-Inaktivitätszeitraum)
-chage -l user01			# Anzeige PW Richtlinien des Users
+chage -l user01					# Anzeige PW Richtlinien des Users
 chage -m 0 -M 90 -W 7 -I 14 user01
 chage -E $(date -d "+30 days" +%F) user01	# Ablaufdatum auf +30 Tage setzen
 chage -d 0 user01				# User muss PW bei nächster Anmeldung ändern
@@ -143,16 +143,16 @@ umask
 
 # Änderungen von Berechtigungen 
 chmod go-rw document.pdf
-chmod -R ugoa+rwx /home/user/myfolder # rekursiv nur für Verzeichnisse
-chmod -R g+rwX demodir # Ausführungsberechtigung nur für Verzeichnisse setzen
-chmod 750 sampledir # RWX für User, WX für Gruppe und nichts für andere (X=1, W=2, R=4)
+chmod -R ugoa+rwx /home/user/myfolder 	# rekursiv nur für Verzeichnisse
+chmod -R g+rwX demodir 			# Ausführungsberechtigung nur für Verzeichnisse setzen
+chmod 750 sampledir 			# RWX für User, WX für Gruppe und nichts für andere (X=1, W=2, R=4)
 
 # Anderung der Benutzer- oder Gruppeneigentümer für Dateien und Verzeichnisse
-chown -R user01 pictures # kompletter Verzeichnisbaum
-chown user01 app.conf # Benutzeränderung
-chown :admins pictures # Gruppenänderung
-chgrp admins pictures # Gruppenänderung Alternative
-chown user01:admins Pictures # Benutzer- und Gruppenänderung
+chown -R user01 pictures 		# kompletter Verzeichnisbaum
+chown user01 app.conf 			# Benutzeränderung
+chown :admins pictures 			# Gruppenänderung
+chgrp admins pictures 			# Gruppenänderung Alternative
+chown user01:admins Pictures 		# Benutzer- und Gruppenänderung
 
 # Spezielle Berechtigungen
 
