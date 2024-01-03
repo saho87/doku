@@ -35,13 +35,12 @@ let
         else if Text.Contains([#"Auftraggeber/Empfänger"], "Thueringer Netkom GmbH") or Text.Contains([#"Auftraggeber/Empfänger"], "Rundfunk") then "Internet/GEZ"
         else if Text.Contains([#"Auftraggeber/Empfänger"], "HTI") then "Investment"
         else if Text.Contains([Verwendungszweck], "Rechnung Darl") then "Bereits berücksichtigt"
-        else if Text.Contains([Verwendungszweck], "Abfallentsor") then "Müll"
+        else if Text.Contains([Verwendungszweck], "Abfallentsor")
+        then "Müll"
         
         else if Text.Contains([#"Auftraggeber/Empfänger"], "GOTHAER ALLGEMEINE") 
         or Text.Contains([Verwendungszweck], "VERSICHERUNG") 
         then "Versicherung"
-
-
 
         else if Text.Contains([#"Auftraggeber/Empfänger"], "AWO-Soziale Dienste gGmbH Gotha") 
         or Text.Contains([#"Auftraggeber/Empfänger"], "DEICHMANN")
@@ -72,8 +71,6 @@ let
         or Text.Contains([#"Auftraggeber/Empfänger"], "TIERARZT")
         or Text.Contains([#"Auftraggeber/Empfänger"], "ZOO + Co.")
         then "Katze"
-    
-
 
         else null
     ),
