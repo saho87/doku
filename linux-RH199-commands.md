@@ -192,9 +192,24 @@ sealert
 ausearch -n AVC -ts today
 
 # wichtige Dateien/Ordner:
-• /etc/selinux/config
-• /var/log/audit/audit.log
-• /var/log/messages
+/etc/selinux/config
+/etc/selinux/targeted/contexts/files/ # SELinux DB Kontextverwaltung
+/var/log/audit/audit.log
+/var/log/messages
+
+# Anzeige von SELinux-Kontexten mit großem Z
+ps axZ
+ls -Z /var/www
+
+# SELinux- Modus ändern
+getenforce 		# Anzeige aktueller Modus
+setenforce 0		# Deaktivieren für aktuelle Sitzung
+vi /etc/selinux/config 	# Permanentes Ändern
+
+cp -p # Kopieren einer Datei unter Beibehalten des SELinux Kontextes (bei mv wird Kontext beibehalten)
+
+#SELInux-Kontext ändern
+S.165 weiter /home/sascha/Dropbox/Dropbox_Sync/IT-Fortbildung/Linux_Admin
 
 ```
 # Kapitel 6: Tunen der Systemleistung 
