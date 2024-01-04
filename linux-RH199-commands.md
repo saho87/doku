@@ -164,9 +164,14 @@ chmod +t								# sticky setzen
 
 # Standardberechtigungen umask
 umask 0027 # temporärer umask - User RW, Group R, Other -
+
 # initial file permissions	rw-rw-rw-	0666
 # umask				-------w-	0002
-# result			rw-re-r--	0664
+# result			rw-rw-r--	0664
+
+# initial directory permissions	rwxrwxrwx	0777
+# umask				-------w-	0002
+# result			rwxrwxr-x	0775
 
 # umask permanent ändern in /etc/profile.d/local-umask.sh
 
