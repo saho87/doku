@@ -154,10 +154,19 @@ chown :group01 pictures 		# Gruppenänderung
 chgrp group01 pictures 			# Gruppenänderung Alternative
 chown user01:admins Pictures 		# Benutzer- und Gruppenänderung
 
-# Spezielle Berechtigungen
+# Spezielle Berechtigungen (suid, sgid, sticky)
+-rwsr-xr-x. 1 root root 35504 Jul 16 2010 /usr/bin/passwd 		# setuid
+chmod g+s example							# setuid setzen
+drwxr-sr-x. 3 root systemd-journal 60 May 18 09:15 /run/log/journal	# setgid
+chmod u-s example							# setgid entfernen
+drwxrwxrwt. 39 root root 4096 Feb 8 20:52 /tmp				# sticky
+chmod +t								# sticky setzen
 
 # Standardberechtigungen umask
 umask 0027 # temporärer umask - User RW, Group R, Other -
+# initial file permissions	rw-rw-rw-	0666
+# umask				-------w-	0002
+# result			rw-re-r--	0664
 
 # umask permanent ändern in /etc/profile.d/local-umask.sh
 
