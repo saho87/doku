@@ -174,7 +174,7 @@ umask 0027 # temporärer umask - User RW, Group R, Other -
 # result			rwxrwxr-x	0775
 
 # umask permanent ändern in /etc/profile.d/local-umask.sh
-
+echo "umask 007" >> ~/.bashrc
 ```
 
 # Kapitel 5: SELinux 
