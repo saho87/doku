@@ -208,8 +208,16 @@ vi /etc/selinux/config 	# Permanentes Ändern
 
 cp -p # Kopieren einer Datei unter Beibehalten des SELinux Kontextes (bei mv wird Kontext beibehalten)
 
-#SELInux-Kontext ändern
-S.165 weiter /home/sascha/Dropbox/Dropbox_Sync/IT-Fortbildung/Linux_Admin
+# SELInux-Kontext ändern
+chcon -t httpd_sys_content_t /virtual
+semanage fcontext -l 						# SELinux-Standarddateikontexte ausgeben
+semanage fcontext -l -C						# nur lokale erstellte Kontexte anzeigen
+restorecon -vr /virtual 					# zurücksetzen des Kontextes zu Standard (verbosity und rekursiv)
+semanage fcontext -a -t httpd_sys_content_t '/virtual(/.*)?'	
+
+# Boolsche SELinux-Werte
+getsebool -a # Anzeige der boolschen Werte inklusive Status
+# weiter auf Seite 173 /home/sascha/Dropbox/Dropbox_Sync/IT-Fortbildung/Linux_Admin
 
 ```
 # Kapitel 6: Tunen der Systemleistung 
