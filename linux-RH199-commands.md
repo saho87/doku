@@ -4,7 +4,7 @@ https://docs.github.com/de/get-started/writing-on-github/getting-started-with-wr
 
 # Kapitel 1: System Access und SSH
 
-```properties 
+```sh 
 # Befehle:
 ssh-keygen, ssh-copy-id, ssh-add, ssh
 
