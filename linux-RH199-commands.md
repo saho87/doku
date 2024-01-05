@@ -227,11 +227,9 @@ yum install setroubleshoot-server 	# notwendiges Installpaket, falls noch nicht 
 tail /var/log/messages			# 1. Fehler wurde in Log eingetragen -> Suche nach sealert und vorgeschlagener Befehl sealert ausführen
 sealert -l UUID				# 2. detaillierte Infos zum Fehler anzeigen
 ausearch -m AVC -ts recent		# 3. /var/log/audit wird nach AVC Nachrichten mit timestamp recent durchsucht
-restorecon -vr /var/www/html		# 4. Standardcontext wiederherstellen
+restorecon -vr /var/www/html		# 4. Standardkontext wiederherstellen
 sealert -a /var/log/audit/audit.log	# Alternative Suche im audit log
 tail /var/log/audit/audit.log		# Alternative Suche im audit log
-
-
 
 ```
 # Kapitel 6: Tunen der Systemleistung 
@@ -259,6 +257,22 @@ $(pgrep sha1sum;pgrep md5sum)
 • man tuned.conf
 • man ps
 • man nice/renice
+
+# Beenden von Prozessen (Empfehlung: erst SIGTERM-15, dann SIGINT-2, dann SIGKILL-9)
+kill -l 	# Auflisten aller verfügbaren Signale
+kill PID 	# Kill mit SIGTERM-15
+kill -9 PID	# Kill mit SIGKILL-9 | Alternative kill -SIGKILL
+killall	sleep	# Beenden mehrere Prozesse auf Basis seines Behehlsnamens
+pkill -U user01 # Beenden mehrere Prozesse auf Basis von Kriterien (Terminal, UID, GID, Command, Parent)
+
+# Abmelden von Benutzern/Beenden von Benutzerprozessen
+w 				# angemeldete User anzeigen, wie lange aktiv, welche Prozesse
+pgrep -l -u user01 -t pts/2 	# Anzeigen aller Prozesse von user01 in Terminal pts/2
+pkill -u user01 -t pts/2 	# Beenden alle Prozesse von user01 in Terminal pts/2
+pstree -p user01		# Prozessbaum von user01 mit PIDs (ggf. Installpaket psmisc notwendig)
+pkill -9 -P PID			# Beenden/SIGKILL für alle untergeordneten Prozesse des angegebenen Prozesses
+
+# weiter auf S. 201 /home/sascha/Dropbox/Dropbox_Sync/IT-Fortbildung/Linux_Admin	
 ```
 # Kapitel 7: zukünftige Tasks terminieren 
 ```bash
