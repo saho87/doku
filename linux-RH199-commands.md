@@ -24,7 +24,7 @@ ssh-add .ssh/key-with-pass
 ssh -v -i .ssh/key-with-pass user@remotehost	
 ```
 # Kapitel 2: Verwalten von Dateien über Befehlszeile
-```bash
+```properties
 # Befehle:
 ln, stat
 
@@ -78,7 +78,7 @@ Will variable $myhost evaluate to $(hostname -s)? 	# keine Auflösung der Variab
 stat file			# Zeitstempel und Infos einer Datei anzeigen
 ```
 # Kapitel 3: Verwalten lokaler Benutzer und Gruppen
-```bash
+```properties
 # Befehle:
 id, su -, sudo -i, sudo 
 useradd, userdmod, userdel - r, passwd
@@ -132,7 +132,7 @@ su - user # Anmeldung hier nicht mehr möglich
 
 ```
 # Kapitel 4: Steuern des Zugriffs auf Dateien
-```bash
+```properties
 # Befehle:
 chmod, chown, (chgrp)
 umask
@@ -178,7 +178,7 @@ echo "umask 007" >> ~/.bashrc
 ```
 
 # Kapitel 5: SELinux 
-```bash
+```properties
 # Befehle:
 getenforce
 setenforce
@@ -275,7 +275,7 @@ pkill -9 -P PID			# Beenden/SIGKILL für alle untergeordneten Prozesse des angeg
 # weiter auf S. 201 /home/sascha/Dropbox/Dropbox_Sync/IT-Fortbildung/Linux_Admin	
 ```
 # Kapitel 7: zukünftige Tasks terminieren 
-```bash
+```properties
 # Befehle:
 • crontab
 
@@ -294,7 +294,7 @@ pkill -9 -P PID			# Beenden/SIGKILL für alle untergeordneten Prozesse des angeg
 
 ```
 # Kapitel 8: Installieren von SW Paketen
-```bash
+```properties
 # Befehle:
 • dnf list, dnf search, dnf info, dnf provides, dnf install, dnf update, dnf remove, dnf group list
 • dnf repolist all, dnf config-manager --enable rhel-server-debug-pms, dnf update
@@ -307,7 +307,7 @@ pkill -9 -P PID			# Beenden/SIGKILL für alle untergeordneten Prozesse des angeg
 
 ```
 # Kapitel 9: Basic Storage  
-```bash
+```properties
 # Befehle:
 • lsblk -fp, parted, udevadm settle, mkfs.xfs, mkswap, mount, free -h, swapon -a
 # wichtige Dateien/Ordner
@@ -430,7 +430,7 @@ UUID=39e2667a-9458-42fe-9665-c5c854605881 swap swap defaults 0 0
 
 ```
 # Kapitel 10: Storage Stack  
-```bash
+```properties
 
 # Klassisch: 	Harddrive (sdb) -> Partition/PD (sdb1) 						-> File System -> mounten
 # PVM: 			Harddrive (sdb) -> Partition/PD (sdb1)-> PD -> PV -> VGs -> LV -> File System -> mounten
