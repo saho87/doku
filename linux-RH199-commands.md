@@ -24,7 +24,7 @@ ssh-add .ssh/key-with-pass
 ssh -v -i .ssh/key-with-pass user@remotehost	
 ```
 # Kapitel 2: Verwalten von Dateien über Befehlszeile
-```properties
+```sh
 # Befehle:
 ln, stat
 
@@ -78,7 +78,7 @@ Will variable $myhost evaluate to $(hostname -s)? 	# keine Auflösung der Variab
 stat file			# Zeitstempel und Infos einer Datei anzeigen
 ```
 # Kapitel 3: Verwalten lokaler Benutzer und Gruppen
-```properties
+```sh
 # Befehle:
 id, su -, sudo -i, sudo 
 useradd, userdmod, userdel - r, passwd
