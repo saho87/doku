@@ -216,8 +216,22 @@ restorecon -vr /virtual 					# zurücksetzen des Kontextes zu Standard (verbosit
 semanage fcontext -a -t httpd_sys_content_t '/virtual(/.*)?'	
 
 # Boolsche SELinux-Werte
-getsebool -a # Anzeige der boolschen Werte inklusive Status
-# weiter auf Seite 173 /home/sascha/Dropbox/Dropbox_Sync/IT-Fortbildung/Linux_Admin
+getsebool -a 				# Anzeige der boolschen Werte inklusive Status
+semanage boolean -l			# Aunzeige wie getsebool -a aber zusätzlich Persistenz-Status (Neustart)
+getsebool httpd_enable_homedirs		# Anzeige eines Boolschen Wertes
+setsebool httpd_enable_homedirs on	# Setzen eines Boolschen Wertes (temporär)
+setsebool -P httpd_enable_homedirs 1	# Setzen eines Boolschen Wertes (permanent)
+
+# SELinux Überwachung
+yum install setroubleshoot-server 	# notwendiges Installpaket, falls noch nicht vorhanden
+tail /var/log/messages			# 1. Fehler wurde in Log eingetragen -> Suche nach sealert und vorgeschlagener Befehl sealert ausführen
+sealert -l UUID				# 2. detaillierte Infos zum Fehler anzeigen
+ausearch -m AVC -ts recent		# 3. /var/log/audit wird nach AVC Nachrichten mit timestamp recent durchsucht
+restorecon -vr /var/www/html		# 4. Standardcontext wiederherstellen
+sealert -a /var/log/audit/audit.log	# Alternative Suche im audit log
+tail /var/log/audit/audit.log		# Alternative Suche im audit log
+
+
 
 ```
 # Kapitel 6: Tunen der Systemleistung 
