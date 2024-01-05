@@ -233,7 +233,7 @@ tail /var/log/audit/audit.log		# Alternative Suche im audit log
 
 ```
 # Kapitel 6: Tunen der Systemleistung 
-```bash
+```code
 • Command Substitution (https://www.youtube.com/watch?v=hMGHqDz6fPc)
 ps -o pid,pcpu,nice,comm \
 $(pgrep sha1sum;pgrep md5sum)
