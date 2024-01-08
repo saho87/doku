@@ -295,7 +295,7 @@ k 	# Prozess killen
 
 # Tuning-Profile
 # ggf. muss tuned Paket installiert werden
-# dynamisches Tuning aktivieren in /etc/tuned/tuned-main.conf -> tuned daemon passt tuning Einstellungen dynamisch an
+# dynamisches Tuning aktivieren in /etc/tuned/tuned-main.conf -> tuned passt tuning Einstellungen dynamisch an
 tuned-adm active		# aktives Tuning Profile ausgeben
 tuned-adm list			# alle verfügbaren Tuning Profile anzeigen
 tuned-adm profile balanced 	# Umstellen auf balanced Profil
@@ -305,7 +305,7 @@ sysctl vm.dirty_ratio		# tatsächliche Systemeinstellung (vm.dirty_ratio) ausles
 
 # Prozessplanung
 
-# weiter auf S. 201 /home/sascha/Dropbox/Dropbox_Sync/IT-Fortbildung/Linux_Admin	
+# weiter auf S. 227 /home/sascha/Dropbox/Dropbox_Sync/IT-Fortbildung/Linux_Admin	
 ```
 # Kapitel 7: zukünftige Tasks terminieren 
 ```bash
