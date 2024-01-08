@@ -313,12 +313,11 @@ top 						# nice Wert und Prio sind je Prozess sichtbar
 ps -axo pid,comm,nice,cls --sort=-nice 		# Prozesse mit Sortierung des Nice Wertes
 nice -n 15 sleep 60 &				# Prozess mit Nice Wert 15 starten
 renice -n -5 PID				# Nice Wert eines Prozesses ändern (unpriv. User können Wert nur erhöhen) 
-for i in {1..3}; do sha1sum /dev/zero & done 	# 3 Jobs/Prozesse, die Last generieren, im Hintergrund starten
-
-# weiter auf S. 227 /home/sascha/Dropbox/Dropbox_Sync/IT-Fortbildung/Linux_Admin	
+for i in {1..3}; do sha1sum /dev/zero & done 	# 3 Jobs/Prozesse, die Last generieren, im Hintergrund starten	
 ```
 # Kapitel 7: zukünftige Tasks terminieren 
 ```bash
+
 # Befehle:
 • crontab
 
@@ -335,6 +334,7 @@ for i in {1..3}; do sha1sum /dev/zero & done 	# 3 Jobs/Prozesse, die Last generi
 • man tmpfiles.d (Rangfolge Verzeichnisse, Beispiel)
 • man systemd-tmpfiles (Befehle wie --create, --clean)
 
+# weiter auf S. 244 /home/sascha/Dropbox/Dropbox_Sync/IT-Fortbildung/Linux_Admin
 ```
 # Kapitel 8: Installieren von SW Paketen
 ```bash
