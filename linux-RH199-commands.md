@@ -269,11 +269,13 @@ kill -SIGSTOP %2	# Stoppt den Job 2 | Alternative kill -19 PID
 kill -SIGCONT %2	# Job wird wieder gestartet
 
 # Abmelden von Benutzern/Beenden von Benutzerprozessen
-w 				# angemeldete User anzeigen, wie lange aktiv, welche Prozesse
-pgrep -l -u user01 -t pts/2 	# Anzeigen aller Prozesse von user01 in Terminal pts/2
-pkill -u user01 -t pts/2 	# Beenden alle Prozesse von user01 in Terminal pts/2
-pstree -p user01		# Prozessbaum von user01 mit PIDs (ggf. Installpaket psmisc notwendig)
-pkill -9 -P PID			# Beenden/SIGKILL für alle untergeordneten Prozesse des angegebenen Prozesses
+w 						# angemeldete User anzeigen, wie lange aktiv, welche Prozesse
+pgrep -l -u user01 -t pts/2 			# Anzeigen aller Prozesse von user01 in Terminal pts/2
+ps u $(pgrep sha1sum)				# mit pgrep PID auslesen und über ps anzeigen | Alternative: top
+ps -o pid,pcpu,nice,comm $(pgrep sha1sum)	# PID, CPU, Nice, Name von Prozessen | Alternative: top
+pkill -u user01 -t pts/2 			# Beenden alle Prozesse von user01 in Terminal pts/2
+pstree -p user01				# Prozessbaum von user01 mit PIDs (ggf. Installpaket psmisc notwendig)
+pkill -9 -P PID					# Beenden/SIGKILL für alle untergeordneten Prozesse des angegebenen Prozesses
 
 # Überwachen der Prozessaktivität
 uptime # load average letzte 1, 5 und 15 min
@@ -292,6 +294,7 @@ i 	# nur REssourcenlastige Prozesse anzeigen
 u 	# nur Prozesse eines bestimmten Users anzeigen
 M|P|N 	# Sortieren nach Mem, CPU, PID
 k 	# Prozess killen
+r	# renice -> nice Wert ändern
 
 # Tuning-Profile
 # ggf. muss tuned Paket installiert werden
@@ -299,11 +302,18 @@ k 	# Prozess killen
 tuned-adm active		# aktives Tuning Profile ausgeben
 tuned-adm list			# alle verfügbaren Tuning Profile anzeigen
 tuned-adm profile balanced 	# Umstellen auf balanced Profil
+tuned-adm profile_info		# Infos zum aktuellen Profil ausgeben
 tuned-adm recommend		# empfohlenes Profil ausgeben
 tuned-adm off			# Tuning deaktivieren
 sysctl vm.dirty_ratio		# tatsächliche Systemeinstellung (vm.dirty_ratio) auslesen
 
 # Prozessplanung
+# nice-Wert: je niedriger, desto höher die Prio; Standard ist 0 (in top prio 20); höchste Prio sind -20 (in top prio 0)
+top 						# nice Wert und Prio sind je Prozess sichtbar
+ps -axo pid,comm,nice,cls --sort=-nice 		# Prozesse mit Sortierung des Nice Wertes
+nice -n 15 sleep 60 &				# Prozess mit Nice Wert 15 starten
+renice -n -5 PID				# Nice Wert eines Prozesses ändern (unpriv. User können Wert nur erhöhen) 
+for i in {1..3}; do sha1sum /dev/zero & done 	# 3 Jobs/Prozesse, die Last generieren, im Hintergrund starten
 
 # weiter auf S. 227 /home/sascha/Dropbox/Dropbox_Sync/IT-Fortbildung/Linux_Admin	
 ```
@@ -819,5 +829,8 @@ find /var/log -type f -name '*.log' -size +100c		# größer als 100 Byte unterha
 find . -type d						# Suche nach Verzeichnis
 find music/ -type d -exec chmod 755 {} \;		# Kombi aus chmod und find
 
+# grep
+grep -c ' # zählt Vorkommen einer bestimmter Zeichenkette
 # ToDo: sed-Befehl
+
 ```
