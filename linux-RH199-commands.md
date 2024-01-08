@@ -248,9 +248,9 @@ $(pgrep sha1sum;pgrep md5sum)
 • nice sleep 600 &, renice -n 12 {pid}
 
 # wichtige Dateien/Ordner:
-• etc/tuned/tuned-main.conf
-• /usr/lib/tuned
-• /proc/cpu
+etc/tuned/tuned-main.conf 	# Konfig des tuned Daemons
+/usr/lib/tuned			# Ablage der Tuning Profile (nicht ändern), eigene Profile in /etc/tuned ablegen
+/proc/cpu
 
 # Man/help
 • man tuned
@@ -259,11 +259,14 @@ $(pgrep sha1sum;pgrep md5sum)
 • man nice/renice
 
 # Beenden von Prozessen (Empfehlung: erst SIGTERM-15, dann SIGINT-2, dann SIGKILL-9)
-kill -l 	# Auflisten aller verfügbaren Signale
-kill PID 	# Kill mit SIGTERM-15
-kill -9 PID	# Kill mit SIGKILL-9 | Alternative kill -SIGKILL
-killall	sleep	# Beenden mehrere Prozesse auf Basis seines Behehlsnamens
-pkill -U user01 # Beenden mehrere Prozesse auf Basis von Kriterien (Terminal, UID, GID, Command, Parent)
+kill -l 		# Auflisten aller verfügbaren Signale
+kill PID 		# Kill mit SIGTERM-15
+kill -9 PID		# Kill mit SIGKILL-9 | Alternative kill -SIGKILL
+pkill	sleep		# Beenden mehrere Prozesse auf Basis seines Behehlsnamens | Alternative: killall sleep
+pkill -U user01 	# Beenden mehrere Prozesse auf Basis von Kriterien (Terminal, UID, GID, Command, Parent)
+jobs -l			# zeigt aktuell laufende Jobs an (Def. Jobs: Prozesse, die über Shell gestartet werden)
+kill -SIGSTOP %2	# Stoppt den Job 2 | Alternative kill -19 PID
+kill -SIGCONT %2	# Job wird wieder gestartet
 
 # Abmelden von Benutzern/Beenden von Benutzerprozessen
 w 				# angemeldete User anzeigen, wie lange aktiv, welche Prozesse
@@ -271,6 +274,36 @@ pgrep -l -u user01 -t pts/2 	# Anzeigen aller Prozesse von user01 in Terminal pt
 pkill -u user01 -t pts/2 	# Beenden alle Prozesse von user01 in Terminal pts/2
 pstree -p user01		# Prozessbaum von user01 mit PIDs (ggf. Installpaket psmisc notwendig)
 pkill -9 -P PID			# Beenden/SIGKILL für alle untergeordneten Prozesse des angegebenen Prozesses
+
+# Überwachen der Prozessaktivität
+uptime # load average letzte 1, 5 und 15 min
+lscpu # Anzahl der CPUs vom System ermitteln
+
+# From lscpu, the system has four logical CPUs, so divide by 4 (optimale Auslastung ist knapp unter 1)
+# load average: 			2.92, 	4.48, 	5.20
+# divide by number of logical CPUs:	4 	4 	4
+#					---- 	---- 	----
+# per-CPU load average: 		0.73 	1.12 	1.30
+#					OK	ovLoad	ovLoad
+
+# top Kommando
+top	# dynamische Anzeige der Systemprozesse | l, t, m (auf Load, Thread, Memory umschalten)
+i 	# nur REssourcenlastige Prozesse anzeigen
+u 	# nur Prozesse eines bestimmten Users anzeigen
+M|P|N 	# Sortieren nach Mem, CPU, PID
+k 	# Prozess killen
+
+# Tuning-Profile
+# ggf. muss tuned Paket installiert werden
+# dynamisches Tuning aktivieren in /etc/tuned/tuned-main.conf -> tuned daemon passt tuning Einstellungen dynamisch an
+tuned-adm active		# aktives Tuning Profile ausgeben
+tuned-adm list			# alle verfügbaren Tuning Profile anzeigen
+tuned-adm profile balanced 	# Umstellen auf balanced Profil
+tuned-adm recommend		# empfohlenes Profil ausgeben
+tuned-adm off			# Tuning deaktivieren
+sysctl vm.dirty_ratio		# tatsächliche Systemeinstellung (vm.dirty_ratio) auslesen
+
+# Prozessplanung
 
 # weiter auf S. 201 /home/sascha/Dropbox/Dropbox_Sync/IT-Fortbildung/Linux_Admin	
 ```
