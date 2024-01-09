@@ -316,12 +316,13 @@ for i in {1..3}; do sha1sum /dev/zero & done 	# 3 Jobs/Prozesse, die Last generi
 • crontab
 
 # wichtige Dateien/Ordner
-• /etc/cron.d -> da cronjob files rein
-• /etc/crontab -> Beispiel
-• /etc/cron.hourly, /etc/cron.daily… -> ausführbare Scripte werden automatisch ausgeführt, keine crontabs
-• /etc/anacrontab, /var/spool/anacron
-• /etc/systemd/system, (/usr/lib/systemd/system)
-• /usr/lib/systemd/system/systemd-tmpfiles-clean.timer
+/etc/cron.d -> da cronjob files rein
+/etc/crontab -> Beispiel
+/etc/cron.hourly, /etc/cron.daily… -> ausführbare Scripte werden automatisch ausgeführt, keine crontabs
+/etc/anacrontab,
+/var/spool/anacron	 # Zeitstempel
+/etc/systemd/system, (/usr/lib/systemd/system)
+/usr/lib/systemd/system/systemd-tmpfiles-clean.timer
 
 # man/help:
 • man 5 crontab, man crontab, man chrond
@@ -338,9 +339,37 @@ crontab filename 	# Entfernen und Ersetzen aller Jobs durch Jobs in File
 /etc/crontab 	# Enthält Beispiele, kann auch Cronjobs aufnehmen
 /etc/cron.d/	# Empfehlung: Ablage der Cronjobs in Datein in diesem Verzeichnis
 
-# Anacron - stellt sicher, dass geplante Jobs immer ausgeführt und nicht übersprungen werden
+#  Formatierung für Cronjobs
+Minute (0 - 59) | Stunde (0 - 23) | Tag des Monats (1 - 31) | Monat (1 - 12) | Wochentag (0 - 6; SO bis Sa)
+* 			# eine Ausführung in jeder Möglichen Instanz des Feldes
+*/7 			# alle 7 Minuten
+5,10-13-17		# Job, der 5, 10, 11, 12, 13 und 17 Minuten nach der vollen Stunde ausgeführt wird
+Jan, Feb und Mon, Tue	# englische Abkürzungen
+
+# Beispiele für Cronjobs
+15 12 11 * Fri command		# Beispiel-Job: jeder 11. des Monats und jeden Freitag um 12:15 ausgeführt
+*/5 9-16 * Jul 5 command	# alle 5 min zw. 9-16 Uhr an jedem Freitag im Juli (Start 09:00 Ende 16:55)
+
+# Anacron (Alternative zu Cron, die sicher stellt, dass geplante Jobs immer ausgeführt und nicht übersprungen werden)
+# Jobs in den Verzeichnissen /etc/cron.daily, ...weekly, ...monthly werden je nach config in /etc/anacrontab ausgeführt
 run-parts 	# Ausführung tagl., wöchntl. und monatl. Jobs in /etc/anacrontab
-# Systemd-Timer
+
+# Systemd-Timer (Moderne Alternative zu Cron-Jobs)
+# Systemd-Timer aktivieren gleichnamige systemd Units (z.B. sysstat-collect.service
+# sysstat-12.5.2 systemd unit file:
+
+# Beispiel sysstat-collect.service:
+Activates activity collector every 10 minutes
+
+[Unit]
+Description=Run system activity accounting tool every 10 minutes
+
+[Timer]
+OnCalendar=*:00/10
+
+[Install]
+WantedBy=sysstat.service
+
 
 # Temporäre Dateien verwalten
 systemctl cat systemd-tmpfiles-clean.timer 		# Konfig systemd- tmpfiles-clean.timer der Unit anzeigen
@@ -354,16 +383,7 @@ systemctl enable --now systemd-tmpfiles-clean.timer	# Unit beim Neustart aktivie
 systemd-tmpfiles --clean /etc/tmpfiles.d/tmp.conf	# Temporäre Verzeichnisse/Dateien löschen -> eigene Konfig Datei 
 systemd-tmpfiles --clean /etc/tmpfiles.d/tmp.conf	# Temporäre Verzeichnisse/Dateien anlegen -> eigene Konfig Datei 
 
-#  Formatierung für Cronjobs
-Minute (0 - 59) | Stunde (0 - 23) | Tag des Monats (1 - 31) | Monat (1 - 12) | Wochentag (0 - 6; SO bis Sa)
-* 			# eine Ausführung in jeder Möglichen Instanz des Feldes
-*/7 			# alle 7 Minuten
-5,10-13-17		# Job, der 5, 10, 11, 12, 13 und 17 Minuten nach der vollen Stunde ausgeführt wird
-Jan, Feb und Mon, Tue	# englische Abkürzungen
 
-# Beispiele für Cronjobs
-15 12 11 * Fri command		# Beispiel-Job: jeder 11. des Monats und jeden Freitag um 12:15 ausgeführt
-*/5 9-16 * Jul 5 echo "Chime"	# alle 5 min zw. 9-16 Uhr an jedem Freitag im Juli (Start 09:00 Ende 16:55)
 
 
 # weiter auf S. 244 /home/sascha/Dropbox/Dropbox_Sync/IT-Fortbildung/Linux_Admin
