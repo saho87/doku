@@ -234,18 +234,12 @@ tail /var/log/audit/audit.log		# Alternative Suche im audit log
 ```
 # Kapitel 6: Tunen der Systemleistung 
 ```bash
-• Command Substitution (https://www.youtube.com/watch?v=hMGHqDz6fPc)
-ps -o pid,pcpu,nice,comm \
-$(pgrep sha1sum;pgrep md5sum)
 
 # Befehle:
 • ps, kill, killall, pkill, w, pgrep, pstree, jobs
 • uptime, lscpu, top
 • tuned-adm, (sysctl) 
-• ps axo pid, comm, nice, cls --sort=-nice
-• ps -o pid,pcpu,nice,comm $(pgrep sha1sum;pgrep md5sum)
-• ps u $(pgrep sha1sum)
-• nice sleep 600 &, renice -n 12 {pid}
+• nice 
 
 # wichtige Dateien/Ordner:
 etc/tuned/tuned-main.conf 	# Konfig des tuned Daemons
@@ -262,7 +256,7 @@ etc/tuned/tuned-main.conf 	# Konfig des tuned Daemons
 kill -l 		# Auflisten aller verfügbaren Signale
 kill PID 		# Kill mit SIGTERM-15
 kill -9 PID		# Kill mit SIGKILL-9 | Alternative kill -SIGKILL
-pkill	sleep		# Beenden mehrere Prozesse auf Basis seines Behehlsnamens | Alternative: killall sleep
+pkill sleep		# Beenden mehrere Prozesse auf Basis seines Behehlsnamens | Alternative: killall sleep
 pkill -U user01 	# Beenden mehrere Prozesse auf Basis von Kriterien (Terminal, UID, GID, Command, Parent)
 jobs -l			# zeigt aktuell laufende Jobs an (Def. Jobs: Prozesse, die über Shell gestartet werden)
 kill -SIGSTOP %2	# Stoppt den Job 2 | Alternative kill -19 PID
