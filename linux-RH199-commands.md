@@ -317,7 +317,7 @@ for i in {1..3}; do sha1sum /dev/zero & done 	# 3 Jobs/Prozesse, die Last generi
 
 # wichtige Dateien/Ordner
 • /etc/cron.d -> da cronjob files rein
-• /etc/crontab
+• /etc/crontab -> Beispiel
 • /etc/cron.hourly, /etc/cron.daily… -> ausführbare Scripte werden automatisch ausgeführt, keine crontabs
 • /etc/anacrontab, /var/spool/anacron
 • /etc/systemd/system, (/usr/lib/systemd/system)
@@ -327,6 +327,44 @@ for i in {1..3}; do sha1sum /dev/zero & done 	# 3 Jobs/Prozesse, die Last generi
 • man 5 crontab, man crontab, man chrond
 • man tmpfiles.d (Rangfolge Verzeichnisse, Beispiel)
 • man systemd-tmpfiles (Befehle wie --create, --clean)
+
+# Wiederkehrende Benutzerjobs/Crontabs
+crontab -l 		# Auflisten aller Jobs für aktuellen User
+crontab -r		# Entfernen aller Jobs für aktuellen User
+crontab -e		# Bearbeiten aller Jobs für aktuellen User
+crontab filename 	# Entfernen und Ersetzen aller Jobs durch Jobs in File
+
+# Wiederkehrende Systemjobs
+/etc/crontab 	# Enthält Beispiele, kann auch Cronjobs aufnehmen
+/etc/cron.d/	# Empfehlung: Ablage der Cronjobs in Datein in diesem Verzeichnis
+
+# Anacron - stellt sicher, dass geplante Jobs immer ausgeführt und nicht übersprungen werden
+run-parts 	# Ausführung tagl., wöchntl. und monatl. Jobs in /etc/anacrontab
+# Systemd-Timer
+
+# Temporäre Dateien verwalten
+systemctl cat systemd-tmpfiles-clean.timer 		# Konfig systemd- tmpfiles-clean.timer der Unit anzeigen
+# OnBootSec=15						# Unit wird 15 min nach Boot ausgeführt
+# OnUnitActiveSec=1d					# Unit wird nach 1 Tag Betrieb erneut ausgeführt
+systemctl daemon-reload 				# Bei Änderungen der Parameter
+systemctl enable --now systemd-tmpfiles-clean.timer	# Unit beim Neustart aktivierung und ausführen
+/etc/tmpfiles.d/*.conf					# Prio 1: temporäre Speicherorte/Dateien für Benutzer
+/run/tmpfiles.d/*.conf					# Prio 2: temporäre Speicherorte/Dateien für Daemons
+/usr/lib/tmpfiles.d/*.conf				# Prio 3: temporäre Speicherorte/Dateien für RPM Pakete
+systemd-tmpfiles --clean /etc/tmpfiles.d/tmp.conf	# Temporäre Verzeichnisse/Dateien löschen -> eigene Konfig Datei 
+systemd-tmpfiles --clean /etc/tmpfiles.d/tmp.conf	# Temporäre Verzeichnisse/Dateien anlegen -> eigene Konfig Datei 
+
+#  Formatierung für Cronjobs
+Minute (0 - 59) | Stunde (0 - 23) | Tag des Monats (1 - 31) | Monat (1 - 12) | Wochentag (0 - 6; SO bis Sa)
+* 			# eine Ausführung in jeder Möglichen Instanz des Feldes
+*/7 			# alle 7 Minuten
+5,10-13-17		# Job, der 5, 10, 11, 12, 13 und 17 Minuten nach der vollen Stunde ausgeführt wird
+Jan, Feb und Mon, Tue	# englische Abkürzungen
+
+# Beispiele für Cronjobs
+15 12 11 * Fri command		# Beispiel-Job: jeder 11. des Monats und jeden Freitag um 12:15 ausgeführt
+*/5 9-16 * Jul 5 echo "Chime"	# alle 5 min zw. 9-16 Uhr an jedem Freitag im Juli (Start 09:00 Ende 16:55)
+
 
 # weiter auf S. 244 /home/sascha/Dropbox/Dropbox_Sync/IT-Fortbildung/Linux_Admin
 ```
