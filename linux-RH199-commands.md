@@ -355,10 +355,11 @@ Jan, Feb und Mon, Tue	# englische Abkürzungen
 run-parts 	# Ausführung tagl., wöchntl. und monatl. Jobs in /etc/anacrontab
 
 # Systemd-Timer (Moderne Alternative zu Cron-Jobs)
-# Systemd-Timer aktivieren gleichnamige systemd Units (z.B. sysstat-collect.service
-# sysstat-12.5.2 systemd unit file:
+vim /etc/systemd/system/sysstat-collect.timer 	# timer anlegen und konfiguieren
+systemctl daemon-reload				# Daemon neu laden
+systemctl enable --now sysstat-collect.timer	# Timer Aktivieren
 
-# Beispiel sysstat-collect.service:
+# Beispiel sysstat-collect.timer (ruft alle 10 min sysstat-collect.service auf:
 Activates activity collector every 10 minutes
 
 [Unit]
