@@ -6,6 +6,7 @@ https://docs.github.com/de/get-started/writing-on-github/getting-started-with-wr
 <details>
   <summary>Zusatzinformationen</summary>  
 ### Heading
+	
   1. Foo
   2. Bar
      * Baz
