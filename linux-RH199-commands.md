@@ -3,10 +3,6 @@
 Formatierung:
 https://docs.github.com/de/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax
 
-
-# Kapitel 1: System Access und SSH
-
-```bash
 <details>
   <summary>Zusatzinformationen</summary>  
   ### Heading
@@ -16,6 +12,9 @@ https://docs.github.com/de/get-started/writing-on-github/getting-started-with-wr
      * Qux
 </details>
 
+# Kapitel 1: System Access und SSH
+
+```bash
 # Befehle:
 ssh-keygen, ssh-copy-id, ssh-add, ssh
 
