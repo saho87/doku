@@ -385,10 +385,6 @@ systemctl enable --now systemd-tmpfiles-clean.timer	# Unit beim Neustart aktivie
 systemd-tmpfiles --clean /etc/tmpfiles.d/tmp.conf	# Temporäre Verzeichnisse/Dateien löschen -> eigene Konfig Datei 
 systemd-tmpfiles --clean /etc/tmpfiles.d/tmp.conf	# Temporäre Verzeichnisse/Dateien anlegen -> eigene Konfig Datei 
 
-
-
-
-# weiter auf S. 244 /home/sascha/Dropbox/Dropbox_Sync/IT-Fortbildung/Linux_Admin
 ```
 # Kapitel 8: Installieren von SW Paketen
 ```bash
@@ -397,10 +393,38 @@ systemd-tmpfiles --clean /etc/tmpfiles.d/tmp.conf	# Temporäre Verzeichnisse/Dat
 • dnf repolist all, dnf config-manager --enable rhel-server-debug-pms, dnf update
 
 # wichtige Dateien/Ordner
-• /etc/yum.repos.d
+/etc/yum.repos.d	# Ablage von .repo -Dateien zum Hinzufügen von Repositorys
+/etc/dnf/dnf.conf	# Nicht empfohlen: Ablage von Repos über [repository]-Abschnitt
 
 # man/help
 • man dnf, man dnf -config-manager, man dnf.conf
+
+# DNF Befehle (rpm berücksichtigt keine Abhängigkeiten)
+dnf list 'http*'		# Anzeige installierte und verfügbare Pakete
+dnf search all 'webserver'	# Suche nach Paketen mit bestimmten Schlüsselwort
+dnf info PACKAGENAME		# detaill. Infos zum Paket, Speicherplatz (apt show PACKAGENAME)
+dnf provides PATHNAME		# Suche nach Paketen, die bestimmten Pfad bereitstellen (z.B. /var/www/html)
+dnf install PACKAGENAME	-y	# Installation eines Paketes (silent)
+dnf remove PACKAGENAME		# Deinstallation Paket und abhängige Pakete
+dnf update PACKAGENAME		# Abruf neuere Version und Installation eines Paketes inklusive Abhängigkeiten
+dnf list kernel			# Anzeige installierte und verfügbare Kernel
+dnf group list			# Anzeige installierter und verfügbarer Gruppen
+dnf group list hidden		# Anzeige installierter und verfügbarer Gruppen (inklusive versteckter Gruppen)
+dnf group info GROUPNAME	# detaill. Infos zur Gruppe, Pakete usw.
+dnf group install GROUPNAME	# Installation einer Gruppe
+tail -5 /var/log/dnf.rpm.log	# Transaktionen Install und Remove (tail -5 /var/log/yum.log)
+dnf history
+dnf history undo 6		# Kehrt 6. Transaktion um
+dnf history info 3		# Infos zur Transaktion
+
+# Repositorys
+dnf repolist all					# Auflistung aller verfügbaren Repos
+grep ^ /etc/apt/sources.list /etc/apt/sources.list.d/*	# Auflistung aller installierter Repos in Ubuntu
+dnf config-manager --enable rhel-9-server-debug-rpms	# Aktivieren/Deaktivieren von Repos
+dnf config-manager \					# Hinzufügen eines neuen Repos (.repo wird in /etc/yum.repos.d/ erzeugt)
+--add-repo="https://dl.fedoraproject.org/pub/epel/9/Everything/x86_64/"
+
+# weiter auf S. 293 /home/sascha/Dropbox/Dropbox_Sync/IT-Fortbildung/Linux_Admin
 
 ```
 # Kapitel 9: Basic Storage  
