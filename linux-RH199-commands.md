@@ -8,16 +8,14 @@ https://docs.github.com/de/get-started/writing-on-github/getting-started-with-wr
 
 ```bash
 <details>
-  <summary>Click me</summary>
-  
+  <summary>Zusatzinformationen</summary>  
   ### Heading
   1. Foo
   2. Bar
      * Baz
      * Qux
-
-
 </details>
+
 # Befehle:
 ssh-keygen, ssh-copy-id, ssh-add, ssh
 
