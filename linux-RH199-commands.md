@@ -454,9 +454,9 @@ rpm -q PACKAGENAME
 # Manuelles Mounten eines FS
 mount UUID="efd314d0-b56e-45db-bbb3-3f32ae98f652" /mnt/data	# manuelles Mounten eines FS mit UUID
 mount /dev/vda4 /mnt/data					# manuelles Mounten (nicht empfohlen) 
-lsblk -fp			# Verfügbare Block Devices anzeigen mit UUID und Mountpath
-umount /mnt/data		# unmount
-lsof /mnt/data			# Anzeige aller Prozesse, die auf FS zugreifen
+lsblk -fp							# Verfügbare Block Devices anzeigen mit UUID und Mountpath
+umount /mnt/data						# unmount
+lsof /mnt/data							# Anzeige aller Prozesse, die auf FS zugreifen
 			
 # Partitionen und FS 
 parted /dev/sdb mklabel gpt	# Ein Disk- Label erstellen ->  GPT / Definieren des GPT-Partitionsschema
@@ -467,18 +467,18 @@ parted /dev/sdb			# Partition auf dem Device erstellen (interaktiver Modus)
 	2048s
 	2GB
 parted /dev/vdb mkpart primary xfs 2048s 2GB	# Alternativ zum interaltiven Modus
-parted /dev/sdb print		# Partitionen anzeigen, verifizieren
-udevadm settle			# neue Partition im System registrieren/ in /dev/* anzeigen
-mkfs.xfs /dev/sdb1		# neue Partition mit xfs Filesystem formatieren
-mkdir /backup			# neuen Ordner für den Mountpoint erstellen
-lsblk -fp /dev/sdb		# UUID des Device herausfinden
-vim /etc/fstab			# Eintrag in /etc/fstab vornehmen
-mount /dev/vda4 /mnt/data	# Alternative  fstab: temporäres Einbinden
-systemctl daemon-reload		# systemd daemon updaten um neuen Eintrag der fstab zu übernehmen
-mount /backup			# neues FS mit fstab mounten -> würde einen Fehler werfen, wenn fstab nicht korrekt
-mount | grep sdb1		# überprüfen, ob neues FS in /archive gemounted ist
+parted /dev/sdb print				# Partitionen anzeigen, verifizieren
+udevadm settle					# neue Partition im System registrieren/ in /dev/* anzeigen
+mkfs.xfs /dev/sdb1				# neue Partition mit xfs Filesystem formatieren
+mkdir /backup					# neuen Ordner für den Mountpoint erstellen
+lsblk -fp /dev/sdb				# UUID des Device herausfinden
+vim /etc/fstab					# Eintrag in /etc/fstab vornehmen
+mount /dev/vda4 /mnt/data			# Alternative  fstab: temporäres Einbinden
+systemctl daemon-reload				# systemd daemon updaten um neuen Eintrag der fstab zu übernehmen
+mount /backup					# neues FS mit fstab mounten -> würde einen Fehler werfen, wenn fstab nicht korrekt
+mount | grep sdb1				# überprüfen, ob neues FS in /archive gemounted ist
 systemctl reboot
-parted /dev/vdb rm 1		# Partition löschen
+parted /dev/vdb rm 1				# Partition löschen
 
 # weiter auf S. 329 /home/sascha/Dropbox/Dropbox_Sync/IT-Fortbildung/Linux_Admin
 
@@ -504,7 +504,9 @@ swapon /dev/sdb2		# Alternative: SWAP temporär aktivieren
 swapoff /dev/sdb2		# SWAP deaktivieren 
 
 # fstab 
-1. UUID	| 2.Mountpoint | 3. FS-Typ | 4. comma-seperated Liste der Optionen | 5. dump (Backup) | 6. fsck-Reihenfolgefeld # Felder
+1. UUID	| 2.Mountpoint | 3. FS-Typ |					# Felder
+4. comma-seperated Liste der Optionen |
+5. dump (Backup) | 6. fsck-Reihenfolgefeld 				
 UUID=7a20315d-ed8b-4e75-a5b6-24ff9e1f9838 /dbdata xfs defaults 0 0	# Beispiel xfs 
 UUID=39e2667a-9458-42fe-9665-c5c854605881 swap swap defaults 0 0 	# Beispiel Swap
 92.168.178.63:/volume1/music /home/sascha/music nfs defaults 0 0 	# Beispiel Synology NAS 
