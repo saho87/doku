@@ -5,13 +5,9 @@ https://docs.github.com/de/get-started/writing-on-github/getting-started-with-wr
 
 <details>
   <summary>Zusatzinformationen</summary>  
-  
-	### Heading
- 
-  1. Foo
-  2. Bar
-     * Baz
-     * Qux
+```code
+Test123
+```
 </details>
 
 # Kapitel 1: System Access und SSH
