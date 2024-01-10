@@ -432,6 +432,8 @@ dnf history info 3		# Infos zur Transaktion
 # Repositorys
 dnf repolist all					# Auflistung aller verfügbaren Repos
 dnf repoinfo epel					# Anzeige Infos zu einem Repo
+dnf list --repo=updates					# Anzeiger aller verfügbaren Pakete in dnf
+yum list --disablerepo="*" --enablerepo=updates		# Anzeiger aller verfügbaren Pakete in yum
 grep ^ /etc/apt/sources.list /etc/apt/sources.list.d/*	# Auflistung aller installierter Repos in Ubuntu
 dnf config-manager --enable rhel-9-server-debug-rpms	# Aktivieren/Deaktivieren von Repos (yum-config-manager --enable epel)
 dnf config-manager \					# Hinzufügen eines neuen Repos (.repo wird in /etc/yum.repos.d/ erzeugt)
@@ -462,10 +464,10 @@ lsof /mnt/data							# Anzeige aller Prozesse, die auf FS zugreifen
 parted /dev/sdb mklabel gpt	# Ein Disk- Label erstellen ->  GPT / Definieren des GPT-Partitionsschema
 parted /dev/sdb			# Partition auf dem Device erstellen (interaktiver Modus)
 	mkpart
-	primary
-	xfs
-	2048s
-	2GB
+	primary			# Name
+	xfs			# FS-Typ
+	2048s			# Start
+	2GB			# End
 parted /dev/vdb mkpart primary xfs 2048s 2GB	# Alternativ zum interaltiven Modus
 parted /dev/sdb print				# Partitionen anzeigen, verifizieren
 udevadm settle					# neue Partition im System registrieren/ in /dev/* anzeigen
@@ -480,15 +482,13 @@ mount | grep sdb1				# überprüfen, ob neues FS in /archive gemounted ist
 systemctl reboot
 parted /dev/vdb rm 1				# Partition löschen
 
-# weiter auf S. 329 /home/sascha/Dropbox/Dropbox_Sync/IT-Fortbildung/Linux_Admin
-
 # SWAP-Space 
 parted /dev/sdb			# SWAP-Partition ersten (interaktiver Modus)
 	mkpart
-	swap1
-	linux-swap
-	1001MB
-	1257MB
+	swap1			# Name
+	linux-swap		# FS-Typ
+	1001MB			# Start
+	1257MB			# End
 parted /dev/sdb mkpart swap1 linux-swap 2000M 2512M
 parted /dev/sdb mkpart swap2 linux-swap 2512M 3024M
 parted /dev/sdb print		# Partitionen anzeigen, verifizieren
@@ -498,7 +498,7 @@ mkswap /dev/sdb3
 UUID=87976166-4697-47b7-86d1-73a02f0fc803 swap swap pri=10 0 0	# fstab anpassen mit Prio
 systemctl daemon-reload		# den systemd daemon updaten um die euen Eintrag der fstab zu übernehmen
 free -h				# Speicher und SWAP-Space anzeigen
-swapon -a			# SWAP persistent aktivieren (alles im fstab)
+swapon -a			# SWAP persistent aktivieren (alle Einträge in fstab)
 swapon --show	
 swapon /dev/sdb2		# Alternative: SWAP temporär aktivieren
 swapoff /dev/sdb2		# SWAP deaktivieren 
@@ -508,7 +508,7 @@ swapoff /dev/sdb2		# SWAP deaktivieren
 4. comma-seperated Liste der Optionen |
 5. dump (Backup) | 6. fsck-Reihenfolgefeld 				
 UUID=7a20315d-ed8b-4e75-a5b6-24ff9e1f9838 /dbdata xfs defaults 0 0	# Beispiel xfs 
-UUID=39e2667a-9458-42fe-9665-c5c854605881 swap swap defaults 0 0 	# Beispiel Swap
+UUID=39e2667a-9458-42fe-9665-c5c854605881 swap swap pri=4 0 0 		# Beispiel Swap mit Prio 4
 92.168.178.63:/volume1/music /home/sascha/music nfs defaults 0 0 	# Beispiel Synology NAS 
 systemctl daemon-reload							# Konfig wird geladen
 mount MOUNTPOINT 							# Überprüfung ob fstab Eintrag korrekt
@@ -516,14 +516,14 @@ mount MOUNTPOINT 							# Überprüfung ob fstab Eintrag korrekt
 
 # Kapitel 10: Storage Stack  
 ```bash
-
-# Klassisch: 	Harddrive (sdb) -> Partition/PD (sdb1) 						-> File System -> mounten
-# PVM: 			Harddrive (sdb) -> Partition/PD (sdb1)-> PD -> PV -> VGs -> LV -> File System -> mounten
+# weiter auf S. 348 /home/sascha/Dropbox/Dropbox_Sync/IT-Fortbildung/Linux_Admin
+# Klassisch: 	Harddrive (sdb) -> Partition/PD (sdb1) 	-> File System -> mounten
+# PVM: 		Harddrive (sdb) -> Partition/PD (sdb1)-> PD -> PV -> VGs -> LV -> File System -> mounten
 
 # https://www.youtube.com/watch?v=scMkYQxBtJ4
 
 # Identifizieren der Systemplatten
-lsblk
+lsblk -fp
 blkid
 
 #PDs vorbereiten: Erstellen eines GPT Labels, 2 Partitionen (xfs), Setzen von lvm flags, Registrieren der Partitionen beim Kernel
