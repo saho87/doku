@@ -1,3 +1,12 @@
+
+
+Formatierung:
+https://docs.github.com/de/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax
+
+
+# Kapitel 1: System Access und SSH
+
+```bash
 <details>
   <summary>Click me</summary>
   
@@ -9,14 +18,6 @@
 
 
 </details>
-
-Formatierung:
-https://docs.github.com/de/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax
-
-
-# Kapitel 1: System Access und SSH
-
-```bash 
 # Befehle:
 ssh-keygen, ssh-copy-id, ssh-add, ssh
 
