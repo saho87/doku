@@ -7,12 +7,7 @@
      * Baz
      * Qux
 
-  ### Some Javascript
-  ```js
-  function logSomething(something) {
-    console.log('Something', something);
-  }
-  ```
+
 </details>
 
 Formatierung:
