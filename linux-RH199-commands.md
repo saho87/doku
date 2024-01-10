@@ -419,10 +419,14 @@ dnf history info 3		# Infos zur Transaktion
 
 # Repositorys
 dnf repolist all					# Auflistung aller verfügbaren Repos
+dnf repoinfo epel					# Anzeige Infos zu einem Repo
 grep ^ /etc/apt/sources.list /etc/apt/sources.list.d/*	# Auflistung aller installierter Repos in Ubuntu
-dnf config-manager --enable rhel-9-server-debug-rpms	# Aktivieren/Deaktivieren von Repos
+dnf config-manager --enable rhel-9-server-debug-rpms	# Aktivieren/Deaktivieren von Repos (yum-config-manager --enable epel)
 dnf config-manager \					# Hinzufügen eines neuen Repos (.repo wird in /etc/yum.repos.d/ erzeugt)
 --add-repo="https://dl.fedoraproject.org/pub/epel/9/Everything/x86_64/"
+
+# zusätzliche RPM Befehle
+rpm -q PACKAGENAME
 
 # weiter auf S. 293 /home/sascha/Dropbox/Dropbox_Sync/IT-Fortbildung/Linux_Admin
 
