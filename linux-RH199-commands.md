@@ -316,13 +316,14 @@ for i in {1..3}; do sha1sum /dev/zero & done 	# 3 Jobs/Prozesse, die Last generi
 • crontab
 
 # wichtige Dateien/Ordner
-/etc/cron.d -> da cronjob files rein
-/etc/crontab -> Beispiel
-/etc/cron.hourly, /etc/cron.daily… -> ausführbare Scripte werden automatisch ausgeführt, keine crontabs
-/etc/anacrontab,
-/var/spool/anacron	 # Zeitstempel
-/etc/systemd/system, (/usr/lib/systemd/system)
-/usr/lib/systemd/system/systemd-tmpfiles-clean.timer
+/etc/cron.d 			# Ablage cronjob files
+/etc/crontab	 		# Beispiel Cronjob
+/etc/cron.hourly, ....daily… 	# Ablage ausführbare Scripte , keine crontabs
+/etc/anacrontab			# config file für Anacron
+/var/spool/anacron	 	# Zeitstempel für Anacron
+/etc/systemd/system		# keiner Änderungen, kopieren 
+/usr/lib/systemd/system		# ...Ablage und Änderungen hier
+/usr/lib/systemd/system/systemd-tmpfiles-clean.timer	# config file tmpfiles-clean
 
 # man/help:
 • man 5 crontab, man crontab, man chrond
