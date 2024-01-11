@@ -656,11 +656,10 @@ sh-5.1# touch /.autorelabel
 9. Beenden
 exit exit
 
-### Überprüfen von Logs
-# um persistent boot-logs zu speichern (default ist /run/log/journal) in /var/log/journal muss
-# Storage=persistent in /etc/systemd/journald.conf gesetzt werden
-# boot logs des vorherigen Boots können (-1) mit folgendem Befehl inspiziert werden:
-journalctl -b -1 -p err
+# Überprüfen von Logs
+# boot-log-Ablage default ist /run/log/journal
+# für persistente Ablage in /var/log/journal muss Storage=persistent in /etc/systemd/journald.conf gesetzt werden
+journalctl -b -1 -p err		# Fehlerlogs des vorherigen Bootvorgangs
 
 ### Boot Probleme beheben - Early Debug Shell
 # beim Bootvorgang STRG + Alt + F9 drücken
