@@ -527,14 +527,14 @@ lsblk -fp
 blkid
 
 #PDs vorbereiten: Erstellen eines GPT Labels, 2 Partitionen (xfs), Setzen von lvm flags, Registrieren der Partitionen beim Kernel
-[root@host ~]# parted /dev/sdb mklabel gpt mkpart primary 2048s 1GB
-[root@host ~]# parted /dev/sdb mkpart primary 1GB 2GB
-[root@host ~]# parted /dev/sdb set 1 lvm on
-[root@host ~]# parted /dev/sdb set 2 lvm on
-[root@host ~]# udevadm settle
+parted /dev/sdb mklabel gpt mkpart primary 2048s 1GB
+parted /dev/sdb mkpart primary 1GB 2GB
+parted /dev/sdb set 1 lvm on
+parted /dev/sdb set 2 lvm on
+udevadm settle
 
 # PV erstellen: PD als PV labeln
-[root@host ~]# pvcreate /dev/sdb1 /dev/sdb2
+pvcreate /dev/sdb1 /dev/sdb2
 
 # VG erstellen
 # erstes Argument ist der vg Name, gefolgt von einem oder mehreren PV
