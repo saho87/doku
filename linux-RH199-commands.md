@@ -538,131 +538,131 @@ pvcreate /dev/sdb1 /dev/sdb2
 
 # VG erstellen
 # erstes Argument ist der vg Name, gefolgt von einem oder mehreren PV
-[root@host ~]# vgcreate vg01 /dev/sdb1 /dev/sdb2
+vgcreate vg01 /dev/sdb1 /dev/sdb2
 
 # LV erstellen (selbe Größe einmal in MB, einmal in Physical Extends PE)
-[root@host ~]# lvcreate -n lv01 -L 300M vg01
-[root@host ~]# lvcreate -n lv01 -l 32  vg01
+lvcreate -n lv01 -L 300M vg01
+lvcreate -n lv01 -l 32  vg01
 
 # (LVM VDO erstellen)
-[root@host ~]# lvcreate --type vdo --name vdo-lv01 --size 5G vg01
+lvcreate --type vdo --name vdo-lv01 --size 5G vg01
 
 # Filesystem auf LV erstellen 
-[root@host ~]# mkfs -t xfs /dev/vg01/lv01
+mkfs -t xfs /dev/vg01/lv01
 
 # in fstab einbinden
 /dev/vg01/lv01 /mnt/data xfs defaults 0 0
 mount -a
 
 # LVM Status (alle Geräte anzeigen ohne Argument)
-[root@host ~]# pvdisplay /dev/sdb1
-[root@host ~]# vgdisplay vg01 
-[root@host ~]# lvdisplay /dev/vg01/lv01
+pvdisplay /dev/sdb1
+vgdisplay vg01 
+lvdisplay /dev/vg01/lv01
 
 # eine VG vergrößern (zuerst neue Partition anlegen)
-[root@host ~]# parted /dev/sdb set 3 lvm on
-[root@host ~]# udevadm settle
-[root@host ~]# pvcreate /dev/vdb3
-[root@host ~]# vgextend vg01 /dev/vdb3
+parted /dev/sdb set 3 lvm on
+udevadm settle
+pvcreate /dev/vdb3
+vgextend vg01 /dev/vdb3
 
 # ein LV vergrößern (um 500 MB bzw. auf 700 MB)
-[root@host ~]# lvextend -L +500M /dev/vg01/lv01
-[root@host ~]# lvextend -L 700M /dev/vg01/lv01
+lvextend -L +500M /dev/vg01/lv01
+lvextend -L 700M /dev/vg01/lv01
 
 # XFS FS auf die Größe des LV erweitern
-[root@host ~]# xfs_growfs /mnt/data/
+xfs_growfs /mnt/data/
 
 # EXT4 FS auf die Größe des LV erweitern
-[root@host ~]# resize2fs /dev/vg01/lv01
+resize2fs /dev/vg01/lv01
 
 # Swap erweitern (lv muss existieren)
-[root@host ~]# swapoff -v /dev/vg01/swap
-[root@host ~]#lvextend -L +300M /dev/vg01/swap
-[root@host ~]# mkswap /dev/vg01/swap
-[root@host ~]# swapon /dev/vg01/swap
+swapoff -v /dev/vg01/swap
+lvextend -L +300M /dev/vg01/swap
+mkswap /dev/vg01/swap
+swapon /dev/vg01/swap
 
 # VG Speicher reduzieren
-[root@host ~]# pvmove /dev/sdb1 #Daten von sdb1 werden auf andere PDs verteilt
-[root@host ~]# vgreduce vg01 /dev/sdb1
+pvmove /dev/sdb1 #Daten von sdb1 werden auf andere PDs verteilt
+vgreduce vg01 /dev/sdb1
 
 # LVM Storage entfernen
-[root@host ~]# umount /mnt/data
-[root@host ~]# lvremove /dev/vg01/lv01
-[root@host ~]# vgremove vg01
-[root@host ~]# pvremove /dev/vdb1 /dev/vdb2
+umount /mnt/data
+lvremove /dev/vg01/lv01
+vgremove vg01
+pvremove /dev/vdb1 /dev/vdb2
 
 # Stratis - stratis create pool /dev/sdb hat nicht funktioniert!
 
 # Kapitel 11: Kontrolldienste und Bootvorgang 
 
 # alle unit types von systemctl anzeigen
-[root@host ~]# systemctl -t help
+systemctl -t help
 
 # Module anzeigen, die geladen und active sind
-[root@host ~]# systemctl
+systemctl
 
 # alle systemctl service units anzeigen (nur active) - die im Memory geladen sind
-[root@host ~]# systemctl list-units --type=service
+systemctl list-units --type=service
 
 # alle systemctl service units anzeigen (auch state inactive bzw. nur inactive)
-[root@host ~]# systemctl list-units --type=service --all
-[root@host ~]# systemctl list-units --type=service --state=inactive
+systemctl list-units --type=service --all
+systemctl list-units --type=service --state=inactive
 
 # alle systemd units anzeigen (auch die installierten und nicht in Memory geladenen)
-[root@host ~]# systemctl list-unit-files
+systemctl list-unit-files
 
 # status einer Unit im Detail anschauen
-[root@host ~]# systemctl status sshd.service
+systemctl status sshd.service
 
 # verschiedene Status verifizieren
-[root@host ~]# systemctl is-active sshd.service
-[root@host ~]# systemctl is-enabled sshd.service
-[root@host ~]# systemctl is-failed sshd.service
-[root@host ~]# systemctl --failed --type=service
+systemctl is-active sshd.service
+systemctl is-enabled sshd.service
+systemctl is-failed sshd.service
+systemctl --failed --type=service
 
 # starten, stoppen und restarten von Services (ssh oder auch sshd.service möglich)
-[root@host ~]# systemctl start sshd
-[root@host ~]# systemctl stop sshd.service
-[root@host ~]# systemctl restart sshd.service
+systemctl start sshd
+systemctl stop sshd.service
+systemctl restart sshd.service
 
 # reload eines Services (gleiche PID, kein Unterbrechen, aber nicht bei allen Services möglich)
-[root@host ~]# systemctl reload sshd.service
-[root@host ~]# systemctl reload-or-restart sshd.service
+systemctl reload sshd.service
+systemctl reload-or-restart sshd.service
 
 # Abhängigkeiten- welche Services werden benötigt, um Service zu starten
-[root@host ~]# systemctl list-dependencies sshd.service
+systemctl list-dependencies sshd.service
 
 # Abhängigkeiten- welche Services sind von Service abhängig
-[root@host ~]# systemctl list-dependencies sshd.service --revers
+systemctl list-dependencies sshd.service --revers
 
 # Maskieren von Services
 # Maskieren ist härteres Disable- nach disable, wird dienst nicht beim Booten neugestarten, kann aber manuell gestartet werden
 # beim mask kann ich ihn auch nicht manuell starten
-[root@host ~]# systemctl mask sendmail.service
-[root@host ~]# systemctl unmask sendmail
+systemctl mask sendmail.service
+systemctl unmask sendmail
 
 # 1. Services beim Booten starten bzw. 2. zusätzlich sofort starten oder 3. nur starten
-[root@root ~]# systemctl enable sshd.service
-[root@root ~]# systemctl enable --now sshd.service
-[root@root ~]# systemctl start sshd.service
+systemctl enable sshd.service
+systemctl enable --now sshd.service
+systemctl start sshd.service
 
 # 1. Services beim Booten nicht starten bzw. 2. zusätzlich sofort stoppen oder 3. nur stoppen
-[root@root ~]# systemctl disable sshd.service
-[root@root ~]# systemctl disable --now sshd.service
-[root@root ~]# systemctl stop sshd.service
+systemctl disable sshd.service
+systemctl disable --now sshd.service
+systemctl stop sshd.service
 
 # Rechner neu starten, ausschalten
-[root@host ~]# systemctl reboot, poweroff
+systemctl reboot, poweroff
 
 # ein Ziel zur Laufzeit auswählen/isolieren
-[root@host ~]# systemctl isolate multi-user.target
+systemctl isolate multi-user.target
 
 # default Standardziel anzeigen und ändernn
-[root@host ~]# systemctl get-default
-[root@host ~]# systemctl set-default graphical.target
+systemctl get-default
+systemctl set-default graphical.target
 
 # zeigt config-files der Unit an (u.a. ob man es isolieren kann)
-[user@host ~]$ systemctl cat graphical.target
+systemctl cat graphical.target
 
 ### ein anderen Ziel während des Bootvorgangs: 
 # bootloader mit beliebiger Taste (außer Enter) unterbrechen
@@ -690,7 +690,7 @@ exit exit
 # um persistent boot-logs zu speichern (default ist /run/log/journal) in /var/log/journal muss
 # Storage=persistent in /etc/systemd/journald.conf gesetzt werden
 # boot logs des vorherigen Boots können (-1) mit folgendem Befehl inspiziert werden:
-[root@host ~]# journalctl -b -1 -p err
+journalctl -b -1 -p err
 
 ### Boot Probleme beheben - Early Debug Shell
 # beim Bootvorgang STRG + Alt + F9 drücken
@@ -707,15 +707,15 @@ systemctl list-jobs
 
 ### Fehlerhaft fstab korrigieren
 # normaler Weise startet System im Emergency Modus, ich schaue mir an, welche FS gemountet sind und ob /root mit rw gemountet
-[root@host ~]# mount
+mount
 # wenn root FS nicht mit rw gemountet ist, kann ich fstab nicht anpassen
-[root@host ~]# mount -o remount,rw /
+mount -o remount,rw /
 # ich versuche, alle FS in fstab zu mounten -> so kann ich Fehler identifizieren
-[root@host ~]# mount --all
+mount --all
 mount: /mnt/mountfolder: mount point does not exist.
 # anschließend korrigiere ich den Fehler und registriere neue fstab
-[root@host ~]# systemctl daemon-reload
-[root@host ~]# mount --all
+systemctl daemon-reload
+mount --all
 ```
 ############################## Kapitel 12: Kontrolldienste und Bootvorgang #####################################
 ```bash
@@ -725,30 +725,30 @@ mount: /mnt/mountfolder: mount point does not exist.
 # man journalctl
 
 # eine Nachricht an rsyslog schicken
-[root@host ~]# logger -p local7.notice "Log entry created on host"
+logger -p local7.notice "Log entry created on host"
 
 ### spezifische Log-Nachrichten an neue Logfile senden
 # neue config-Datei erstellen:
-[root@servera ~]# echo "*.debug /var/log/messages-debug" > /etc/syslog.d/debug.conf
+echo "*.debug /var/log/messages-debug" > /etc/syslog.d/debug.conf
 # rsyslog neu starten
-[root@servera ~]# systemctl restart rsyslog
+systemctl restart rsyslog
 
 # letzten 5 Nachrichten (nur mit err Priorität) im journalctl betrachten
-[root@host ~]# journalctl -n 5 -p err
+journalctl -n 5 -p err
 
 # journalctl log fortführend
-[root@host ~]# journalctl -f
+journalctl -f
 
 # nur Nachrichten einer speziellen Unit auflisten
-[root@host ~]# journalctl -u sshd.service
+journalctl -u sshd.service
 
 # zeitliche Begrenzung der journalctl Messages (format "YYYY-MM-DD hh:mm:ss")
-[root@host ~]# journalctl --since today
-[root@host ~]# journalctl --since "2022-03-11 20:30" --until "2022-03-14 10:00"
-[root@host ~]# journalctl --since "-1 hour"
+journalctl --since today
+journalctl --since "2022-03-11 20:30" --until "2022-03-14 10:00"
+journalctl --since "-1 hour"
 
 # zusätzliche Details einblenden
-[root@host ~]# journalctl -o verbose
+journalctl -o verbose
 
 # gebräuchliche Felder zum Suchen in journalctl (nicht in man oder help gefunden):
 #• _COMM is the command name.
@@ -756,7 +756,7 @@ mount: /mnt/mountfolder: mount point does not exist.
 #• _PID is the PID of the process.
 #• _UID is the UID of the user that runs the process.
 #• _SYSTEMD_UNIT is the systemd unit that started the process.
-[root@host ~]# journalctl _SYSTEMD_UNIT=sshd.service _PID=2110
+journalctl _SYSTEMD_UNIT=sshd.service _PID=2110
 
 # System Journal wird beim Reboot gelöscht /run/log -> zum Persistieren /etc/systemd/journald.conf anpassen
 # storage=persistent (logs werden in /var/log/journal gespeichert)
@@ -765,56 +765,56 @@ mount: /mnt/mountfolder: mount point does not exist.
 # storage=none (es werden keine Logs gespeichert)
 
 # nach Änderung journald neustarten
-[root@host ~]# systemctl restart systemd-journald
+systemctl restart systemd-journald
 
 # -nur nach Persistierung- Anzeige aller Logs des 2. Systemboots
-[root@host ~]# journalctl -b 2
-[root@host ~]# journalctl --list-boots
+journalctl -b 2
+journalctl --list-boots
 
 # Überblick über aktuelle Zeiteinstellungen (aktuelle Zeit, Zeitzone, NTP Einstellungen)
-[user@host ~]$ timedatectl
+timedatectl
 
 # verfügbare Zeitzonen anzeigen
-[user@host ~]$ timedatectl list-timezones
+timedatectl list-timezones
 
 # Dialog zur Identifikation der korrekten Zeitzone starten (wird nicht in config übernommen)
-[user@host ~]$ tzselect
+tzselect
 
 # Ändern der aktuellen Zeitzone bzw auf UTC
-[root@host ~]# timedatectl set-timezone America/Phoenix
-[root@host ~]# timedatectl set-timezone UTC
+timedatectl set-timezone America/Phoenix
+timedatectl set-timezone UTC
 
 # NTP deaktivieren
-[root@host ~]# timedatectl set-ntp false
+timedatectl set-ntp false
 
 # Konfiguration von chronyd in /etc/chrony.conf
 # default ist ein Pool an ntp Servern, habe ich einen eigenen NTP Server im Netzwerk, muss ich "server..." angeben
 
 # NTP Quellen anzeigen:
-[root@host ~]# chronyc sources -v
+chronyc sources -v
 ```
 ############################## Kapitel 13: Networking ##########################################################
 ```bash
 
 # Auflisten aller Netzwerkschnittstellen
-[user@host ~]$ ip link show
+ip link show
 
 # IP-Adressen eines Gerätes anzeigen
-[user@host ~]$ ip addr show ens3
+ip addr show ens3
 
 # Performance des Netzwerks anzeigen
-[user@host ~]$ ip -s link show ens3
+ip -s link show ens3
 
 # Verbindung zu anderen Hosts testen (ipv6 und ipv4)
-[user@host ~]$ ping6 2001:db8:0:1::1
-[user@host ~]$ ping -c3 192.0.2.254
+ping6 2001:db8:0:1::1
+ping -c3 192.0.2.254
 
 # ping an multicast Gruppen (ens4 oder je nach Name des Gerätes)
-[user@host ~]$ ping6 ff02::1%ens4
+ping6 ff02::1%ens4
 
 # Routing anzeigen
-[user@host ~]$ ip route
-[user@host ~]$ ip -6 route
+ip route
+ip -6 route
 
 # noch zu Bearbeiten:
 # was ist eine link-local address?
@@ -823,30 +823,30 @@ mount: /mnt/mountfolder: mount point does not exist.
 
 # Nachverfolgen von Routen
 
-[user@host ~]$ tracepath access.redhat.com
-[root@localhost ~]# traceroute -I google.com
-[user@host ~]$ tracepath6 2001:db8:0:2::451
+tracepath access.redhat.com
+traceroute -I google.com
+tracepath6 2001:db8:0:2::451
 
 # Aufruf von Socket-Statistiken:
-[user@host ~]$ ss -tulpna
-[user@host ~]$ netstat -tulpna
+ss -tulpna
+netstat -tulpna
 
 # Check, welcher Prozess einen Port verwendet
-[user@host ~]$ sudo lsof -i :8080
+sudo lsof -i :8080
 
 # Portweiterleitung des lokalen Ports 8080 auf den entfernten Server 128.140.77.235  
 # dort wird die Anfrage an die IP 172.19.0.2 auf Port 80 weitergeleitet.
 # Voraussetzung: der eigene public key muss auf dem remote rechner unter /home/cnbc/.ssh/autorized_keys abgelegt sein
-[user@host ~]$ ssh -fN -L 8080:172.19.0.2:80 cnbc@128.140.77.235
+ssh -fN -L 8080:172.19.0.2:80 cnbc@128.140.77.235
 
 
 # Netzwerk Config Files sind in /etc/NetworkManager/system-connections/
 
 # Status aller NW-Geräte anzeigen
-[user@host ~]$ nmcli dev status
+nmcli dev status
 
 # Liste aller NW-Verbindungen anzeigen (Abkürzungen wie con möglich) -- hier nur aktive 
-[user@host ~]$ nmcli con show --active 
+nmcli con show --active 
 
 
 ```
