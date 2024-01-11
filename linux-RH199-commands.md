@@ -588,22 +588,12 @@ systemctl -t help
 
 # Module anzeigen, die geladen und active sind
 systemctl
-
-# alle systemctl service units anzeigen (nur active) - die im Memory geladen sind
-systemctl list-units --type=service
-
-# alle systemctl service units anzeigen (auch state inactive bzw. nur inactive)
-systemctl list-units --type=service --all
-systemctl list-units --type=service --state=inactive
-
-# alle systemd units anzeigen (auch die installierten und nicht in Memory geladenen)
-systemctl list-unit-files
-
-# status einer Unit im Detail anschauen
-systemctl status sshd.service
-
-# verschiedene Status verifizieren
-systemctl is-active sshd.service
+systemctl list-units --type=service	# alle systemctl service units anzeigen (nur active)
+systemctl list-units --type=service --all # auch state inactive 
+systemctl list-units --type=service --state=inactive # nur state inactive
+systemctl list-unit-files # alle installiertem und nicht geladene Units
+systemctl status sshd.service	# status einer Unit im Detail anschauen
+systemctl is-active sshd.service # true|false
 systemctl is-enabled sshd.service
 systemctl is-failed sshd.service
 systemctl --failed --type=service
@@ -612,53 +602,42 @@ systemctl --failed --type=service
 systemctl start sshd
 systemctl stop sshd.service
 systemctl restart sshd.service
-
-# reload eines Services (gleiche PID, kein Unterbrechen, aber nicht bei allen Services möglich)
-systemctl reload sshd.service
+systemctl reload sshd.service 			# reload: keine Unterbrechung, PID bleibt, nicht bei jedem Service
 systemctl reload-or-restart sshd.service
 
-# Abhängigkeiten- welche Services werden benötigt, um Service zu starten
-systemctl list-dependencies sshd.service
+# Abhängigkeiten von Services
+systemctl list-dependencies sshd.service		# welche Services werden benötigt, um Service zu starten
+systemctl list-dependencies sshd.service --revers	# welche anderen SRV sind vom SRB abhängig
 
-# Abhängigkeiten- welche Services sind von Service abhängig
-systemctl list-dependencies sshd.service --revers
-
-# Maskieren von Services
-# Maskieren ist härteres Disable- nach disable, wird dienst nicht beim Booten neugestarten, kann aber manuell gestartet werden
-# beim mask kann ich ihn auch nicht manuell starten
+# Maskieren von Services: kein Boot und kein manuelles starten möglich (härteres Disable)
 systemctl mask sendmail.service
 systemctl unmask sendmail
 
-# 1. Services beim Booten starten bzw. 2. zusätzlich sofort starten oder 3. nur starten
-systemctl enable sshd.service
-systemctl enable --now sshd.service
+# Starten, Stoppen, Booten von Services
+systemctl enable sshd.service		# beim Booten starten
+systemctl enable --now sshd.service	# zusätzlich gleich starten
 systemctl start sshd.service
-
-# 1. Services beim Booten nicht starten bzw. 2. zusätzlich sofort stoppen oder 3. nur stoppen
-systemctl disable sshd.service
-systemctl disable --now sshd.service
+systemctl disable sshd.service		# beim Booten nicht starten
+systemctl disable --now sshd.service	# zusätzlich gleich beenden
 systemctl stop sshd.service
 
 # Rechner neu starten, ausschalten
-systemctl reboot, poweroff
+systemctl reboot 	# Alternative: init 6
+systemctl poweroff	# Alternative: init 0
 
-# ein Ziel zur Laufzeit auswählen/isolieren
-systemctl isolate multi-user.target
+# Ziele/Targets
+systemctl isolate multi-user.target		# Target zur Laufzeit auswählen
+systemctl get-default				# default Profil anzeigen
+systemctl set-default graphical.target		# default Profil setzen
+systemctl cat graphical.target			# zeigt config-files der Unit an (u.a. ob man es isolieren kann)
 
-# default Standardziel anzeigen und ändernn
-systemctl get-default
-systemctl set-default graphical.target
+# ein anderen Ziel während des Bootvorgangs: 
+1. bootloader mit beliebiger Taste (außer Enter) unterbrechen
+2. Standard Kernel auswählen und e drücken
+3. in Zeile Linux am Ende folgendes anfügen: systemd.unit=rescue.target
+4. STRG + X Drücken
 
-# zeigt config-files der Unit an (u.a. ob man es isolieren kann)
-systemctl cat graphical.target
-
-### ein anderen Ziel während des Bootvorgangs: 
-# bootloader mit beliebiger Taste (außer Enter) unterbrechen
-# Kernel auswählen und e drücken
-# in Zeile Linux am Ende folgendes anfügen: systemd.unit=rescue.target
-# STRG + X Drücken
-
-### Root Passwort zurücksetzen
+# Root Passwort zurücksetzen
 # beim Bootvorgang (Kernel-Auswahl) beliebige Taste drücken 
 # Rescue-Kernel auswählen und e drücken
 # rd.break in linux Zeile anhängen
