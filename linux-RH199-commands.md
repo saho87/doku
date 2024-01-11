@@ -516,7 +516,7 @@ mount MOUNTPOINT 							# Überprüfung ob fstab Eintrag korrekt
 
 # Kapitel 10: Storage Stack  
 ```bash
-# weiter auf S. 348 /home/sascha/Dropbox/Dropbox_Sync/IT-Fortbildung/Linux_Admin
+
 # Klassisch: 	Harddrive (sdb) -> Partition/PD (sdb1) 	-> File System -> mounten
 # PVM: 		Harddrive (sdb) -> Partition/PD (sdb1)-> PD -> PV -> VGs -> LV -> File System -> mounten
 
@@ -637,20 +637,23 @@ systemctl cat graphical.target			# zeigt config-files der Unit an (u.a. ob man e
 3. in Zeile Linux am Ende folgendes anfügen: systemd.unit=rescue.target
 4. STRG + X Drücken
 
+# weiter auf S. 416 /home/sascha/Dropbox/Dropbox_Sync/IT-Fortbildung/Linux_Admin
+
 # Root Passwort zurücksetzen
-# beim Bootvorgang (Kernel-Auswahl) beliebige Taste drücken 
-# Rescue-Kernel auswählen und e drücken
-# rd.break in linux Zeile anhängen
-# STRG + X Drücken, dann Enter
-# Stellen Sie /sysroot erneut mit Lese-/Schreibberechtigungen bereit
+1. beim Bootvorgang (Kernel-Auswahl) beliebige Taste drücken 
+2. Rescue-Kernel auswählen und e drücken
+3. rd.break in linux Zeile anhängen
+4. STRG + X Drücken, dann Enter
+5. Stellen Sie /sysroot erneut mit Lese-/Schreibberechtigungen bereit
 sh-5.1# mount -o remount,rw /sysroot
-# Wechseln Sie in ein chroot-Jail, in dem /sysroot als Root der Dateisystemstruktur behandelt wird.
+6. Wechseln Sie in ein chroot-Jail, in dem /sysroot als Root der Dateisystemstruktur behandelt wird.
 sh-5.1# chroot /sysroot
-# neues PW vergeben
+7. neues PW vergeben
 sh-5.1# passwd root
-#Stellen Sie sicher, dass alle nicht gekennzeichneten Dateien, einschließlich /etc/shadow an
-#diesem Punkt, während des Boot-Vorgangs wieder gekennzeichnet werden.
+8.Stellen Sie sicher, dass alle nicht gekennzeichneten Dateien, einschließlich /etc/shadow an
+diesem Punkt, während des Boot-Vorgangs wieder gekennzeichnet werden.
 sh-5.1# touch /.autorelabel
+9. Beenden
 exit exit
 
 ### Überprüfen von Logs
