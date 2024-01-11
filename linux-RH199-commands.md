@@ -533,30 +533,17 @@ parted /dev/sdb set 1 lvm on
 parted /dev/sdb set 2 lvm on
 udevadm settle
 
-# PV erstellen: PD als PV labeln
-pvcreate /dev/sdb1 /dev/sdb2
-
-# VG erstellen
-# erstes Argument ist der vg Name, gefolgt von einem oder mehreren PV
-vgcreate vg01 /dev/sdb1 /dev/sdb2
-
-# LV erstellen (selbe Größe einmal in MB, einmal in Physical Extends PE)
-lvcreate -n lv01 -L 300M vg01
-lvcreate -n lv01 -l 32  vg01
-
-# (LVM VDO erstellen)
-lvcreate --type vdo --name vdo-lv01 --size 5G vg01
-
-# Filesystem auf LV erstellen 
-mkfs -t xfs /dev/vg01/lv01
-
-# in fstab einbinden
-/dev/vg01/lv01 /mnt/data xfs defaults 0 0
+# LV erstellen
+pvcreate /dev/sdb1 /dev/sdb2				# PV erstellen: PD als PV labeln
+vgcreate vg01 /dev/sdb1 /dev/sdb2			# VG erstellen vg Name, PV1, PV2...
+lvcreate -n lv01 -L 300M vg01				# LV erstellen (in MB)
+lvcreate -n lv01 -l 32  vg01				# LV erstellen (in Physical Extends)
+lvcreate --type vdo --name vdo-lv01 --size 5G vg01	# (LVM VDO erstellen)
+mkfs -t xfs /dev/vg01/lv01				# Filesystem auf LV erstellen 
+/dev/vg01/lv01 /mnt/data xfs defaults 0 0		# in fstab einbinden
 mount -a
-
-# LVM Status (alle Geräte anzeigen ohne Argument)
-pvdisplay /dev/sdb1
-vgdisplay vg01 
+pvdisplay /dev/sdb1					# Anzeigen der erstellten Volumes
+vgdisplay vg01 						
 lvdisplay /dev/vg01/lv01
 
 # eine VG vergrößern (zuerst neue Partition anlegen)
@@ -592,8 +579,9 @@ vgremove vg01
 pvremove /dev/vdb1 /dev/vdb2
 
 # Stratis - stratis create pool /dev/sdb hat nicht funktioniert!
-
+```
 # Kapitel 11: Kontrolldienste und Bootvorgang 
+```bash
 
 # alle unit types von systemctl anzeigen
 systemctl -t help
@@ -717,7 +705,7 @@ mount: /mnt/mountfolder: mount point does not exist.
 systemctl daemon-reload
 mount --all
 ```
-############################## Kapitel 12: Kontrolldienste und Bootvorgang #####################################
+# Kapitel 12: Kontrolldienste und Bootvorgang 
 ```bash
 
 # Regeln für rsyslog unter /etc/rsyslog.conf bzw. /etc/rsyslog.d (*.conf) --> wie werden logs behandelt?
