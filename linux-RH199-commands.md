@@ -692,6 +692,7 @@ logger, journalctl, timedatectl
 # wichtige Dateien/Ordner
 /etc/rsyslog.conf	# config von Logging Regeln
 /etc/chrony.conf	# config Zeitsync, NTP
+/var/log		# persistente Speicherung von logs
 
 # man/help
 • man rsyslog.conf, journalctl, systemd.journal-fields, systemd.time
@@ -752,26 +753,22 @@ chronyc sources -v				# NTP Quellen anzeigen:
 ```
 ############################## Kapitel 13: Networking ##########################################################
 ```bash
+# Befehle:
+ip, ping
+
+# wichtige Dateien/Ordner
+
+# man/help
 
 # weiter auf S. 482 /home/sascha/Dropbox/Dropbox_Sync/IT-Fortbildung/Linux_Admin
-# Auflisten aller Netzwerkschnittstellen
-ip link show
 
-# IP-Adressen eines Gerätes anzeigen
-ip addr show ens3
-
-# Performance des Netzwerks anzeigen
-ip -s link show ens3
-
-# Verbindung zu anderen Hosts testen (ipv6 und ipv4)
-ping6 2001:db8:0:1::1
-ping -c3 192.0.2.254
-
-# ping an multicast Gruppen (ens4 oder je nach Name des Gerätes)
-ping6 ff02::1%ens4
-
-# Routing anzeigen
-ip route
+ip link show		# Auflisten aller Netzwerkschnittstellen
+ip addr show ens3	# IP-Adressen eines Gerätes anzeigen
+ip -s link show ens3	# Performance des Netzwerks anzeigen
+ping6 2001:db8:0:1::1	# Verbindung zu anderen Hosts testen (ipv6)
+ping -c3 192.0.2.254	# Verbindung zu anderen Hosts testen (ipv4)
+ping6 ff02::1%ens4	# ping an multicast Gruppen (ens4 oder je nach Name des Gerätes)
+ip route		# Routing anzeigen
 ip -6 route
 
 # noch zu Bearbeiten:
