@@ -766,7 +766,7 @@ ip link show		# Auflisten aller Netzwerkschnittstellen
 ip addr show ens3	# IP-Adressen eines Gerätes anzeigen
 ip -s link show ens3	# Performance des Netzwerks anzeigen
 ping6 2001:db8:0:1::1	# Verbindung zu anderen Hosts testen (ipv6)
-ping -c3 192.0.2.254	# Verbindung zu anderen Hosts testen (ipv4)
+ping -c3 192.0.2.254	# Verbindung zu anderen Hosts testen (ipv4) - nur 3 Pakete
 ping6 ff02::1%ens4	# ping an multicast Gruppen (ens4 oder je nach Name des Gerätes)
 ip route		# Routing anzeigen
 ip -6 route
