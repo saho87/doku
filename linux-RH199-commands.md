@@ -637,8 +637,6 @@ systemctl cat graphical.target			# zeigt config-files der Unit an (u.a. ob man e
 3. in Zeile Linux am Ende folgendes anfügen: systemd.unit=rescue.target
 4. STRG + X Drücken
 
-# weiter auf S. 416 /home/sascha/Dropbox/Dropbox_Sync/IT-Fortbildung/Linux_Admin
-
 # Root Passwort zurücksetzen
 1. beim Bootvorgang (Kernel-Auswahl) beliebige Taste drücken 
 2. Rescue-Kernel auswählen und e drücken
@@ -663,7 +661,7 @@ journalctl -b -1 -p err		# Fehlerlogs des vorherigen Bootvorgangs
 
 ### Boot Probleme beheben - Early Debug Shell
 # beim Bootvorgang STRG + Alt + F9 drücken
-# Boot vorgang bei Kernelauswahl unterbrechen und systemd.debug-shell anhängen
+# Boot vorgang bei Kernelauswahl unterbrechen und an Zeile mit Linux systemd.debug-shell anhängen
 
 ### Emergency und Rescue Targets
 # emergency: root FS bleibt read-only
@@ -686,50 +684,49 @@ mount: /mnt/mountfolder: mount point does not exist.
 systemctl daemon-reload
 mount --all
 ```
-# Kapitel 12: Kontrolldienste und Bootvorgang 
+# Kapitel 12: Analysieren und Speichern von Protokollen
 ```bash
+# Befehle:
+logger, journalctl, timedatectl
 
+# wichtige Dateien/Ordner
+/etc/rsyslog.conf	# config von Logging Regeln
+/etc/chrony.conf	# config Zeitsync, NTP
+
+# man/help
+• man rsyslog.conf, journalctl, systemd.journal-fields, systemd.time
+
+# Syslog:
 # Regeln für rsyslog unter /etc/rsyslog.conf bzw. /etc/rsyslog.d (*.conf) --> wie werden logs behandelt?
-# man rsyslog.conf
-# man journalctl
+# Pri aufsteigend: debug, info, notice, warning, err, crit, alert, emerg
 
-# eine Nachricht an rsyslog schicken
-logger -p local7.notice "Log entry created on host"
+logger -p local7.notice "Log entry created on host"	# eine Nachricht an rsyslog schicken -> boot.log
 
-### spezifische Log-Nachrichten an neue Logfile senden
-# neue config-Datei erstellen:
-echo "*.debug /var/log/messages-debug" > /etc/syslog.d/debug.conf
-# rsyslog neu starten
-systemctl restart rsyslog
+# spezifische Log-Nachrichten an neue Logfile senden
+echo "*.debug /var/log/messages-debug" > /etc/syslog.d/debug.conf	# neue config-Datei erstellen:
+systemctl restart rsyslog						# rsyslog neu starten
+logger -p user.debug "Debug Message Test"				# Testnachricht schicken
+logger -p user.info "Info Message Test"				# Loggt alles ab level debug und höher
 
-# letzten 5 Nachrichten (nur mit err Priorität) im journalctl betrachten
-journalctl -n 5 -p err
-
-# journalctl log fortführend
-journalctl -f
-
-# nur Nachrichten einer speziellen Unit auflisten
-journalctl -u sshd.service
-
-# zeitliche Begrenzung der journalctl Messages (format "YYYY-MM-DD hh:mm:ss")
-journalctl --since today
+# Systemjournal
+journalctl -n 5 -p err		# letzten 5 Nachrichten (nur err Prio) im journalctl betrachten
+journalctl -f			# journalctl log fortführend
+journalctl -u sshd.service 	# nur Nachrichten einer speziellen Unit auflisten
+journalctl --since today	# verschiedene Zeitbereiche
 journalctl --since "2022-03-11 20:30" --until "2022-03-14 10:00"
 journalctl --since "-1 hour"
+journalctl -o verbose		# zusätzliche Details einblenden
 
-# zusätzliche Details einblenden
-journalctl -o verbose
-
-# gebräuchliche Felder zum Suchen in journalctl (nicht in man oder help gefunden):
-#• _COMM is the command name.
-#• _EXE is the path to the executable file for the process.
-#• _PID is the PID of the process.
-#• _UID is the UID of the user that runs the process.
-#• _SYSTEMD_UNIT is the systemd unit that started the process.
-journalctl _SYSTEMD_UNIT=sshd.service _PID=2110
+# gebräuchliche Felder zum Suchen in journalctl (man systemd.journal-fields):
+journalctl _COMM=dbus-daemon			# command name
+journalctl _PID=1				# Prozess PID
+journalctl _UID=81				# UID of the user that runs the process.
+journalctl _SYSTEMD_UNIT=sshd.service _PID=2110	# systemd unit that started the process
+# _EXE is the path to the executable file for the process.
 
 # System Journal wird beim Reboot gelöscht /run/log -> zum Persistieren /etc/systemd/journald.conf anpassen
 # storage=persistent (logs werden in /var/log/journal gespeichert)
-# storage=volatile (Logs werden nicht persistent in /run/log/journal gespeichert
+# storage=volatile (Logs werden (nicht persistent) in /run/log/journal gespeichert
 # storage=auto (wenn /var/log/journal existiert, wird darin gespeichert, sonst /run/log/journal)
 # storage=none (es werden keine Logs gespeichert)
 
@@ -740,31 +737,23 @@ systemctl restart systemd-journald
 journalctl -b 2
 journalctl --list-boots
 
-# Überblick über aktuelle Zeiteinstellungen (aktuelle Zeit, Zeitzone, NTP Einstellungen)
-timedatectl
-
-# verfügbare Zeitzonen anzeigen
-timedatectl list-timezones
-
-# Dialog zur Identifikation der korrekten Zeitzone starten (wird nicht in config übernommen)
-tzselect
-
-# Ändern der aktuellen Zeitzone bzw auf UTC
-timedatectl set-timezone America/Phoenix
-timedatectl set-timezone UTC
-
-# NTP deaktivieren
-timedatectl set-ntp false
+# Verwalten lokaler Uhrzeiten und Zeitzonen
+timedatectl 					# Überblick aktuelle Zeiteinstellungen (Zeit, Zeitzone, NTP)
+timedatectl list-timezones			# verfügbare Zeitzonen anzeigen
+tzselect					# Dialog korrekten Zeitzone starten (wird nicht in config übernommen)
+timedatectl set-timezone America/Phoenix	# Ändern der aktuellen Zeitzone
+timedatectl set-timezone UTC			# Ändern auf UTC
+timedatectl set-ntp false			# NTP deaktivieren
 
 # Konfiguration von chronyd in /etc/chrony.conf
 # default ist ein Pool an ntp Servern, habe ich einen eigenen NTP Server im Netzwerk, muss ich "server..." angeben
+chronyc sources -v				# NTP Quellen anzeigen:
 
-# NTP Quellen anzeigen:
-chronyc sources -v
 ```
 ############################## Kapitel 13: Networking ##########################################################
 ```bash
 
+# weiter auf S. 482 /home/sascha/Dropbox/Dropbox_Sync/IT-Fortbildung/Linux_Admin
 # Auflisten aller Netzwerkschnittstellen
 ip link show
 
