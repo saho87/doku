@@ -754,12 +754,13 @@ chronyc sources -v				# NTP Quellen anzeigen:
 ############################## Kapitel 13: Networking ##########################################################
 ```bash
 # Befehle:
-ip, ping
+ip, ping, tracepath, traceroute, ss
 
 # wichtige Dateien/Ordner
+/etc/ports	# Standardports
 
 # man/help
-
+ip-link(8), ip-address(8), ip-route(8), ip(8), ping(8),tracepath(8), traceroute(8), ss(8) und netstat(8)
 # weiter auf S. 482 /home/sascha/Dropbox/Dropbox_Sync/IT-Fortbildung/Linux_Admin
 
 ip link show		# Auflisten aller Netzwerkschnittstellen
@@ -777,14 +778,18 @@ ip -6 route
 # Was ist Global Scope?
 
 # Nachverfolgen von Routen
-
 tracepath access.redhat.com
-traceroute -I google.com
-tracepath6 2001:db8:0:2::451
+traceroute -I google.com	# muss ggf. installiert werden; UPD Standard, -I ICMP, -T TCP
+tracepath6 2001:db8:0:2::451	# IPv6
 
 # Aufruf von Socket-Statistiken:
-ss -tulpna
-netstat -tulpna
+ss -tulpna 		# ersetzt netstat 
+netstat -tulpna		# nicht immer installiert
+# -n Zahlen anstatt von Namen für Ports
+# -t -u TCP, UPD
+# -l nur abhörende Sockets
+# -a alle (abhörend und etablierte) Sockets
+# -p Prozess, der Sockets verwendet
 
 # Check, welcher Prozess einen Port verwendet
 sudo lsof -i :8080
