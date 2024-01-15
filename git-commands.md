@@ -59,4 +59,10 @@ git config --global color.ui auto
 # Remote Repository registrieren und testen
 git remote set-url origin git@github.com:saho87/repository.git
 git remote -v
+
+# Probleme beim initialen Pushen großer Reposrror: RPC failed; curl 56 HTTP/2 stream 5 was reset send-pack: unexpected disconnect while reading sideband packet fatal: the remote end hung up unexpectedly
+git config --global http.version HTTP/1.1  # Ändern auf HTTP/1.1
+git push
+git config --global http.version HTTP/2    # Zurücksetzen auf HTTP/2
+
 ```
