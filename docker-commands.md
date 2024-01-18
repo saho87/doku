@@ -16,18 +16,35 @@ docker restart my-httpd                                              # gestoppte
 
 # Beenden von Containern
 docker ps (-a)                                # aller laufenden (a- gelaufenen) Container ausgeben
-docker stop                                   # Stoppen (kann wieder gestartet werden)
-docker kill (-s SIGKILL) my-httpd             # Stoppen unter Nutzung von Unix-Signalen
+docker stop <CID>                             # Stoppen (kann wieder gestartet werden)
+docker kill (-s SIGKILL) <CID>                # Stoppen unter Nutzung von Unix-Signalen
 docker system prune                           # Löscht alle gestoppte Container
-docker rm my-httpd                            # Löscht einen gestoppten Container
+docker rm <CID>                               # Löscht einen gestoppten Container
 
 # Informationen zu Containern
-docker logs <id>            # Listet alle Logs zu einem Container auf
-docker inspect <id>         # detaillierte Infos zu Container
-docker port <Container-NR>  # Port-Mapping ausgeben
+docker logs <CID>            # Listet alle Logs zu einem Container auf
+docker inspect <CID>         # detaillierte Infos zu Container
+docker port <CID>  # Port-Mapping ausgeben
 
-docker exec -it 1691237dd98e sh    # Führt eine 2. Prozess in einem laufenden Container aus (hier öffnen einer shell)
-docker run -it busybox /bin/bash   # Erstellt und führt neuen Container aus und gibt uns die Shell zum Zugriff 
+# Kommandos zu bereits erstellten Containern
+docker exec -it <CID> sh                 # Führt eine 2. Prozess in einem laufenden Container aus (hier öffnen einer shell)
+docker exec -it <CID> /bin/bash -c 'ls'  # FÜhrt im Container ein Bash Commando aus
+docker run -it <CID> /bin/bash           # Erstellt und führt neuen Container aus und gibt uns die Shell zum Zugriff
+docker cp ./file 60ed77c57bb5:.          # Kopieren einer Datei vom Host in den Container
+
+
+# Einbinden von Volumes
+mkdir -pv /home/student/local/mysql                        # Verzeichnis erstellen
+sudo semanage fcontext -a \                                # SELinux-Kontext erstellen
+ -t container_file_t '/home/student/local/mysql(/.*)?'
+sudo restorecon -R /home/student/local/mysql               # Kontext anwenden
+ls -ldZ /home/student/local/mysql                          # Kontext verifizieren
+podman unshare chown 27:27 /home/student/local/mysql       # Eigentümer des Verzeichnisses auf mysql-Container-User ändern
+docker run --name persist-db \                             # Container Start
+-d -v /home/student/local/mysql:/var/lib/mysql/data \
+-e MYSQL_USER=user1 -e MYSQL_PASSWORD=mypa55 \
+-e MYSQL_DATABASE=items -e MYSQL_ROOT_PASSWORD=r00tpa55 \
+registry.redhat.io/rhel8/mysql-80:1
 
 # Bau von Images mit (f)ilename und (t)ag
 docker build -f Dockerfile.dev -t stephengrider/redis:latest .  # im aktuellen Ordner
