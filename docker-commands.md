@@ -67,6 +67,8 @@ bash-4.4# mysql -u user1 -p                                                     
 mysql -uuser1 -h 127.0.0.1 -pmypa55  -P13306 items -e "SELECT * FROM Items"             # (auf HOST-PC) Abfrage über mysql client 
 docker exec -it mysql-1  mysql -uuser1 -pmypa55 items -e "SELECT * FROM Items"          # SQL Abfrage über exec
 
+# Weiter auf S. 80 /home/sascha/Dropbox/Dropbox_Sync/IT-Fortbildung/OpenShift/do180-4.10-student-guide.pdf
+
 
 ```
 # Ändern von Container-Images -  Kapitel 4
