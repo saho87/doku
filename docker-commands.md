@@ -1,3 +1,4 @@
+```bash
 # Starten eines Containers
 # it -Interaktiv, d – im Hintergrund, rm wird nach Ausführung gelöscht, name – Vergabe eines Namens, p- Portweiterleitung
 # Alternativ: run = create + start -a
@@ -31,9 +32,9 @@ docker build -f Dockerfile.dev -t stephengrider/redis:latest .
 # Erzeugt ein Image aus einem laufenden Container mit einem Startkommando
 Docker commit -c ‘CMD [“redis-server“]‘ <IMGID>
 
-
-# ############################## Ändern von Container-Images -  Kapitel 4 ########################################
-
+```
+# Ändern von Container-Images -  Kapitel 4
+```bash
 # Speichern und Laden von Images in .tar Dateien
 docker save -o httpd.tar httpd
 docker load -i httpd.tar
@@ -41,3 +42,4 @@ docker load -i httpd.tar
 # Löschen von Images im lokalen docker Storage
 
 docker rmi
+```
