@@ -6,7 +6,7 @@ docker images      # Auflistung aller geladenen Images
 
 # Starten eines Containers -> Alternativ: run = create + start -a
 # it -Interaktiv, d – im Hintergrund, rm wird nach Ausführung gelöscht, name – Vergabe eines Namens, p- Portweiterleitung
-docker run -d --rm --name my_container -p 8080:80 httpd # Portmapping 8080 des Hosts -> 80 des Containers
+docker run -d --rm --name my_container -p 8080:80 registry.access.redhat.com/ubi8:latest # Portmapping 8080 des Hosts -> 80 des Containers
 docker run -e GREET=Hello -e NAME=RedHat alpine  printenv GREET NAME # Nutzung von Umgebungsvariablen
 docker run --rm --name mysql-basic  -e MYSQL_USER=user1 -e MYSQL_PASSWORD=mypa55  \ # Erstellen einer mysql-DB mit Credentials
 -e MYSQL_DATABASE=items -e MYSQL_ROOT_PASSWORD=r00tpa55  \
