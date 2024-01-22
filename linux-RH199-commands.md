@@ -833,6 +833,11 @@ find music/ -type d -exec chmod 755 {} \;		# Kombi aus chmod und find
 
 # grep
 grep -c ' # zählt Vorkommen einer bestimmter Zeichenkette
-# ToDo: sed-Befehl
+# TODO: SED
+sed -ri -e "/^Listen 80/c\Listen ${PORT}" /etc/httpd/conf/httpd.conf # Suchen und Ersetzen von Listen 80
+- r (Extended Regular Expression Mode) Verwednung von Klammern ohne Escapezeichen
+- i in place: direktes Bearbeiten ohne eine Kopie zu erstellen
+- e Behele zu eingabe
+^ "/^Listen 80/ - Markiert den Anfang einer Zeile
 
 ```
