@@ -77,32 +77,20 @@ docker commit -c ‘CMD [“redis-server“]‘ <IMGID>  # Erzeugt ein Image aus
 docker tag custom-httpd:latest custom-httpd:v1.0 # Hinzufügen eines Tags
 
 # Erstellen von Dockerfiles/Containerfiles 
-   # This is a comment line
-   FROM ubi8/ubi:8.5
-   LABEL description="This is a custom httpd container image"
-   MAINTAINER John Doe <jdoe@xyz.com>
-   RUN yum install -y httpd
-   EXPOSE 80
-   ENV LogLevel "info"
-   ADD http://someserver.com/filename.pdf /var/www/html
-   COPY ./src/ /var/www/html/
-   USER apache
-   ENTRYPOINT ["/usr/sbin/httpd"]
-   CMD ["-D", "FOREGROUND"]
-docker build -f Dockerfile.dev -t stephengrider/redis:latest .  # im aktuellen Ordner
+   # This is a comment line                                    # Kommentar
+   FROM ubi8/ubi:8.5                                           # Basisimage
+   LABEL description="This is a custom httpd container image"  # Metadaten hinzufügen
+   MAINTAINER John Doe <jdoe@xyz.com>                          # Autor 
+   RUN yum install -y httpd                                    # Befehle auf neuer übergeordneter Ebene ausführen
+   EXPOSE 80                                                   # zeigt an, dass Container Port überwacht
+   ENV LogLevel "info" \                                       # Umgebungsvariablen
+       MYSQL_DATABASE="my_database"
+   ADD http://someserver.com/filename.pdf /var/www/html        # kopiert Dateien oder ORdner aus lok./remote Quelle in Container-FS
+   COPY ./src/ /var/www/html/                                  # kopiert Dateien aus Arbeitsverzeichnis in Container-FS
+   USER apache                                                 # User/UID für Verwendung von RUN, CMD oder ENTRYPOINT
+   ENTRYPOINT ["/usr/sbin/httpd"]                              # Standardbefehl zur Ausführung des Containers 
+   CMD ["-D", "FOREGROUND"]                                    # Standardargumente für ENTRYPOINT
 
+docker build -f Dockerfile.dev -t stephengrider/redis:latest .  # Image erstellen im aktuellen Ordner
 
-# Weiter auf S. 80 /home/sascha/Dropbox/Dropbox_Sync/IT-Fortbildung/OpenShift/do180-4.10-student-guide.pdf
-
-
-```
-# Ändern von Container-Images -  Kapitel 4
-```bash
-# Speichern und Laden von Images in .tar Dateien
-docker save -o httpd.tar httpd
-docker load -i httpd.tar
-
-# Löschen von Images im lokalen docker Storage
-
-docker rmi
 ```
