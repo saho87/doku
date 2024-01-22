@@ -832,7 +832,7 @@ find . -type d						# Suche nach Verzeichnis
 find music/ -type d -exec chmod 755 {} \;		# Kombi aus chmod und find
 
 # grep
-grep -c ' # zählt Vorkommen einer bestimmter Zeichenkette
+grep -c # zählt Vorkommen einer bestimmter Zeichenkette
 # TODO: SED
 sed -ri -e "/^Listen 80/c\Listen ${PORT}" /etc/httpd/conf/httpd.conf # Suchen und Ersetzen von Listen 80
 - r (Extended Regular Expression Mode) Verwednung von Klammern ohne Escapezeichen
