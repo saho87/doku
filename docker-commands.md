@@ -64,8 +64,8 @@ docker search rhel # Suche in lokale/remote Repos nach verfügbaren Images
 docker pull rhel   # Herunterladen eines Images
 docker images      # Auflistung aller geladenen Images
 
-# Ändern von Container-Images
-
+# Ändern von Container-Images 
+# Ablage von Images unter /var/lib/docker/
 docker rmi -a                                    # Löschen aller Images, die unbenutzt sind
 docker rmi <Image>(:TAG)                         # Löscht komplettes Images oder nur ein Tag
 docker diff <CID>                                # zeigt Änderungen Image -> Container
@@ -76,7 +76,19 @@ official-httpd custom-httpd
 docker commit -c ‘CMD [“redis-server“]‘ <IMGID>  # Erzeugt ein Image aus einem laufenden Container mit einem Startkommando
 docker tag custom-httpd:latest custom-httpd:v1.0 # Hinzufügen eines Tags
 
-
+# Erstellen von Dockerfiles/Containerfiles 
+   # This is a comment line
+   FROM ubi8/ubi:8.5
+   LABEL description="This is a custom httpd container image"
+   MAINTAINER John Doe <jdoe@xyz.com>
+   RUN yum install -y httpd
+   EXPOSE 80
+   ENV LogLevel "info"
+   ADD http://someserver.com/filename.pdf /var/www/html
+   COPY ./src/ /var/www/html/
+   USER apache
+   ENTRYPOINT ["/usr/sbin/httpd"]
+   CMD ["-D", "FOREGROUND"]
 docker build -f Dockerfile.dev -t stephengrider/redis:latest .  # im aktuellen Ordner
 
 
