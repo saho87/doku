@@ -13,11 +13,12 @@ oc edit                           # Bearbeiten von ResDefinitionen (öffnen vi)
 oc delete <RES_TYPE> <RES_NAME>
 oc exec <CID>                     # Ausführung von Befehlen in Container
 
-oc port-forward mysql-openshift-1-glqrp 3306:3306 # Host Port 3306 -> DB Port 3306
+oc port-forward <CID> 3306:3306 # Host Port 3306 -> DB Port 3306
 oc new-app mysql -o yaml # Vorlagendatei für Manifest in yaml oder auch json
 oc new-app mysql -o yaml MYSQL_USER=user \         
 MYSQL_PASSWORD=pass MYSQL_DATABASE=testdb -l db=mysql
 oc create -f pv1001.yaml  # erstellt eine Ressource auf Basis eine abgelegten yaml
+oc status # Status und ob Deployment erfolgreich
 
 # weiter auf S. 166 /home/sascha/Dropbox/Dropbox_Sync/IT-Fortbildung/OpenShift/do180-4.10-student-guide.pdf
 
