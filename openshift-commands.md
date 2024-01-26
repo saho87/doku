@@ -30,8 +30,11 @@ oc port-forward <CID> 3306:3306 # Alternativ: Portweiterleitung direkt in Pod
 
 oc logs -f <CID> # fortlaufende Logs
 
+# neue App aus php Code in Git Repo erstellen (S2I-Prozess /Source-to-Image
+oc new-app php:7.3 --name=php-helloworld https://github.com/saho87/DO180-apps#s2i --context-dir php-helloworld
 
-# weiter auf S. 186 /home/sascha/Dropbox/Dropbox_Sync/IT-Fortbildung/OpenShift/do180-4.10-student-guide.pdf
+
+# weiter auf S. 201 /home/sascha/Dropbox/Dropbox_Sync/IT-Fortbildung/OpenShift/do180-4.10-student-guide.pdf
 
 ```
 # OpenShift local Cluster einrichten
