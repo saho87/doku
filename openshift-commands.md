@@ -1,4 +1,5 @@
 Doku local cluster: https://www.redhat.com/sysadmin/install-openshift-local
+Probleme wildcard: https://askubuntu.com/questions/1029882/how-can-i-set-up-local-wildcard-127-0-0-1-domain-resolution-on-18-04-20-04/1031896#1031896
 # CRC-commands (Local Cluster)
 ```bash
 oc login <clusterURL>  # Login für console
@@ -31,5 +32,12 @@ oc logs -f <CID> # fortlaufende Logs
 
 
 # weiter auf S. 186 /home/sascha/Dropbox/Dropbox_Sync/IT-Fortbildung/OpenShift/do180-4.10-student-guide.pdf
+
+```
+# OpenShift local Cluster einrichten
+```bash
+# Doku local cluster: https://www.redhat.com/sysadmin/install-openshift-local
+# wild-card cert:https://askubuntu.com/questions/1029882/how-can-i-set-up-local-wildcard-127-0-0-1-domain-resolution-on-18-04-20-04/1031896#1031896
+echo 'address=/.apps-crc.testing/192.168.130.11' | sudo tee /etc/NetworkManager/dnsmasq.d/apps-crc.testing-wildcard.conf
 
 ```
