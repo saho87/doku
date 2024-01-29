@@ -14,6 +14,7 @@ oc create                         # Erstellen von Ressourcen aus ResDefinitionen
 oc edit                           # Bearbeiten von ResDefinitionen (öffnen vi)
 oc delete <RES_TYPE> <RES_NAME>
 oc exec <CID>                     # Ausführung von Befehlen in Container
+oc project sascha-ocp             # Namespace wechseln
 
 
 oc new-project sascha-mysql # legt neuen Namespace an und wechselt dorthin
@@ -23,16 +24,18 @@ MYSQL_PASSWORD=pass MYSQL_DATABASE=testdb -l db=mysql
 oc create -f pv1001.yaml  # erstellt eine Ressource auf Basis eine abgelegten yaml
 oc status # Status und ob Deployment erfolgreich
 
-# Routen
+# Routen (Verbindung zw. öffentlichen IP und DNS-Hostname zu interner Service-IP)
 oc expose service quotedb --name quote  # Route über oc zu Service erstellen
 oc get pod --all-namespaces | grep router # Standard Routing-Service abrufen
 oc port-forward <CID> 3306:3306 # Alternativ: Portweiterleitung direkt in Pod
 
 oc logs -f <CID> # fortlaufende Logs
 
-# neue App aus php Code in Git Repo erstellen (S2I-Prozess /Source-to-Image
+# S2I: neue App aus php Code aus Git Repo erstellen (S2I-Prozess /Source-to-Image) Branch ist s2i
+oc new-app <Img-Stream> --name=<AppName> <Repo#Branch> --centext-dir <Dir>
 oc new-app php:7.3 --name=php-helloworld https://github.com/saho87/DO180-apps#s2i --context-dir php-helloworld
-
+# neuen Build-Prozess starten (nach Änderung)
+oc start-build php-helloworld
 
 # weiter auf S. 201 /home/sascha/Dropbox/Dropbox_Sync/IT-Fortbildung/OpenShift/do180-4.10-student-guide.pdf
 
