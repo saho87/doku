@@ -1,5 +1,11 @@
-Doku local cluster: https://www.redhat.com/sysadmin/install-openshift-local
-Probleme wildcard: https://askubuntu.com/questions/1029882/how-can-i-set-up-local-wildcard-127-0-0-1-domain-resolution-on-18-04-20-04/1031896#1031896
+Doku local cluster: 
+https://www.redhat.com/sysadmin/install-openshift-local
+
+Probleme wildcard: 
+https://askubuntu.com/questions/1029882/how-can-i-set-up-local-wildcard-127-0-0-1-domain-resolution-on-18-04-20-04/1031896#1031896
+
+Doku und File Ablage anderer User:
+https://github.com/fahmifahim/openshift/tree/master
 # CRC-commands (Local Cluster)
 ```bash
 oc login <clusterURL>  # Login für console
