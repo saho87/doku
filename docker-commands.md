@@ -94,3 +94,12 @@ docker tag custom-httpd:latest custom-httpd:v1.0 # Hinzufügen eines Tags
 docker build -f Dockerfile.dev -t stephengrider/redis:latest .  # Image erstellen im aktuellen Ordner
 
 ```
+# Nexus
+bash```
+# Ordner erstellen und Ownership ändern
+sudo mkdir /home/sascha/Projects/nexus/nexus-data/  && chown -R 200 /home/sascha/Projects/nexus/nexus-data/
+# Anwendung in Docker starten
+docker run -d -p 8081:8081 --name nexus -v /home/sascha/Projects/nexus/nexus-data:/sonatype-work sonatype/nexus
+# Aufruf webbrowser / admin|admin123
+http://localhost:8081/nexus/
+```
