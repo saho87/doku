@@ -95,7 +95,7 @@ docker build -f Dockerfile.dev -t stephengrider/redis:latest .  # Image erstelle
 
 ```
 # Nexus
-bash```
+```bash
 # Ordner erstellen und Ownership ändern
 sudo mkdir /home/sascha/Projects/nexus/nexus-data/  && chown -R 200 /home/sascha/Projects/nexus/nexus-data/
 # Anwendung in Docker starten
