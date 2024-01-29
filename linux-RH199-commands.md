@@ -765,6 +765,7 @@ ip-link(8), ip-address(8), ip-route(8), ip(8), ping(8),tracepath(8), traceroute(
 
 ip link show		# Auflisten aller Netzwerkschnittstellen
 ip addr show ens3	# IP-Adressen eines Gerätes anzeigen
+ip -br addr list 	# Auflisten aller IP Adressen eines Servers
 ip -s link show ens3	# Performance des Netzwerks anzeigen
 ping6 2001:db8:0:1::1	# Verbindung zu anderen Hosts testen (ipv6)
 ping -c3 192.0.2.254	# Verbindung zu anderen Hosts testen (ipv4) - nur 3 Pakete
