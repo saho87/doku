@@ -92,7 +92,8 @@ docker tag custom-httpd:latest custom-httpd:v1.0 # Hinzufügen eines Tags
    ENTRYPOINT ["/usr/sbin/httpd"]                              # Standardbefehl zur Ausführung des Containers 
    CMD ["-D", "FOREGROUND"]                                    # Standardargumente für ENTRYPOINT
 
-docker build -f Dockerfile.dev -t stephengrider/redis:latest .  # Image erstellen im aktuellen Ordner
+# systemd service aus Container generieren
+sudo podman generate systemd reg-httpd | sudo tee -a /usr/lib/systemd/system/reg-httpd.service
 
 ```
 # Nexus
