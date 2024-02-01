@@ -59,6 +59,7 @@ mysql -uuser1 -h 127.0.0.1 -pmypa55  -P13306 items -e "SELECT * FROM Items"     
 docker exec -it mysql-1  mysql -uuser1 -pmypa55 items -e "SELECT * FROM Items"          # SQL Abfrage über exec
 
 # Zugriff auf Registrys
+# podman Verzeichnis: /etc/containers/
 docker login registry.redhat.io # Nutzung von der Registry von redhat
 docker search rhel # Suche in lokale/remote Repos nach verfügbaren Images
 docker pull rhel   # Herunterladen eines Images
