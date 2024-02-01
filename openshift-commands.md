@@ -6,6 +6,8 @@ https://askubuntu.com/questions/1029882/how-can-i-set-up-local-wildcard-127-0-0-
 
 Doku und File Ablage anderer User:
 https://github.com/fahmifahim/openshift/tree/master
+
+exam: https://github.com/FWSquatch/do180-practice
 # CRC-commands (Local Cluster)
 ```bash
 oc login <clusterURL>  # Login für console
@@ -42,6 +44,15 @@ oc new-app <Img-Stream> --name=<AppName> <Repo#Branch> --centext-dir <Dir>
 oc new-app php:7.3 --name=php-helloworld https://github.com/saho87/DO180-apps#s2i --context-dir php-helloworld
 # neuen Build-Prozess starten (nach Änderung)
 oc start-build php-helloworld
+
+# Umgebungsvariablen, die allen Pods nach Erstellung eines mysql Services zur Verfügung stehen:
+MYSQL_SERVICE_HOST=10.0.0.11
+MYSQL_SERVICE_PORT=3306
+MYSQL_PORT=tcp://10.0.0.11:3306
+MYSQL_PORT_3306_TCP=tcp://10.0.0.11:3306
+MYSQL_PORT_3306_TCP_PROTO=tcp
+MYSQL_PORT_3306_TCP_PORT=3306
+MYSQL_PORT_3306_TCP_ADDR=10.0.0.11
 
 # weiter auf S. 201 /home/sascha/Dropbox/Dropbox_Sync/IT-Fortbildung/OpenShift/do180-4.10-student-guide.pdf
 
