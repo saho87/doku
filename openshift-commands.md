@@ -4,7 +4,7 @@ https://www.redhat.com/sysadmin/install-openshift-local
 Probleme wildcard: 
 https://askubuntu.com/questions/1029882/how-can-i-set-up-local-wildcard-127-0-0-1-domain-resolution-on-18-04-20-04/1031896#1031896
 
-Doku und File Ablage anderer User:
+Doku DO180 von anderem User:
 https://github.com/fahmifahim/openshift/tree/master
 
 exam: https://github.com/FWSquatch/do180-practice
