@@ -841,4 +841,5 @@ sed -ri -e "/^Listen 80/c\Listen ${PORT}" /etc/httpd/conf/httpd.conf # Suchen un
 - e Behele zu eingabe
 ^ "/^Listen 80/ - Markiert den Anfang einer Zeile
 
+# jq
 ```
