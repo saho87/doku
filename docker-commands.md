@@ -63,7 +63,14 @@ docker exec -it mysql-1  mysql -uuser1 -pmypa55 items -e "SELECT * FROM Items"  
 docker login registry.redhat.io # Nutzung von der Registry von redhat
 docker search rhel # Suche in lokale/remote Repos nach verfügbaren Images
 docker pull rhel   # Herunterladen eines Images
+docker push push registry.do180.lab:5000/httpd:twerks
 docker images      # Auflistung aller geladenen Images
+
+# Pushen von quay-io Repos mit Auth
+# Anlegen eines neuen Repos in quay über Web-Gui z.B. duff-repo
+# Berechtigen eines Users auf diesem Repos mit Schreibrechten
+podman login -u="sascha_hoffmann+sascha_hoffmann_robot" -p="xxx" # quay.io login quay über Konsole
+podman push quay.io/sascha_hoffmann/duff-nginx:1.0 # pushen des Repos
 
 # Ändern von Container-Images 
 # Ablage von Images unter /var/lib/docker/
@@ -86,7 +93,7 @@ docker tag custom-httpd:latest custom-httpd:v1.0 # Hinzufügen eines Tags
    EXPOSE 80                                                   # zeigt an, dass Container Port überwacht
    ENV LogLevel "info" \                                       # Umgebungsvariablen
        MYSQL_DATABASE="my_database"
-   ADD http://someserver.com/filename.pdf /var/www/html        # kopiert Dateien oder ORdner aus lok./remote Quelle in Container-FS
+   ADD http://someserver.com/archive.tar /var/www/html         # kopiert + extrahiert Files aus lok./remote Quelle in Container-FS
    COPY ./src/ /var/www/html/                                  # kopiert Dateien aus Arbeitsverzeichnis in Container-FS
    USER apache                                                 # User/UID für Verwendung von RUN, CMD oder ENTRYPOINT
    ENTRYPOINT ["/usr/sbin/httpd"]                              # Standardbefehl zur Ausführung des Containers 
@@ -96,6 +103,14 @@ docker tag custom-httpd:latest custom-httpd:v1.0 # Hinzufügen eines Tags
 sudo podman generate systemd reg-httpd | sudo tee -a /usr/lib/systemd/system/reg-httpd.service
 
 ```
+# Skopeo
+```bash
+
+skopeo list-tags docker://registry.do180.lab:5000/httpd  # alle Tags eine Images anzeigen
+skopeo inspect docker://registry.do180.lab:5000/httpd    # Details zu einem Image anzeigen
+
+```
+
 # Nexus
 ```bash
 # Ordner erstellen und Ownership ändern
