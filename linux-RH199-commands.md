@@ -845,4 +845,7 @@ sed -ri -e "/^Listen 80/c\Listen ${PORT}" /etc/httpd/conf/httpd.conf # Suchen un
 ^ "/^Listen 80/ - Markiert den Anfang einer Zeile
 
 # jq
+# tar
+tar -xvf /colors.tar -C /folder 		# entpackt ein Archiv in einen (vorhandenen) Ordner
+tar -cvf new.tar sourcefolder 			# erstellt neues Archiv von der Quelle
 ```
