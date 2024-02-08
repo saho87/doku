@@ -1,4 +1,7 @@
 ```bash
+# über Konsole einloggen
+mysql -u user01 -pmypa55 -h 192.168.178.1 -P 3306 # Port und Host teilweise nicht notwendig
+
 # Ein einzelnes SQL Kommando ausführen
 echo "show databases;" | mysql -uduffman -h 192.168.56.4 -psaysoyeah
 
