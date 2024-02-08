@@ -74,15 +74,15 @@ podman push quay.io/sascha_hoffmann/duff-nginx:1.0 # pushen des Repos
 
 # Ändern von Container-Images 
 # Ablage von Images unter /var/lib/docker/
-docker rmi -a                                    # Löschen aller Images, die unbenutzt sind
-docker rmi <Image>(:TAG)                         # Löscht komplettes Images oder nur ein Tag
-docker diff <CID>                                # zeigt Änderungen Image -> Container
-docker save -o httpd.tar custom-httpd:v1.0       # Lokale Ablage eines Images als tar (Alternative zu commit)
-docker load -i httpd.tar                         # Wiederherstellen des Images
-docker commit -a 'Sascha Hoffmann' \             # Erstellt neues Imaga auf Basis der Container Änderungen
+docker rmi -a                                     # Löschen aller Images, die unbenutzt sind
+docker rmi <Image>(:TAG)                          # Löscht komplettes Images oder nur ein Tag
+docker diff <CID>                                 # zeigt Änderungen Image -> Container
+docker save -o httpd.tar custom-httpd:v1.0        # Lokale Ablage eines Images als tar (Alternative zu commit)
+docker load -i httpd.tar                          # Wiederherstellen des Images
+docker commit -a 'Sascha Hoffmann' \              # Erstellt neues Imaga auf Basis der Container Änderungen
 official-httpd custom-httpd 
-docker commit -c ‘CMD [“redis-server“]‘ <IMGID>  # Erzeugt ein Image aus einem laufenden Container mit einem Startkommando
-docker tag custom-httpd:latest custom-httpd:v1.0 # Hinzufügen eines Tags
+docker commit -c ‘CMD [“redis-server“]‘ <IMGID>   # Erzeugt ein Image aus einem laufenden Container mit einem Startkommando
+docker tag custom-httpd:latest custom-httpd:v1.0  # Hinzufügen eines Tags zu einem bestehenden Image
 
 # Erstellen von Dockerfiles/Containerfiles 
    # This is a comment line                                    # Kommentar
