@@ -1,3 +1,5 @@
+oc login -u developer -p developer https://console-openshift-console.apps.ocp4.example.com:6443
+
 Doku local cluster: 
 https://www.redhat.com/sysadmin/install-openshift-local
 
@@ -12,6 +14,7 @@ exam: https://github.com/FWSquatch/do180-practice
 ```bash
 oc login <clusterURL>  # Login für console
 oc login -u ${RHT_OCP4_DEV_USER} -p  ${RHT_OCP4_DEV_PASSWORD} ${RHT_OCP4_MASTER_API}
+oc whoami --show-console          # URL Console anzeigen
 # Ressourcen anlegen und löschen
 oc api-resources # Liste aller verfügbarenen Ressourcen und Abkürzungen
 oc get <RES_TYPE> (-w)            # Infos zu allen Ressourcen eines Typs (w überwacht)
@@ -63,4 +66,10 @@ MYSQL_PORT_3306_TCP_ADDR=10.0.0.11
 # wild-card cert:https://askubuntu.com/questions/1029882/how-can-i-set-up-local-wildcard-127-0-0-1-domain-resolution-on-18-04-20-04/1031896#1031896
 echo 'address=/.apps-crc.testing/192.168.130.11' | sudo tee /etc/NetworkManager/dnsmasq.d/apps-crc.testing-wildcard.conf
 
+```
+
+# DO288
+```bash
+vi .kube/config  # config Cluster
+vi
 ```
