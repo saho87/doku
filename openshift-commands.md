@@ -36,6 +36,8 @@ oc new-project sascha-mysql # legt neuen Namespace an und wechselt dorthin
 oc new-app mysql -o yaml # Vorlagendatei für Manifest in yaml oder auch json
 oc new-app mysql -o yaml MYSQL_USER=user \         
 MYSQL_PASSWORD=pass MYSQL_DATABASE=testdb -l db=mysql
+--dry-run -o yaml        # keine Ressourcen werden erstell, aber Ausgabe als yaml
+oc new-app -i mysql      # oc get is mysql -n openshift
 oc create -f pv1001.yaml  # erstellt eine Ressource auf Basis eine abgelegten yaml
 oc status # Status und ob Deployment erfolgreich
 
