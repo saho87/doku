@@ -1,4 +1,7 @@
+# Login DO288
 oc login -u developer -p developer https://console-openshift-console.apps.ocp4.example.com:6443
+podman login -u="developer" -p="HCjhSca2LgddivwRAUazqBcatBMKWDSos57ZLfQyazWYK6tiYfgnER4gP0X5/IxR" registry.ocp4.example.com:8443
+
 
 Doku local cluster: 
 https://www.redhat.com/sysadmin/install-openshift-local
