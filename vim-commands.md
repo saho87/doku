@@ -1,3 +1,7 @@
+### yaml setup vim
+echo  "autocmd FileType yaml setlocal ai ts=2 sw=2 et" >> ~/.vimrc
+
+
 ### Acronym
 * C-a ==> CTRL-a
 
