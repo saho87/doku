@@ -2,7 +2,7 @@
 ```bash
 oc login -u developer -p developer https://console-openshift-console.apps.ocp4.example.com:6443
 podman login -u="developer" -p="HCjhSca2LgddivwRAUazqBcatBMKWDSos57ZLfQyazWYK6tiYfgnER4gP0X5/IxR" registry.ocp4.example.com:8443
-# URL https://meet.google.com/kmp-ybuo-nbb?pli=1
+https://meet.google.com/kmp-ybuo-nbb?pli=1 
 ```
 
 Doku local cluster: 
@@ -41,6 +41,7 @@ MYSQL_PASSWORD=pass MYSQL_DATABASE=testdb -l db=mysql
 oc new-app -i mysql      # oc get is mysql -n openshift
 oc create -f pv1001.yaml  # erstellt eine Ressource auf Basis eine abgelegten yaml
 oc status # Status und ob Deployment erfolgreich
+oc delete all --selector app=greetings # app + Ressourcen entfernen
 
 # Routen (Verbindung zw. öffentlichen IP und DNS-Hostname zu interner Service-IP)
 oc expose service quotedb --name quote  # Route über oc zu Service erstellen
