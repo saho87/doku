@@ -92,6 +92,10 @@ oc secrets link --for=pull default training-registry     # fügt neues Image Pul
 oc secrets unlink default training-registry              # entfernt Image Pull Secret dem SA
 oc secrets link --for=mount default training-registry    # fügt neues Secrets für das mounten eines Containers
 oc create secret --docker-registry new-secret --docker-server registry.ocp.example.com:8443 --docker-username developer \
-    --docker-password developer                           # neues Secret über Kommandozeile
+    --docker-password developer                          # neues Secret über Kommandozeile
+
+# Images referenzieren
+- quay.io/sascha_hoffmann/apache:1.2                     # 
+- quay.io/sascha_hoffmann/apache@sha256:4578...          # Vorteil: eindeutig
 
 ```
