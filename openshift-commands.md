@@ -78,6 +78,20 @@ echo 'address=/.apps-crc.testing/192.168.130.11' | sudo tee /etc/NetworkManager/
 
 # DO288
 ```bash
+# Todo
+- Was ist ein Service Account, was kann man damit machen? Insbesonder Pull SEcrets
+- Was hat Rolebinding damit zu tun?
+```
+```bash
 vi .kube/config  # config Cluster
-vi
+
+# Secrets
+oc explain sa
+oc describe sa default
+oc secrets link --for=pull default training-registry     # fügt neues Image Pull Secret dem SA hinzu
+oc secrets unlink default training-registry              # entfernt Image Pull Secret dem SA
+oc secrets link --for=mount default training-registry    # fügt neues Secrets für das mounten eines Containers
+oc create secret --docker-registry new-secret --docker-server registry.ocp.example.com:8443 --docker-username developer \
+    --docker-password developer                           # neues Secret über Kommandozeile
+
 ```
