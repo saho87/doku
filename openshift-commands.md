@@ -4,9 +4,13 @@ oc login -u developer -p developer https://console-openshift-console.apps.ocp4.e
 podman login -u="developer" -p="HCjhSca2LgddivwRAUazqBcatBMKWDSos57ZLfQyazWYK6tiYfgnER4gP0X5/IxR" registry.ocp4.example.com:8443
 https://meet.google.com/kmp-ybuo-nbb?pli=1 
 ```
-
+# Doku
+```bash
 Doku local cluster: 
 https://www.redhat.com/sysadmin/install-openshift-local
+
+Doku open-shift platform:
+https://docs.openshift.com/container-platform/4.14/welcome/index.html
 
 Probleme wildcard: 
 https://askubuntu.com/questions/1029882/how-can-i-set-up-local-wildcard-127-0-0-1-domain-resolution-on-18-04-20-04/1031896#1031896
@@ -15,6 +19,8 @@ Doku DO180 von anderem User:
 https://github.com/fahmifahim/openshift/tree/master
 
 exam: https://github.com/FWSquatch/do180-practice
+```
+
 # CRC-commands (Local Cluster)
 ```bash
 oc login <clusterURL>  # Login für console
@@ -91,11 +97,14 @@ oc describe sa default
 oc secrets link --for=pull default training-registry     # fügt neues Image Pull Secret dem SA hinzu
 oc secrets unlink default training-registry              # entfernt Image Pull Secret dem SA
 oc secrets link --for=mount default training-registry    # fügt neues Secrets für das mounten eines Containers
-oc create secret --docker-registry new-secret --docker-server registry.ocp.example.com:8443 --docker-username developer \
-    --docker-password developer                          # neues Secret über Kommandozeile
+oc create secret docker-registry SECRET_NAME \           # neues Secret über Kommandozeile
+--docker-server REGISTRY_URL \
+--docker-username USER \
+--docker-password PASSWORD \
+--docker-email=EMAIL                      
 
 # Images referenzieren
-- quay.io/sascha_hoffmann/apache:1.2                     # 
-- quay.io/sascha_hoffmann/apache@sha256:4578...          # Vorteil: eindeutig
-
+- quay.io/sascha_hoffmann/apache:1.2                     # Tag verwenden
+- quay.io/sascha_hoffmann/apache@sha256:4578...          # Hash verwerden Vorteil: eindeutig
+- quay.io/sascha_hoffmann/apache:1.2-alpha.1             # best practice: eindeutige Build Nummer verwenden
 ```
