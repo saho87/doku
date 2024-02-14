@@ -134,4 +134,13 @@ oc cancel-build bc/java-application        # Build abbrechen
 oc set env bc/java-application BUILD_LOGLEVEL=3
 oc wait --for=condition=complete \      # auf Fertigstellung des Builds warten
   --timeout=600s build/vertx-site-1
+
+# Webhook Trigger
+oc set triggers bc/name --from-image=project/image:tag         # setzen von Triggern
+oc set triggers deploy/hello \                                 # Trigger auf Deployment
+  --from-image=hello:latest -c hello
+oc set triggers deploy/hello                                   # Trigger anzeigen
+oc tag \                                                       # neuen Tag setzen
+  registry.ocp4.example.com:8443/redhattraining/ocpdev-builds-triggers-hello:v2 \
+  hello:latest
 ```
