@@ -146,4 +146,8 @@ oc set triggers deploy/hello                                   # Trigger anzeige
 oc tag \                                                       # neuen Tag setzen
   registry.ocp4.example.com:8443/redhattraining/ocpdev-builds-triggers-hello:v2 \
   hello:latest
+
+# Deployment Strategien
+https://docs.openshift.com/gitops/1.11/argo_rollouts/using-argo-rollouts-for-progressive-deployment-delivery.html
+https://argoproj.github.io/argo-rollouts/features/specification/
 ```
