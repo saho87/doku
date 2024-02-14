@@ -49,6 +49,7 @@ oc new-app -i mysql      # oc get is mysql -n openshift
 oc create -f pv1001.yaml  # erstellt eine Ressource auf Basis eine abgelegten yaml
 oc status # Status und ob Deployment erfolgreich
 oc delete all --selector app=greetings # app + Ressourcen entfernen
+oc delete all --all  # alle Ressourcen löschen
 
 # Routen (Verbindung zw. öffentlichen IP und DNS-Hostname zu interner Service-IP)
 oc expose service quotedb --name quote  # Route über oc zu Service erstellen
@@ -108,4 +109,29 @@ oc create secret docker-registry SECRET_NAME \           # neues Secret über Ko
 - quay.io/sascha_hoffmann/apache:1.2                     # Tag verwenden
 - quay.io/sascha_hoffmann/apache@sha256:4578...          # Hash verwerden Vorteil: eindeutig
 - quay.io/sascha_hoffmann/apache:1.2-alpha.1             # best practice: eindeutige Build Nummer verwenden
+
+# Builder Images
+oc new-app --name java-application \
+  --build-env BUILD_ENV=BUILD_VALUE \                          # env für Pods
+  --strategy                                                   # 
+  --env RUNTIME_ENV=RUNTIME_VALUE \                            # env für Runtime-Pods
+  -i redhat-openjdk18-openshift:1.8 \                          # image stream Builder Image
+  --context-dir java-application \                             # Anwendungsverzeichnis in Git
+  https://git.example.com/example/java-application-repository  # Speicherort Git
+
+# Beispiel aus 4.4 DO288
+oc new-app --name vertx-site \
+--build-env \
+MAVEN_MIRROR_URL=http://nexus-infra.apps.ocp4.example.com/java \
+--env JAVA_APP_JAR=vertx-site-1.0.0-SNAPSHOT-fat.jar \
+-i redhat-openjdk18-openshift:1.8 \
+--context-dir apps/builds-applications/vertx-site \
+https://git.ocp4.example.com/developer/DO288-apps
+
+oc start-build java-appliction             # 2. Build ausführen
+oc start-build --follow bc/vertx-site      # 2. Build mit logs Ausgabe starten
+oc cancel-build bc/java-application        # Build abbrechen
+oc set env bc/java-application BUILD_LOGLEVEL=3
+oc wait --for=condition=complete \      # auf Fertigstellung des Builds warten
+  --timeout=600s build/vertx-site-1
 ```
