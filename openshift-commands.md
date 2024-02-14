@@ -89,6 +89,9 @@ echo 'address=/.apps-crc.testing/192.168.130.11' | sudo tee /etc/NetworkManager/
 # Todo
 - Was ist ein Service Account, was kann man damit machen? Insbesonder Pull SEcrets
 - Was hat Rolebinding damit zu tun?
+- Was bedeutet ROlling Update, welche anderen Strategien gibt es?
+- Was bedeutet RWO und RWOP? https://kubernetes.io/docs/concepts/storage/persistent-volumes/#access-modes
+- Was macht Istio (Service Mesh)
 ```
 ```bash
 vi .kube/config  # config Cluster
