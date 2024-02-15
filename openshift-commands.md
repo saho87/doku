@@ -138,6 +138,10 @@ oc set env bc/java-application BUILD_LOGLEVEL=3
 oc wait --for=condition=complete \      # auf Fertigstellung des Builds warten
   --timeout=600s build/vertx-site-1
 
+# Image Stream erstellen
+oc import-image custom-server --confirm \
+--from registry.ocp4.example.com:8443/developer/custom-server:1.0.0
+
 # Webhook Trigger
 oc set triggers bc/name --from-image=project/image:tag         # setzen von Triggern
 oc set triggers deploy/hello \                                 # Trigger auf Deployment
