@@ -92,6 +92,9 @@ echo 'address=/.apps-crc.testing/192.168.130.11' | sudo tee /etc/NetworkManager/
 - Was bedeutet ROlling Update, welche anderen Strategien gibt es?
 - Was bedeutet RWO und RWOP? https://kubernetes.io/docs/concepts/storage/persistent-volumes/#access-modes
 - Was macht Istio (Service Mesh)
+- Security Context Constraints
+- Was hat SEcurity mit labels zu tun (oc describe project)
+- Wann brauche ich ein stateful set?
 ```
 ```bash
 vi .kube/config  # config Cluster
@@ -106,7 +109,8 @@ oc create secret docker-registry SECRET_NAME \           # neues Secret über Ko
 --docker-server REGISTRY_URL \
 --docker-username USER \
 --docker-password PASSWORD \
---docker-email=EMAIL                      
+--docker-email=EMAIL
+oc extract secret/postgresql --to=.                      # Secret in aktuellen Ordner extrahieren                     
 
 # Images referenzieren
 - quay.io/sascha_hoffmann/apache:1.2                     # Tag verwenden
@@ -159,4 +163,10 @@ https://argoproj.github.io/argo-rollouts/features/specification/
 
 # Config maps
 # Doku: https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/
+oc create cm init-db-cm --from-file init-db.sql # cm von Datei erstellen
+
+# Security
+# https://kubernetes.io/docs/concepts/security/pod-security-admission/
+
+# Metadaten unprivelegiert beschaffen: https://kubernetes.io/docs/concepts/workloads/pods/downward-api/
 ```
