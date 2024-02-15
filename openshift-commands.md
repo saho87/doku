@@ -138,9 +138,11 @@ oc set env bc/java-application BUILD_LOGLEVEL=3
 oc wait --for=condition=complete \      # auf Fertigstellung des Builds warten
   --timeout=600s build/vertx-site-1
 
-# Image Stream erstellen
-oc import-image custom-server --confirm \
+# Image Stream 
+oc import-image custom-server --confirm \    # neuer Image Stream
 --from registry.ocp4.example.com:8443/developer/custom-server:1.0.0
+oc new-app --name custom-server \            # Application aus Image Stream
+-i images-review/custom-server
 
 # Webhook Trigger
 oc set triggers bc/name --from-image=project/image:tag         # setzen von Triggern
@@ -154,4 +156,7 @@ oc tag \                                                       # neuen Tag setze
 # Deployment Strategien
 https://docs.openshift.com/gitops/1.11/argo_rollouts/using-argo-rollouts-for-progressive-deployment-delivery.html
 https://argoproj.github.io/argo-rollouts/features/specification/
+
+# Config maps
+# Doku: https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/
 ```
