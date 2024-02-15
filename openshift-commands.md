@@ -169,4 +169,8 @@ oc create cm init-db-cm --from-file init-db.sql # cm von Datei erstellen
 # https://kubernetes.io/docs/concepts/security/pod-security-admission/
 
 # Metadaten unprivelegiert beschaffen: https://kubernetes.io/docs/concepts/workloads/pods/downward-api/
+
+# Limits/Requests https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
+# Memory: Limit = Request -> gleich dimensionieren
+# CPU: Limit > Requests
 ```
