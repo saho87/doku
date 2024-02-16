@@ -173,4 +173,6 @@ oc create cm init-db-cm --from-file init-db.sql # cm von Datei erstellen
 # Limits/Requests https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
 # Memory: Limit = Request -> gleich dimensionieren
 # CPU: Limit > Requests
+oc get quota
+oc get limits
 ```
