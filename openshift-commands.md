@@ -188,6 +188,16 @@ helm template -s templates/deployment .
 Helm install apache-demo .
 Helm uninstall apache-demo
 helm upgrade apache-demo .
+helm template -s templates/postgres-secret.yaml . \             # Ressource aus helm template erzeugen
+helm template -s templates/postgres-secret.yaml . \             # Ressourcen direct in Cluster deployen
+  oc apply -f f --dry-run=client --validate
+# Kustomize
+touch kustomization.yaml     # angeben, welche Dateien ich benutzen werden
+resources:
+  - pvc-apache.yaml
+  - www.data-cm.yaml
+  - deployment.yaml
+oc apply -k .
 
 # Prometheus
 https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/
