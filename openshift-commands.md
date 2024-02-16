@@ -175,4 +175,20 @@ oc create cm init-db-cm --from-file init-db.sql # cm von Datei erstellen
 # CPU: Limit > Requests
 oc get quota
 oc get limits
+
+# Helm
+Helm repo list                                               # verbundene Repos anzeigen
+helm repo add bitnami https://charts.bitnami.com/bitnami     # neues Repo hinzufügen
+helm search repo mariadb                                     # in vorhandenen Repos nach mariadb suchen
+helm create demoapp
+helm pull bitnami/mariadb
+helm install quarkus-demo openshift/redhat-quarkus           # helm charts installieren (nur im Cluster)
+helm template . (wie oc process)
+helm template -s templates/deployment .
+Helm install apache-demo .
+Helm uninstall apache-demo
+helm upgrade apache-demo .
+
+# Prometheus
+https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/
 ```
