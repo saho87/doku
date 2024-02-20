@@ -105,6 +105,8 @@ oc describe sa default
 oc secrets link --for=pull default training-registry     # fügt neues Image Pull Secret dem SA hinzu
 oc secrets unlink default training-registry              # entfernt Image Pull Secret dem SA
 oc secrets link --for=mount default training-registry    # fügt neues Secrets für das mounten eines Containers
+oc set env deploy/expense-service \                      # Umgebungsvariablen aus bestehenden Secrets setzen
+--from=secret/postgresql  
 oc create secret docker-registry SECRET_NAME \           # neues Secret über Kommandozeile
 --docker-server REGISTRY_URL \
 --docker-username USER \
