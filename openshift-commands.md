@@ -205,4 +205,10 @@ oc apply -k .
 
 # Prometheus
 https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/
+
+# Service-Accounts / Rolebinding / Clusterrolebinding
+oc create sa sascha-sa   # SA für aktuellen Namespace erstellen
+oc adm policy add-scc-to-user anyuid -z sascha-sa    # Clusterrolebinding erstellen
+oc create clusterrolebinding sascha-crb --clusterrole system:openshift:scc:anyuid --user sascha-sa  # CRB erstellen 2. Möglichkeit
+oc set sa deployment/nginx sascha-sa  # Service-Account dem Deployment zuweisen
 ```
