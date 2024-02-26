@@ -112,7 +112,10 @@ oc create secret docker-registry SECRET_NAME \           # neues Secret über Ko
 --docker-username USER \
 --docker-password PASSWORD \
 --docker-email=EMAIL
-oc extract secret/postgresql --to=.                      # Secret in aktuellen Ordner extrahieren                     
+oc extract secret/postgresql --to=.                      # Secret in aktuellen Ordner extrahieren
+
+# Passwörter erstellen
+htpasswd -n -b dba redhat       # erstellt Hash für Benutzername-Passwort-Kombinationen   
 
 # Images referenzieren
 - quay.io/sascha_hoffmann/apache:1.2                     # Tag verwenden
@@ -212,3 +215,4 @@ oc adm policy add-scc-to-user anyuid -z sascha-sa    # Clusterrolebinding erstel
 oc create clusterrolebinding sascha-crb --clusterrole system:openshift:scc:anyuid --user sascha-sa  # CRB erstellen 2. Möglichkeit
 oc set sa deployment/nginx sascha-sa  # Service-Account dem Deployment zuweisen
 ```
+
