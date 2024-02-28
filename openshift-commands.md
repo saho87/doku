@@ -131,6 +131,7 @@ htpasswd -n -b dba redhat                                # erstellt Hash -> Ausg
 oc create secret generic htpasswd-secret \
 --from-file htpasswd=/tmp/htpasswd -n openshift-config
 oc adm policy add-cluster-role-to-user cluster-admin student # Clusterrechte einem User zuweisen
+oc adm groups new developers                             # neue Gruppe erstellen
 
 # RBAC
 oc adm policy add-cluster-role-to-user {cluster-role} {username}       # Cluster-Role zu User hinzufügen
