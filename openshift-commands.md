@@ -114,8 +114,23 @@ oc create secret docker-registry SECRET_NAME \           # neues Secret über Ko
 --docker-email=EMAIL
 oc extract secret/postgresql --to=.                      # Secret in aktuellen Ordner extrahieren
 
-# Passwörter erstellen
-htpasswd -n -b dba redhat       # erstellt Hash für Benutzername-Passwort-Kombinationen   
+# User Management
+oc get oauth cluster \                                   # config identity provider lokal ablegen -> ändern
+-o yaml > ~/DO280/labs/auth-providers/oauth.yaml
+oc replace -f ~/DO280/labs/auth-providers/oauth.yaml     # geänderte config in CLuster hochladen
+oc extract secret/htpasswd-secret -n openshift-config \  # aus Secret eine Passwort Datei extrahieren
+--to /tmp/ --confirm
+htpasswd -D /tmp/htpasswd manager                        # User löschen (auch manuell in Datei möglich)
+htpasswd -b ~/DO280/labs/auth-providers/htpasswd \       # User hinzufügen
+manager redhat
+oc set data secret/htpasswd-secret \                     # Secret updaten
+--from-file htpasswd=/tmp/htpasswd -n openshift-config
+oc get identities                                        # Identity aus Open-Shift auslesen
+oc delete user manager                                   # Ressourcen von User löschen
+htpasswd -n -b dba redhat             # erstellt Hash für Benutzername-Passwort-Kombinationen
+oc create secret generic htpasswd-secret \
+--from-file htpasswd=/tmp/htpasswd -n openshift-config
+oc adm policy add-cluster-role-to-user cluster-admin student # Clusterrechte einem User zuweisen
 
 # Images referenzieren
 - quay.io/sascha_hoffmann/apache:1.2                     # Tag verwenden
