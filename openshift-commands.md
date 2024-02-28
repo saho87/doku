@@ -127,11 +127,17 @@ oc set data secret/htpasswd-secret \                     # Secret updaten
 --from-file htpasswd=/tmp/htpasswd -n openshift-config
 oc get identities                                        # Identity aus Open-Shift auslesen
 oc delete user manager                                   # Ressourcen von User löschen
-htpasswd -n -b dba redhat             # erstellt Hash für Benutzername-Passwort-Kombinationen
+htpasswd -n -b dba redhat                                # erstellt Hash -> Ausgabe Konsole
 oc create secret generic htpasswd-secret \
 --from-file htpasswd=/tmp/htpasswd -n openshift-config
 oc adm policy add-cluster-role-to-user cluster-admin student # Clusterrechte einem User zuweisen
 
+# RBAC
+oc adm policy add-cluster-role-to-user {cluster-role} {username}       # Cluster-Role zu User hinzufügen
+oc adm policy remove-cluster-role-from-user {cluster-role} {username}  # Cluster-Role von User löschen
+oc adm policy who-can delete user                                      # Herausfinden ob user Befehl ausführen kann
+oc policy add-role-to-user {role-name} {username} -n {namespace}       # Rolle zu User hinzufügen
+    
 # Images referenzieren
 - quay.io/sascha_hoffmann/apache:1.2                     # Tag verwenden
 - quay.io/sascha_hoffmann/apache@sha256:4578...          # Hash verwerden Vorteil: eindeutig
