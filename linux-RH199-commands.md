@@ -854,4 +854,9 @@ tar -cvf new.tar sourcefolder 			# erstellt neues Archiv von der Quelle
 sudo tcpdump -i eth0 -A -n port 80 		# Überwachung des Geräts (-i eth0) auf Port 80
 						# -n disables DNS
 						# -A Ausgabe Header und Daten in ASCII (statt Hex)
+
+# curl
+curl google.com					# Get Anfrage (identisch mit curl -X GET google.com)	
+curl -I -v google.com				# I - nur Header keinen Inhalt | v - verbosity
+curl -X POST google.com				# POST Anfrage 
 ```
