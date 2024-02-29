@@ -116,7 +116,9 @@ oc create secret docker-registry SECRET_NAME \           # neues Secret über Ko
 --docker-email=EMAIL
 oc extract secret/postgresql --to=.                      # Secret in aktuellen Ordner extrahieren
 
-
+# Debugging
+oc debug -t deployment/todo-http \                       # Debugging-Pod starten
+--image registry.ocp4.example.com:8443/ubi8/ubi:8.4
 
 # Builder Images
 oc new-app --name java-application \
