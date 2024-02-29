@@ -53,6 +53,8 @@ oc delete all --all  # alle Ressourcen löschen
 
 # Routen (Verbindung zw. öffentlichen IP und DNS-Hostname zu interner Service-IP)
 oc expose service quotedb --name quote  # Route über oc zu Service erstellen
+oc create route edge todo-https \       # route mit edge
+--service todo-http --hostname todo-https.apps.ocp4.example.com
 oc get pod --all-namespaces | grep router # Standard Routing-Service abrufen
 oc port-forward <CID> 3306:3306 # Alternativ: Portweiterleitung direkt in Pod
 
