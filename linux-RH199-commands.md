@@ -849,4 +849,9 @@ sed -ri -e "/^Listen 80/c\Listen ${PORT}" /etc/httpd/conf/httpd.conf # Suchen un
 # tar
 tar -xvf /colors.tar -C /folder 		# entpackt ein Archiv in einen (vorhandenen) Ordner
 tar -cvf new.tar sourcefolder 			# erstellt neues Archiv von der Quelle
+
+# TCPDump (Netzwerkdiagnosewerkzeug)
+sudo tcpdump -i eth0 -A -n port 80 		# Überwachung des Geräts (-i eth0) auf Port 80
+						# -n disables DNS
+						# -A Ausgabe Header und Daten in ASCII (statt Hex)
 ```
