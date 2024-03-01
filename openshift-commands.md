@@ -241,6 +241,9 @@ oc adm policy add-cluster-role-to-user {cluster-role} {username}       # Cluster
 oc adm policy remove-cluster-role-from-user {cluster-role} {username}  # Cluster-Role von User löschen
 oc adm policy who-can delete user                                      # Herausfinden ob user Befehl ausführen kann
 oc policy add-role-to-user {role-name} {username} -n {namespace}       # Rolle zu User hinzufügen
+
+# Network Security
+https://www.redhat.com/architect/encryption-secure-routes-openshift
     
 # Images referenzieren
 - quay.io/sascha_hoffmann/apache:1.2                     # Tag verwenden
