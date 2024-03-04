@@ -119,6 +119,7 @@ oc extract secret/postgresql --to=.                      # Secret in aktuellen O
 # Debugging
 oc debug -t deployment/todo-http \                       # Debugging-Pod starten
 --image registry.ocp4.example.com:8443/ubi8/ubi:8.4
+oc rsh pod123                                            # Console auf Pod starten
 
 # Builder Images
 oc new-app --name java-application \
