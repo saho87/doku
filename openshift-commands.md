@@ -245,6 +245,31 @@ oc policy add-role-to-user {role-name} {username} -n {namespace}       # Rolle z
 
 # Network Security
 https://www.redhat.com/architect/encryption-secure-routes-openshift
+
+# Network Policies
+# Beispiel yaml:
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: 'allow-specific'
+  namespace: network-policy
+spec:
+  podSelector:
+    matchLabels:
+      deployment: hello  # Zielpods, wenn leer, dann alle Pods im Namespace
+  ingress:               # Liste von ingress traffic rules
+    - from:
+      - namespaceSelector:  # Regel -> welche Namespaces
+          matchLabels:
+            network: different-namespace # muss durch label explizit dem Namespace hinzugefügt werden
+        podSelector:  # Regel -> welche Pods
+          matchLabels:
+            deployment: sample-app # 
+      ports:
+      - port: 8080
+        protocol: TCP
+oc label namespace different-namespace \ # Namespace muss extra gelabelt werden
+network=different-namespace
     
 # Images referenzieren
 - quay.io/sascha_hoffmann/apache:1.2                     # Tag verwenden
