@@ -268,6 +268,9 @@ spec:
       ports:
       - port: 8080
         protocol: TCP
+# interner Traffic mit TLS
+oc annotate service hello \                    # Generieren eines Zertifikats und Schlüsselpaares für einen Service
+service.beta.openshift.io/serving-cert-secret-name=hello-secret
 
 oc label namespace different-namespace \ # Namespace muss extra gelabelt werden
 network=different-namespace
