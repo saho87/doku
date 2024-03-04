@@ -268,6 +268,7 @@ spec:
       ports:
       - port: 8080
         protocol: TCP
+
 oc label namespace different-namespace \ # Namespace muss extra gelabelt werden
 network=different-namespace
     
