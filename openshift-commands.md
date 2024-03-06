@@ -143,8 +143,10 @@ oc start-build java-appliction             # 2. Build ausführen
 oc start-build --follow bc/vertx-site      # 2. Build mit logs Ausgabe starten
 oc cancel-build bc/java-application        # Build abbrechen
 oc set env bc/java-application BUILD_LOGLEVEL=3
-oc wait --for=condition=complete \      # auf Fertigstellung des Builds warten
+oc wait --for=condition=complete \         # auf Fertigstellung des Builds warten
   --timeout=600s build/vertx-site-1
+oc patch deployment hello -p \             # Aktualisieren oder Hinzufügen von Feldern 
+'{"spec":{"template":{"spec":{"resources":{"requests":{"cpu": "100m"}}}}}}'
 
 # Image Stream 
 oc import-image custom-server --confirm \    # neuer Image Stream
