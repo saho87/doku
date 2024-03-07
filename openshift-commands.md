@@ -41,12 +41,14 @@ oc project sascha-ocp             # Namespace wechseln
 
 
 oc new-project sascha-mysql # legt neuen Namespace an und wechselt dorthin
-oc new-app mysql -o yaml # Vorlagendatei für Manifest in yaml oder auch json
+oc create deployment test \  # erstellt Deployment auf Basis von Image
+--image registry.ocp4.example.com:8443/redhattraining/hello-world-nginx
 oc new-app mysql -o yaml MYSQL_USER=user \         
 MYSQL_PASSWORD=pass MYSQL_DATABASE=testdb -l db=mysql
 --dry-run -o yaml        # keine Ressourcen werden erstell, aber Ausgabe als yaml
 oc new-app -i mysql      # oc get is mysql -n openshift
 oc create -f pv1001.yaml  # erstellt eine Ressource auf Basis eine abgelegten yaml
+
 oc status # Status und ob Deployment erfolgreich
 oc delete all --selector app=greetings # app + Ressourcen entfernen
 oc delete all --all  # alle Ressourcen löschen
@@ -185,6 +187,9 @@ oc api-resources --api-group="" --namespaced=true    # alle Core-Ressourcen aufl
 oc create resourcequota example --hard=count/pods=1  # Anzahl der Pods im Namespace auf 1 begrenzen
 oc get quota
 oc get limits
+oc set resources deployment test --requests=cpu=1
+oc adm top node            # Ressourcennutzung der Nodes anzeigen
+oc describe node/master01  # Ressourcen eines Nodes anzeigen
 
 # Clusterresources:
 oc create clusterresourcequota example               # Clusterresourcequota -> limit CPU auf 10
