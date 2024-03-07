@@ -181,8 +181,15 @@ oc create cm init-db-cm --from-file init-db.sql # cm von Datei erstellen
 # Limits/Requests https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
 # Memory: Limit = Request -> gleich dimensionieren
 # CPU: Limit > Requests
+oc api-resources --api-group="" --namespaced=true    # alle Core-Ressourcen auflisten
+oc create resourcequota example --hard=count/pods=1  # Anzahl der Pods im Namespace auf 1 begrenzen
 oc get quota
 oc get limits
+
+# Clusterresources:
+oc create clusterresourcequota example               # Clusterresourcequota -> limit CPU auf 10
+--project-label-selector=group=dev --hard=requests.cpu=10
+oc describe AppliedClusterResourceQuota -n example-2 # falls keine Leserechte auf ClusterResourceQuotas
 
 # Helm
 Helm repo list                                               # verbundene Repos anzeigen
