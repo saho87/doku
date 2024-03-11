@@ -288,6 +288,17 @@ service.beta.openshift.io/serving-cert-secret-name=hello-secret
 
 oc label namespace different-namespace \ # Namespace muss extra gelabelt werden
 network=different-namespace
+
+# Selfservice und Templating
+
+oc edit clusterrolebinding self-provisioners        # dann subject ändern (z.B. neue Gruppe)
+oc annotate clusterrolebinding/self-provisioners \  # verhindert das Wiederherstellen des orig. CRB bei Cluster Neustart
+--overwrite rbac.authorization.kubernetes.io/autoupdate=false
+oc adm create-bootstrap-project-template \          # initiales Projekt Template anlegen (dann modifizieren)
+-o yaml >template.yaml
+oc create -f template.yaml -n openshift-config      # Template in open-shift erstellen
+oc edit projects.config.openshift.io cluster        # cluster project config ändern
+watch oc get pod -n openshift-apiserver             # api server pods beobachten
     
 # Images referenzieren
 - quay.io/sascha_hoffmann/apache:1.2                     # Tag verwenden
