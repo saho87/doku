@@ -308,9 +308,16 @@ oc get pod podname -o yaml | \
 oc adm policy scc-subject-review -f -
 oc create serviceaccount service-account-name        # SA wird zur Änderung einer SCC des Containers benötigt
 oc adm policy add-scc-to-user anyuid -z service-account # SA wird an SCC geknüpft
-oc set serviceaccount deployment/deployment-name \   # SA einem Deployment zuweisen
-service-account-name
-    
+oc set serviceaccount deployment/deployment-name \   # SA einem Deployment zuweisen, z.B. wenn Pod keine REchte
+service-account-name                                 # ein Verzeichnis zu erstellen
+
+# Applikationen Zugang zur Kubernetes API erlauben
+# Rolle anlegen oder Default OpenShift Role (z.B. edit) nutzen
+oc adm policy add-role-to-user cluster-role -z service-account       # Rolle an SA binden  (nur Namespace)
+oc adm policy add-cluster-role-to-user cluster-role service-account  # Rolle an SA binden (Clusterweit)
+# SA den Pods zuweisen
+system:serviceaccount:project:service-account # von anderen Projekte auf SA referenzieren
+   
 # Images referenzieren
 - quay.io/sascha_hoffmann/apache:1.2                     # Tag verwenden
 - quay.io/sascha_hoffmann/apache@sha256:4578...          # Hash verwerden Vorteil: eindeutig
