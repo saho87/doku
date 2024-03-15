@@ -299,6 +299,17 @@ oc adm create-bootstrap-project-template \          # initiales Projekt Template
 oc create -f template.yaml -n openshift-config      # Template in open-shift erstellen
 oc edit projects.config.openshift.io cluster        # cluster project config ändern
 watch oc get pod -n openshift-apiserver             # api server pods beobachten
+
+# Security Context Constraints (SCCs)
+oc get scc
+oc describe scc anyuid
+oc describe pod {podnam} | grep scc                 # nicht jeder Pod hat scc
+oc get pod podname -o yaml | \
+oc adm policy scc-subject-review -f -
+oc create serviceaccount service-account-name        # SA wird zur Änderung einer SCC des Containers benötigt
+oc adm policy add-scc-to-user anyuid -z service-account # SA wird an SCC geknüpft
+oc set serviceaccount deployment/deployment-name \   # SA einem Deployment zuweisen
+service-account-name
     
 # Images referenzieren
 - quay.io/sascha_hoffmann/apache:1.2                     # Tag verwenden
