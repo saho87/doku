@@ -858,5 +858,6 @@ sudo tcpdump -i eth0 -A -n port 80 		# Überwachung des Geräts (-i eth0) auf Po
 # curl
 curl google.com					# Get Anfrage (identisch mit curl -X GET google.com)	
 curl -I -v google.com				# I - nur Header keinen Inhalt | v - verbosity
-curl -X POST google.com				# POST Anfrage 
+curl -X POST google.com				# POST Anfrage
+curl -sL					# s-silent (keine Meldungen), L- Redirect erlaubt
 ```
