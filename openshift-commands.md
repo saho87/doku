@@ -1,4 +1,4 @@
-e# Login DO288
+# Login DO288
 ```bash
 oc login -u developer -p developer https://console-openshift-console.apps.ocp4.example.com:6443
 oc login -u admin -p redhatocp https://console-openshift-console.apps.ocp4.example.com:6443
@@ -14,7 +14,7 @@ Doku open-shift platform:
 https://docs.openshift.com/container-platform/4.14/welcome/index.html
 
 Probleme wildcard: 
-https://askubuntu.com/questions/1029882/how-can-i-set-up-local-wildcard-127-0-0-1-domain-resolution-on-18-04-20-04/1031896#1031896
+https://askubuntu.com/questions/1029882/how-can-i-set-up-local-wildcard-127-0-0-1-domain-resolution-on-18-04-20-4/1031896#1031896
 
 Doku DO180 von anderem User:
 https://github.com/fahmifahim/openshift/tree/master
@@ -313,10 +313,11 @@ service-account-name                                 # ein Verzeichnis zu erstel
 
 # Applikationen Zugang zur Kubernetes API erlauben
 # Rolle anlegen oder Default OpenShift Role (z.B. edit) nutzen
-oc adm policy add-role-to-user cluster-role -z service-account       # Rolle an SA binden  (nur Namespace)
+oc adm policy add-role-to-user edit -z service-account       # Rolle (API-Zugriff) an SA binden  (nur Namespace)
 oc adm policy add-cluster-role-to-user cluster-role service-account  # Rolle an SA binden (Clusterweit)
 # SA den Pods zuweisen
 system:serviceaccount:project:service-account # von anderen Projekte auf SA referenzieren
+# S. 239 DO280 für Erklärung Zugriff andere Namespaces
    
 # Images referenzieren
 - quay.io/sascha_hoffmann/apache:1.2                     # Tag verwenden
