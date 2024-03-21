@@ -11,7 +11,7 @@ Doku local cluster:
 https://www.redhat.com/sysadmin/install-openshift-local
 
 Doku open-shift platform:
-https://docs.openshift.com/container-platform/4.14/welcome/index.html
+https://access.redhat.com/documentation/en-us/openshift_container_platform/4.15
 
 Probleme wildcard: 
 https://askubuntu.com/questions/1029882/how-can-i-set-up-local-wildcard-127-0-0-1-domain-resolution-on-18-04-20-4/1031896#1031896
