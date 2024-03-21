@@ -318,7 +318,17 @@ oc adm policy add-cluster-role-to-user cluster-role service-account  # Rolle an 
 # SA den Pods zuweisen
 system:serviceaccount:project:service-account # von anderen Projekte auf SA referenzieren
 # S. 239 DO280 für Erklärung Zugriff andere Namespaces
-   
+
+# Jobs und Cron Jobs
+oc create job --dry-run=client -o yaml test \        # einmaligen Job -> nur Ausgabe yaml
+--image=registry.access.redhat.com/ubi8/ubi:8.6 \
+-- curl https://example.com
+oc create cronjob --dry-run=client -o yaml test \    # Cron-Job anlegen -> nur Ausgabe yaml
+--image=registry.access.redhat.com/ubi8/ubi:8.6 \
+--schedule='0 0 * * *' \
+-- curl https://example.com
+watch oc get cronjobs,jobs,pods                      # Überwachung
+
 # Images referenzieren
 - quay.io/sascha_hoffmann/apache:1.2                     # Tag verwenden
 - quay.io/sascha_hoffmann/apache@sha256:4578...          # Hash verwerden Vorteil: eindeutig
