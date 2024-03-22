@@ -224,6 +224,8 @@ https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/
 
 # Service-Accounts / Rolebinding / Clusterrolebinding
 oc create sa sascha-sa   # SA für aktuellen Namespace erstellen
+oc adm policy scc-subject-review \                   # checkt welches SCC bei Pod notwendig wäre
+-f payroll-app.yaml
 oc adm policy add-scc-to-user anyuid -z sascha-sa    # Clusterrolebinding erstellen
 oc create clusterrolebinding sascha-crb --clusterrole system:openshift:scc:anyuid --user sascha-sa  # CRB erstellen 2. Möglichkeit
 oc create rolebinding app-team --clusterrole edit --group app-team
