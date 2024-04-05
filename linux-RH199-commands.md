@@ -865,4 +865,5 @@ curl -sL					# s-silent (keine Meldungen), L- Redirect erlaubt
 # Bridget hat die URLS damit bekommen, auf die ein Alpine Image beim Upgrade Befehl zugreift
 
 # nslookup
+# wget
 ```
