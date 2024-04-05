@@ -860,4 +860,9 @@ curl google.com					# Get Anfrage (identisch mit curl -X GET google.com)
 curl -I -v google.com				# I - nur Header keinen Inhalt | v - verbosity
 curl -X POST google.com				# POST Anfrage
 curl -sL					# s-silent (keine Meldungen), L- Redirect erlaubt
+
+# tcpdump
+# Bridget hat die URLS damit bekommen, auf die ein Alpine Image beim Upgrade Befehl zugreift
+
+# nslookup
 ```
