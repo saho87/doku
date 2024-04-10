@@ -63,7 +63,8 @@ docker exec -it mysql-1  mysql -uuser1 -pmypa55 items -e "SELECT * FROM Items"  
 docker login registry.redhat.io # Nutzung von der Registry von redhat
 docker search rhel # Suche in lokale/remote Repos nach verfügbaren Images
 docker pull rhel   # Herunterladen eines Images
-docker push push registry.do180.lab:5000/httpd:twerks
+docker push registry.do180.lab:5000/httpd:twerks
+docker push test-image:1.1 craas-09.itz.cloud.intranet.bund.de/import-itzbund-fms/test-image:1.1
 docker images      # Auflistung aller geladenen Images
 
 # Pushen von quay-io Repos mit Auth
