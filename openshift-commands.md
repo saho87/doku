@@ -335,4 +335,8 @@ watch oc get cronjobs,jobs,pods                      # Überwachung
 - quay.io/sascha_hoffmann/apache:1.2                     # Tag verwenden
 - quay.io/sascha_hoffmann/apache@sha256:4578...          # Hash verwerden Vorteil: eindeutig
 - quay.io/sascha_hoffmann/apache:1.2-alpha.1             # best practice: eindeutige Build Nummer verwenden
+
+# Dateien von oder auf Openshift Container kopieren
+oc rsync lip4-585cf7dd95-fs5g6:/tmp/lip/ .               # alles unterhalb lip wird in aktuelles lokales Verzeichnis kopiert
+
 ```
