@@ -157,7 +157,18 @@ umask
 chmod go-rw document.pdf
 chmod -R ugoa+rwx /home/user/myfolder 	# rekursiv nur für Verzeichnisse
 chmod -R g+rwX demodir 			# Ausführungsberechtigung nur für Verzeichnisse setzen
-chmod 750 sampledir 			# (X=1, W=2, R=4) RWX für User, WX für Gruppe und nichts für andere (X=1, W=2, R=4)
+chmod 750 sampledir 			# Oktalmodus (X=1, W=2, R=4) RWX für User, WX für Gruppe und nichts für andere (X=1, W=2, R=4)
+
+# Oktalmodus
+Wert	Recht
+0	Keine
+1	x
+2	w
+3	w+x
+4	r
+5	r+x
+6	r+w
+7	r+w+x
 
 # Anderung der Benutzer- oder Gruppeneigentümer für Dateien und Verzeichnisse
 chown -R user01 pictures 		# kompletter Verzeichnisbaum
