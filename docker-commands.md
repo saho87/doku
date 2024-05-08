@@ -91,6 +91,7 @@ docker tag custom-httpd:latest custom-httpd:v1.0  # Hinzufügen eines Tags zu ei
    LABEL description="This is a custom httpd container image"  # Metadaten hinzufügen
    MAINTAINER John Doe <jdoe@xyz.com>                          # Autor 
    RUN yum install -y httpd                                    # Befehle auf neuer übergeordneter Ebene ausführen
+   WORKDIR /custom                                             # legt das Arbeitsverzeichnis fest
    EXPOSE 80                                                   # zeigt an, dass Container Port überwacht
    ENV LogLevel "info" \                                       # Umgebungsvariablen
        MYSQL_DATABASE="my_database"
