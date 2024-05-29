@@ -814,13 +814,24 @@ ssh -fN -L 8080:172.19.0.2:80 cnbc@128.140.77.235
 
 # Netzwerk Config Files sind in /etc/NetworkManager/system-connections/
 
-# Status aller NW-Geräte anzeigen
-nmcli dev status
+# nmcli - Kommandozeilentool zur Verwaltung des Netzwerk Managers (Abkürzungen wie con möglich)
+nmcli device status		# Status aller NW-Geräte anzeigen
+nmcli con show --active 	# nur aktive NW-Verbindungen anzeigen
 
-# Liste aller NW-Verbindungen anzeigen (Abkürzungen wie con möglich) -- hier nur aktive 
-nmcli con show --active 
+nmcli con up static-ens3	# Aktivieren einer NW-Verbindung
+nmcli con down static-ens3	# NICHT verwenden, da autoconnect aktiviert
+nmcli dev disconnect ens3	# Trennen des NW-Gerätes und Deaktivieren der Verbindung
 
+# Neue NW-Verbindungen hinzufügen
+nmcli con add con-name eno2 \	#
+type ethernet ifname eno2
 
+nmcli con add con-name eno3 type ethernet ifname eno3 \
+ipv4.addresses 192.168.0.5/24 ipv4.gateway 192.168.0.254
+
+nmcli con add con-name eno4 type ethernet ifname eno4 \
+ipv6.addresses 2001:db8:0:1::c000:207/64 ipv6.gateway 2001:db8:0:1::1 \
+ipv4.addresses 192.0.2.7/24 ipv4.gateway 192.0.2.1
 ```
 # Kapitel 14: Network-Attached Storage 
 ```bash
@@ -877,4 +888,37 @@ curl -sL					# s-silent (keine Meldungen), L- Redirect erlaubt
 
 # nslookup
 # wget
+```
+
+# Vagrantfile für das Erstellen von Rhel9 Maschinen zum Ausprobieren
+```bash
+
+Vagrant.configure("2") do |config|
+    #config.vm.box = "bento/fedora-36"
+    config.vm.box = "generic/rhel9"
+    config.ssh.insert_key = false
+    config.vm.synced_folder ".", "/vagrant", disable:true
+    config.vm.provider :virtualbox do |v|
+        v.memory = 256
+        v.linked_clone = true
+    end
+    
+    # App server 1
+    config.vm.define "app1" do |app|
+        app.vm.hostname = "orc-app1.test"
+        app.vm.network :private_network, ip:"192.168.60.4"
+    end
+    
+    # App server 2
+    config.vm.define "app2" do |app|
+        app.vm.hostname = "orc-app2.test"
+        app.vm.network :private_network, ip:"192.168.60.5"
+    end
+    
+    # DB
+    config.vm.define "db" do |db|
+        db.vm.hostname = "orc-db.test"
+        db.vm.network :private_network, ip:"192.168.60.6"
+    end
+    end
 ```
