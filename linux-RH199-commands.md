@@ -815,7 +815,7 @@ ssh -fN -L 8080:172.19.0.2:80 cnbc@128.140.77.235
 # Netzwerk Config Files sind in /etc/NetworkManager/system-connections/
 
 # nmcli - Kommandozeilentool zur Verwaltung des Netzwerk Managers (Abkürzungen wie con möglich)
-nmcli device status		# Status aller NW-Geräte anzeigen
+nmcli dev status		# NW-Manager Status aller NW-Geräte anzeigen
 nmcli con show --active 	# nur aktive NW-Verbindungen anzeigen
 nmcli con show ens3		# detaillierte Einstellungen anzeigen
 
@@ -841,7 +841,16 @@ ipv4.gateway 192.0.2.254 connection.autoconnect yes
 nmcli con mod static-ens3 ipv6.addresses 2001:db8:0:1::a00:1/64 \
 ipv6.gateway 2001:db8:0:1::1
 
-nmcli con mod static-ens3 +ipv4.dns 2.2.2.2
+nmcli con mod static-ens3 +ipv4.dns 2.2.2.2	# + zusätzlichen Wert hinzufügen
+nmcli con mod static-ens3 -ipv4.dns 2.2.2.2	# - Wert aus Liste entfernen
+
+vim /etc/NetworkManager/system-connections/eno2.nmconnection	# direktes Ändern der Cfg
+nmcli con reload		# Lädt cfg nach manuellen Bearbeitung der Dateien neu
+nmcli con reload eno2
+
+nmcli con del static-ens3	# löscht Verdindung
+
+nmcli gen permissions		# aktuelle Berechtigungen anzeigen
 ```
 # Kapitel 14: Network-Attached Storage 
 ```bash
