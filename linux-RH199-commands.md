@@ -817,6 +817,7 @@ ssh -fN -L 8080:172.19.0.2:80 cnbc@128.140.77.235
 # nmcli - Kommandozeilentool zur Verwaltung des Netzwerk Managers (Abkürzungen wie con möglich)
 nmcli device status		# Status aller NW-Geräte anzeigen
 nmcli con show --active 	# nur aktive NW-Verbindungen anzeigen
+nmcli con show ens3		# detaillierte Einstellungen anzeigen
 
 nmcli con up static-ens3	# Aktivieren einer NW-Verbindung
 nmcli con down static-ens3	# NICHT verwenden, da autoconnect aktiviert
@@ -832,6 +833,15 @@ ipv4.addresses 192.168.0.5/24 ipv4.gateway 192.168.0.254
 nmcli con add con-name eno4 type ethernet ifname eno4 \
 ipv6.addresses 2001:db8:0:1::c000:207/64 ipv6.gateway 2001:db8:0:1::1 \
 ipv4.addresses 192.0.2.7/24 ipv4.gateway 192.0.2.1
+
+# NW-Einstellungen ändern:
+nmcli con mod static-ens3 ipv4.addresses 192.0.2.2/24 \
+ipv4.gateway 192.0.2.254 connection.autoconnect yes
+
+nmcli con mod static-ens3 ipv6.addresses 2001:db8:0:1::a00:1/64 \
+ipv6.gateway 2001:db8:0:1::1
+
+nmcli con mod static-ens3 +ipv4.dns 2.2.2.2
 ```
 # Kapitel 14: Network-Attached Storage 
 ```bash
