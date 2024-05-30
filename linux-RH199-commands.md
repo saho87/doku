@@ -762,7 +762,7 @@ timedatectl set-ntp false			# NTP deaktivieren
 chronyc sources -v				# NTP Quellen anzeigen:
 
 ```
-############################## Kapitel 13: Networking ##########################################################
+# Kapitel 13: Networking
 ```bash
 # Befehle:
 ip, ping, tracepath, traceroute, ss
@@ -835,6 +835,7 @@ ipv6.addresses 2001:db8:0:1::c000:207/64 ipv6.gateway 2001:db8:0:1::1 \
 ipv4.addresses 192.0.2.7/24 ipv4.gateway 192.0.2.1
 
 # NW-Einstellungen ändern:
+# 1. Möglichkeit über nmcli
 nmcli con mod static-ens3 ipv4.addresses 192.0.2.2/24 \
 ipv4.gateway 192.0.2.254 connection.autoconnect yes
 
@@ -844,6 +845,7 @@ ipv6.gateway 2001:db8:0:1::1
 nmcli con mod static-ens3 +ipv4.dns 2.2.2.2	# + zusätzlichen Wert hinzufügen
 nmcli con mod static-ens3 -ipv4.dns 2.2.2.2	# - Wert aus Liste entfernen
 
+# 2. Möglichkeit manuell in config files:
 vim /etc/NetworkManager/system-connections/eno2.nmconnection	# direktes Ändern der Cfg
 nmcli con reload		# Lädt cfg nach manuellen Bearbeitung der Dateien neu
 nmcli con reload eno2
@@ -851,6 +853,12 @@ nmcli con reload eno2
 nmcli con del static-ens3	# löscht Verdindung
 
 nmcli gen permissions		# aktuelle Berechtigungen anzeigen
+
+# Hostnamen/DNS
+hostname					# Anzeigen des Hostnamens
+hostnamectl set-hostname host.example.com	# Ändern des Hostnamens
+hostnamectl status				# Infos zu OS, Architektur, usw.
+getent hosts classroom.example.com		# /etc/hosts mit hostname testen
 ```
 # Kapitel 14: Network-Attached Storage 
 ```bash
