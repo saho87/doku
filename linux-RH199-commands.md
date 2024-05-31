@@ -765,10 +765,12 @@ chronyc sources -v				# NTP Quellen anzeigen:
 # Kapitel 13: Networking
 ```bash
 # Befehle:
-ip, ping, tracepath, traceroute, ss
+ip, ping, tracepath, traceroute, ss, nmcli, host, dig, getent
 
 # wichtige Dateien/Ordner
 /etc/ports	# Standardports
+/etc/NetworManager/system-connection	# NW Konfig (neuere RHEL)
+/etc/hostname	# Ablage statischer Hostname
 
 # man/help
 ip-link(8), ip-address(8), ip-route(8), ip(8), ping(8),tracepath(8), traceroute(8), ss(8) und netstat(8)
@@ -859,9 +861,17 @@ hostname					# Anzeigen des Hostnamens
 hostnamectl set-hostname host.example.com	# Ändern des Hostnamens
 hostnamectl status				# Infos zu OS, Architektur, usw.
 getent hosts classroom.example.com		# /etc/hosts mit hostname testen
+
+# Testen der DNS-Namensauflösung
+host google.com					# einfach; antwortet wenn DNS Namen gefunden
+dig google.com					# detaillierter, keine Answer Section wenn nichts gefundem
+getent hosts HOSTNAME				# Testen der Konfig in /etc/hosts
 ```
 # Kapitel 14: Network-Attached Storage 
 ```bash
+dnf install nfs-utils	# Package sollte für Befehle wie z.B. showmount installiert sein, BaseOS bzw. Appstream Repo notwendig
+
+showmount --exports server	# Abfrage von verfügbaren Exporten auf Server
 ```
 # Kapitel 15: Network Security 
 ```bash
