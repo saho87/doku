@@ -890,7 +890,9 @@ mount 						# Überprüfen der Mounts
 
 # Unmounten
 umount /mountpoint
-lsof /mountpoint	# wenn Dev busy wird schuldiger Prozess hier angezeigt				
+lsof /mountpoint	# wenn Dev busy wird schuldiger Prozess hier angezeigt
+
+# Automounter (kann auch von unprivilegierten Usern benutzt werden, die keine Rechte für mount haben) 			
 ```
 # Kapitel 15: Network Security 
 ```bash
