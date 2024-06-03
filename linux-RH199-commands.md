@@ -520,7 +520,7 @@ swapoff /dev/sdb2		# SWAP deaktivieren
 5. dump (Backup) | 6. fsck-Reihenfolgefeld 				
 UUID=7a20315d-ed8b-4e75-a5b6-24ff9e1f9838 /dbdata xfs defaults 0 0	# Beispiel xfs 
 UUID=39e2667a-9458-42fe-9665-c5c854605881 swap swap pri=4 0 0 		# Beispiel Swap mit Prio 4
-92.168.178.63:/volume1/music /home/sascha/music nfs defaults 0 0 	# Beispiel Synology NAS 
+92.168.178.63:/volume1/music /home/sascha/music nfs defaults 0 0 	# Beispiel Synology NAS NFS
 systemctl daemon-reload							# Konfig wird geladen
 mount MOUNTPOINT 							# Überprüfung ob fstab Eintrag korrekt
 ```
@@ -869,9 +869,19 @@ getent hosts HOSTNAME				# Testen der Konfig in /etc/hosts
 ```
 # Kapitel 14: Network-Attached Storage 
 ```bash
+# Befehle:
+showmount
+# wichtige Dateien/Ordner
+
+
 dnf install nfs-utils	# Package sollte für Befehle wie z.B. showmount installiert sein, BaseOS bzw. Appstream Repo notwendig
 
-showmount --exports server	# Abfrage von verfügbaren Exporten auf Server
+showmount --exports localhost	# Abfrage von verfügbaren Exporten auf Server für NFSv3
+
+# manuelles (temporäres) Mounten exportierter NFS-Verzeichnisse (auf Client)
+mkdir /mountpoint			# Verzeichnis für Mount-Point
+mount -t nfs -o rw,sync server:/export /mountpoint	# temporäres Mounten (Transaktionen synchron)
+
 ```
 # Kapitel 15: Network Security 
 ```bash
