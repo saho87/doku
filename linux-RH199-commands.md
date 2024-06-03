@@ -870,7 +870,7 @@ getent hosts HOSTNAME				# Testen der Konfig in /etc/hosts
 # Kapitel 14: Network-Attached Storage 
 ```bash
 # Befehle:
-showmount
+showmount, mount
 # wichtige Dateien/Ordner
 
 
@@ -882,13 +882,22 @@ showmount --exports localhost	# Abfrage von verfügbaren Exporten auf Server fü
 mkdir /mountpoint			# Verzeichnis für Mount-Point
 mount -t nfs -o rw,sync server:/export /mountpoint	# temporäres Mounten (Transaktionen synchron)
 
+# Dauerhaftes Mounten exportierter NFS-Verzeichnisse
+vim /etc/fstab
+server:/export /mountpoint nfs rw,soft 0 0	# soft: bei Verbindungsproblemen wird nach einigen Versuchen abgebrochen
+mount /mountpoint
+mount 						# Überprüfen der Mounts
+
+# Unmounten
+umount /mountpoint
+lsof /mountpoint	# wenn Dev busy wird schuldiger Prozess hier angezeigt				
 ```
 # Kapitel 15: Network Security 
 ```bash
 ```
 # Kapitel 16: Container 
 ```bash
-```
+```92.168.178.63:/volume1/music /home/sascha/music nfs defaults 0 0 	# Beispiel Synology NAS NFS
 
 
 # Zusätzliche Commandos
