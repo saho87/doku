@@ -450,6 +450,10 @@ dnf config-manager --enable rhel-9-server-debug-rpms	# Aktivieren/Deaktivieren v
 dnf config-manager \					# Hinzufügen eines neuen Repos (.repo wird in /etc/yum.repos.d/ erzeugt)
 --add-repo="https://dl.fedoraproject.org/pub/epel/9/Everything/x86_64/"
 
+# Aktivieren der Redhat Subscription zum Enablen der base und appstream repos
+subscription-manager register		# Registrierung des System
+subscription-manager attach --auto	# automatische Auswahl einer passenden Subscription
+
 # zusätzliche RPM Befehle
 rpm -q PACKAGENAME
 
@@ -538,7 +542,7 @@ lsblk -fp
 blkid
 
 #PDs vorbereiten: Erstellen eines GPT Labels, 2 Partitionen (xfs), Setzen von lvm flags, Registrieren der Partitionen beim Kernel
-parted /dev/sdb mklabel gpt mkpart primary 2048s 1GB
+parted /dev/sdb mklabel gpt mkpart primary xfs 2048s 1GB
 parted /dev/sdb mkpart primary 1GB 2GB
 parted /dev/sdb set 1 lvm on
 parted /dev/sdb set 2 lvm on
