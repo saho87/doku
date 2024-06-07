@@ -898,7 +898,7 @@ lsof /mountpoint	# wenn Dev busy wird schuldiger Prozess hier angezeigt
 
 # Automounter (kann auch von unprivilegierten Usern benutzt werden, die keine Rechte für mount haben)
 # Master-Map-Datei (indirektes Mounten) erstellen -> /etc/auto.master.d/indirect.autofs
-/internal /etc/auto.indirect
+/internal /etc/auto.indirect	# autofs soll /mnt überwachen und Mount-Optionen aus /etc/auto.mnt beziehen
 # indirekte Map Datei erzeugen -> /etc/auto.indirect
 * -rw,sync,fstype=nfs4 serverb.lab.example.com:/shares/indirect/& # Inhalt
 
