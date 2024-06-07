@@ -896,7 +896,18 @@ mount 						# Überprüfen der Mounts
 umount /mountpoint
 lsof /mountpoint	# wenn Dev busy wird schuldiger Prozess hier angezeigt
 
-# Automounter (kann auch von unprivilegierten Usern benutzt werden, die keine Rechte für mount haben) 			
+# Automounter (kann auch von unprivilegierten Usern benutzt werden, die keine Rechte für mount haben)
+# Master-Map-Datei (indirektes Mounten) erstellen -> /etc/auto.master.d/indirect.autofs
+/internal /etc/auto.indirect
+# indirekte Map Datei erzeugen -> /etc/auto.indirect
+* -rw,sync,fstype=nfs4 serverb.lab.example.com:/shares/indirect/& # Inhalt
+
+# Master-Map-Datei (direktes Mounten) erstellen -> /etc/auto.master.d/direct.autofs
+/- /etc/auto.direct
+# direkte Map Datei erzeugen -> /etc/auto.direct
+/external -rw,sync,fstype=nfs4 serverb.lab.example.com:/shares/direct/external
+systemctl enable --now autofs	# autofs Service starten und enablen
+ 			
 ```
 # Kapitel 15: Network Security 
 ```bash
