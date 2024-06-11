@@ -911,6 +911,12 @@ systemctl enable --now autofs	# autofs Service starten und enablen
 ```
 # Kapitel 15: Network Security 
 ```bash
+# nftables-Framework ersetzt iptables
+
+# manpages
+man firewalld, firewalld.zones
+
+firewall-cmd --get-services	# vordefinierte Servicekonfigurationen anzeigen
 ```
 # Kapitel 16: Container 
 ```bash
