@@ -914,9 +914,14 @@ systemctl enable --now autofs	# autofs Service starten und enablen
 # nftables-Framework ersetzt iptables
 
 # manpages
-man firewalld, firewalld.zones
+man firewalld, firewalld.zones, firewall-cmd
 
 firewall-cmd --get-services	# vordefinierte Servicekonfigurationen anzeigen
+firewall-cmd --get-default-zone	# Standard-Zone herausfinden
+
+firewall-cmd --add-service=https --zone=public # https in public zone erlauben
+firewall-cmd --info-zone=public	# erlaubte service usw. anzeigen
+
 ```
 # Kapitel 16: Container 
 ```bash
