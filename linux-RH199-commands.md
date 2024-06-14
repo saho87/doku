@@ -236,7 +236,8 @@ chcon -t httpd_sys_content_t /virtual
 semanage fcontext -l 						# SELinux-Standarddateikontexte ausgeben
 semanage fcontext -l -C						# nur lokale erstellte Kontexte anzeigen
 restorecon -vr /virtual 					# zurücksetzen des Kontextes zu Standard (verbosity und rekursiv)
-semanage fcontext -a -t httpd_sys_content_t '/virtual(/.*)?'	
+semanage fcontext -a -t httpd_sys_content_t '/virtual(/.*)?'
+semanage port -a -t http_port_t -p tcp 1001			# aus LAB Kap.15 -> httpd Service darf Port 1001 überwachen
 
 # Boolsche SELinux-Werte
 getsebool -a 				# Anzeige der boolschen Werte inklusive Status
@@ -921,6 +922,10 @@ firewall-cmd --get-default-zone	# Standard-Zone herausfinden
 
 firewall-cmd --add-service=https --zone=public # https in public zone erlauben
 firewall-cmd --info-zone=public	# erlaubte service usw. anzeigen
+
+# Fehlermeldungen:
+curl: (7) Failed to connect to serverb.lab.example.com port 1001: No route to host # Firewall
+curl: (7) Failed to connect to serverb.lab.example.com port 80: Connection refused # Service inaktiv
 
 ```
 # Kapitel 16: Container 
