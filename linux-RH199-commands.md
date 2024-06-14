@@ -921,7 +921,11 @@ firewall-cmd --get-services	# vordefinierte Servicekonfigurationen anzeigen
 firewall-cmd --get-default-zone	# Standard-Zone herausfinden
 
 firewall-cmd --add-service=https --zone=public # https in public zone erlauben
+firewall-cmd --remove-service=https --zone=public # https in public zone verbieten
 firewall-cmd --info-zone=public	# erlaubte service usw. anzeigen
+firewall-cmd --permanent --zone=public \	# Port 1001 in Zone erlauben
+--add-port=1001/tcp
+sudo firewall-cmd --reload			# nach Änderung (permanent) neu laden
 
 # Fehlermeldungen:
 curl: (7) Failed to connect to serverb.lab.example.com port 1001: No route to host # Firewall
