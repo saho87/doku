@@ -948,8 +948,8 @@ find . -type d						# Suche nach Verzeichnis
 find music/ -type d -exec chmod 755 {} \;		# Kombi aus chmod und find
 
 # grep
-grep -c # zählt Vorkommen einer bestimmter Zeichenkette
-grep -v '^system' 			# Alle Vorkommen, die nicht mit system beginnen
+grep -c 				# zählt Vorkommen einer bestimmter Zeichenkette
+grep -v '^\s*$' | grep -v '^#' 		# Leerzeichen, Kommentare ausblenden
 # sed - command
 sed 's/alt/neu/' file 			# Änderung nur in STOUT; s-stringsearch;
 sed 's!path://alt!path://neu!' file 	# Änderung Trenner
