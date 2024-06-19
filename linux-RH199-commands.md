@@ -769,6 +769,7 @@ chronyc sources -v				# NTP Quellen anzeigen:
 ```
 # Kapitel 13: Networking
 ```bash
+# nmcli nicht benutzen im Exam, lieber nmtui
 # Befehle:
 ip, ping, tracepath, traceroute, ss, nmcli, host, dig, getent
 
