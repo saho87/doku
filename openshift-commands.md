@@ -19,7 +19,7 @@ https://askubuntu.com/questions/1029882/how-can-i-set-up-local-wildcard-127-0-0-
 Doku DO180 von anderem User:
 https://github.com/fahmifahim/openshift/tree/master
 
-exam: https://github.com/FWSquatch/do180-practice
+exam: https://github.com/unixerius/EX188-practice
 ```
 
 # CRC-commands (Local Cluster)
