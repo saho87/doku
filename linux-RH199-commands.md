@@ -961,7 +961,11 @@ sed -ri -e "/^Listen 80/c\Listen ${PORT}" /etc/httpd/conf/httpd.conf # Suchen un
 - e Befele zu eingabe
 ^ "/^Listen 80/ - Markiert den Anfang einer Zeile
 
-# jq
+# jq						# Kann JSON verarbeiten
+{"Repository": "registry.do180.lab:5000/httpd"} # Input
+IMAGE=$(echo $INPUT | jq .Repository | tr -d \")# Image: registry.do180.lab:5000/httpd
+
+
 # tar
 tar -xvf /colors.tar -C /folder 		# entpackt ein Archiv in einen (vorhandenen) Ordner
 tar -cvf new.tar sourcefolder 			# erstellt neues Archiv von der Quelle
