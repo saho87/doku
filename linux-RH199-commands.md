@@ -1020,3 +1020,9 @@ Vagrant.configure("2") do |config|
     end
     end
 ```
+# .bashrc colored prompt
+# root
+export PS1="\[$(tput setaf 160)\]\u\[$(tput setaf 220)\]@\[$(tput setaf 214)\]\h \[$(tput setaf 33)\]\w \[$(tput sgr0)\]$ "
+# sascha
+export PS1="\[$(tput setaf 70)\]\u\[$(tput setaf 220)\]@\[$(tput setaf 214)\]\h \[$(tput setaf 33)\]\w \[$(tput sgr0)\]$ "
+
