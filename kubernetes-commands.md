@@ -25,15 +25,8 @@ minikube status
 ### kubectl Kommandos
 ```bash
 
-kubectl help
-kubectl get nodes
-kubectl get pod
-kubectl get services
-kubectl create deployment hello-node --image=registry.k8s.io/echoserver:1.4
-kubectl get deployment
-kubectl get events
-kubectl get pod,svc
-kubectl get replicaset
+kubectl get nodes | pod | service | rs | deploy | event | svc
+kubectl create deployment my-dep --image=registry.k8s.io/echoserver:1.4 --replicas=3 --dry-run=client -o yaml
 kubectl edit deployment nginx-depl
 
 # Zusätzliche Befehle auf Pod ausführen 
