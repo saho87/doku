@@ -29,12 +29,14 @@ kubectl get nodes | pod | service | rs | deploy | event | svc
 # Objekte anlegen
 kubectl run redis --image=redis 
 kubectl create deployment my-dep --image=registry.k8s.io/echoserver:1.4 --replicas=3 --dry-run=client -o yaml
-kubectl create -f service.yml
+kubectl create -f service.yml # imperativ
+kubectl apply -f service.yml # deklarativ
 kubectl expose deployment nginx --port 80
 
 #Objekte ändern
-kubectl edit deployment nginx-depl # nicht empfohlen da yaml nicht persistiert
-kubectl replace -f deployment.yaml # empfohlen
+kubectl edit deployment nginx-depl # imperativ, nicht empfohlen da yaml nicht persistiert
+kubectl replace -f deployment.yaml # imperativ, empfohlen
+kubectl apply -f service.yml # deklarativ, empfohlen
 kubectl scale deployment nginx --replicas=5
 kubectl set image deployment nginx nginx=nginx:1.18
 
