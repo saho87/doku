@@ -22,13 +22,17 @@ minikube status
 ```
 &nbsp;
 
-### kubectl Kommandos
+### Ressourcen anlegen und bearbeiten
 ```bash
 
 kubectl get nodes | pod | service | rs | deploy | event | svc
 kubectl create deployment my-dep --image=registry.k8s.io/echoserver:1.4 --replicas=3 --dry-run=client -o yaml
 kubectl create -f service.yml
 kubectl edit deployment nginx-depl
+
+# anderer Namespace
+kubectl config set-context $(kubectl config current-context) --namespace=dev
+kubectl get pods --namespace=default
 
 # Zusätzliche Befehle auf Pod ausführen 
 
