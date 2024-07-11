@@ -34,7 +34,7 @@ kubectl expose deployment nginx --port 80
 
 #Objekte ändern
 kubectl edit deployment nginx-depl # nicht empfohlen da yaml nicht persistiert
-kubectl replace -f deployment.yaml # empfohlen, da 
+kubectl replace -f deployment.yaml # empfohlen
 kubectl scale deployment nginx --replicas=5
 kubectl set image deployment nginx nginx=nginx:1.18
 
