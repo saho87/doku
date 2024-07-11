@@ -24,12 +24,19 @@ minikube status
 
 ### Ressourcen anlegen und bearbeiten
 ```bash
-
-kubectl run redis --image=redis 
 kubectl get nodes | pod | service | rs | deploy | event | svc
+
+# Objekte anlegen
+kubectl run redis --image=redis 
 kubectl create deployment my-dep --image=registry.k8s.io/echoserver:1.4 --replicas=3 --dry-run=client -o yaml
 kubectl create -f service.yml
-kubectl edit deployment nginx-depl
+kubectl expose deployment nginx --port 80
+
+#Objekte ändern
+kubectl edit deployment nginx-depl # nicht empfohlen da yaml nicht persistiert
+kubectl replace -f deployment.yaml # empfohlen, da 
+kubectl scale deployment nginx --replicas=5
+kubectl set image deployment nginx nginx=nginx:1.18
 
 # anderer Namespace
 kubectl config set-context $(kubectl config current-context) --namespace=dev
