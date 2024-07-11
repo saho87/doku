@@ -27,11 +27,14 @@ minikube status
 kubectl get nodes | pod | service | rs | deploy | event | svc
 
 # Objekte anlegen
-kubectl run redis --image=redis 
+kubectl run redis --image=redis
 kubectl create deployment my-dep --image=registry.k8s.io/echoserver:1.4 --replicas=3 --dry-run=client -o yaml
 kubectl create -f service.yml # imperativ
 kubectl apply -f service.yml # deklarativ
-kubectl expose deployment nginx --port 80
+kubectl expose pod nginx --type=NodePort --port=80 --name=nginx-service --dry-run=client -o yaml # Service 1
+kubectl create service nodeport nginx --tcp=80:80 --node-port=30080 --dry-run=client -o yaml # Service 2
+
+
 
 #Objekte ändern
 kubectl edit deployment nginx-depl # imperativ, nicht empfohlen da yaml nicht persistiert
