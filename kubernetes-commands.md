@@ -32,7 +32,7 @@ kubectl edit deployment nginx-depl
 
 # anderer Namespace
 kubectl config set-context $(kubectl config current-context) --namespace=dev
-kubectl get pods --namespace=default
+kubectl get pods --n=default
 kubectl get pods --all-namespaces
 
 # Zusätzliche Befehle auf Pod ausführen 
