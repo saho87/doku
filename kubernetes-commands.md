@@ -25,6 +25,7 @@ minikube status
 ### Ressourcen anlegen und bearbeiten
 ```bash
 kubectl get nodes | pod | service | rs | deploy | event | svc
+kubectl get all --selector app=App1,tier=frontend --no-headers
 
 # Objekte anlegen
 kubectl run redis --image=redis
@@ -38,7 +39,7 @@ kubectl create service nodeport nginx --tcp=80:80 --node-port=30080 --dry-run=cl
 
 #Objekte ändern
 kubectl edit deployment nginx-depl # imperativ, nicht empfohlen da yaml nicht persistiert
-kubectl replace -f deployment.yaml # imperativ, empfohlen
+kubectl replace (--force)-f deployment.yaml # imperativ, empfohlen
 kubectl apply -f service.yml # deklarativ, empfohlen
 kubectl scale deployment nginx --replicas=5
 kubectl set image deployment nginx nginx=nginx:1.18
