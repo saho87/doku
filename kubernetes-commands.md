@@ -24,7 +24,7 @@ minikube status
 
 ### Ressourcen anlegen und bearbeiten
 ```bash
-kubectl get nodes | pod | service | rs | deploy | event | svc
+kubectl get nodes | pod | service | rs | deploy | event | svc (-o wide)
 kubectl get all --selector app=App1,tier=frontend --no-headers
 
 # Objekte anlegen
@@ -34,8 +34,6 @@ kubectl create -f service.yml # imperativ
 kubectl apply -f service.yml # deklarativ
 kubectl expose pod nginx --type=NodePort --port=80 --name=nginx-service --dry-run=client -o yaml # Service 1
 kubectl create service nodeport nginx --tcp=80:80 --node-port=30080 --dry-run=client -o yaml # Service 2
-
-
 
 #Objekte ändern
 kubectl edit deployment nginx-depl # imperativ, nicht empfohlen da yaml nicht persistiert
@@ -48,6 +46,9 @@ kubectl set image deployment nginx nginx=nginx:1.18
 kubectl config set-context $(kubectl config current-context) --namespace=dev
 kubectl get pods --n=default
 kubectl get pods --all-namespaces
+
+# taint und tolerance
+kubectl taint nodes node-name key=value:taint-effect # NoSchedule | PreferNoSchedule | NoExecute
 
 # Zusätzliche Befehle auf Pod ausführen 
 
