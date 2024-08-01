@@ -36,7 +36,7 @@ kubectl apply -f service.yml # deklarativ
 kubectl expose pod nginx --type=NodePort --port=80 --name=nginx-service --dry-run=client -o yaml # Service 1
 kubectl create service nodeport nginx --tcp=80:80 --node-port=30080 --dry-run=client -o yaml # Service 2
 
-#Objekte ändern
+# Objekte ändern
 kubectl edit deployment nginx-depl # imperativ, nicht empfohlen da yaml nicht persistiert
 kubectl replace (--force)-f deployment.yaml # imperativ, empfohlen
 kubectl apply -f service.yml # deklarativ, empfohlen
@@ -91,6 +91,14 @@ kubectl replace -f nginx-deployment.yaml
 ```
 &nbsp;
 
+### Rollouts
+```bash
+kubectl rollout status deployment/my-deployment # Status
+kubectl rollout history deployment/my-deployment
+kubectl rollout undo deployment/my-deployment # vorheringes replicaset -> rollback
+```
+&nbsp;
+
 ### Zusatz
 
 ```bash
@@ -108,6 +116,11 @@ minikube addons list (alle anzeigen)
 minikube addons disable metrics-server 
 minikube addons enable dashboard
 
+# Metric Server Monitoring aktivieren
+minikube addons enable metrics-server
+kubectl top node
+kubectl top pod
+
 # Dashboard
 
 minicube dashboard 
@@ -122,7 +135,6 @@ export POD_NAME=$(kubectl get pods -o go-template --template '{{range .items}}{{
 echo $POD_NAME
 curl http://localhost:8001/api/v1/namespaces/default/pods/$POD_NAME/
 
-# Metric Server Monitoring aktivieren
-minikube addons enable metrics-server
+
 ```
   
