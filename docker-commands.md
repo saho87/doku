@@ -100,8 +100,10 @@ docker tag custom-httpd:latest custom-httpd:v1.0  # Hinzufügen eines Tags zu ei
    USER apache                                                 # User/UID für Verwendung von RUN, CMD oder ENTRYPOINT
    ENTRYPOINT ["/usr/sbin/httpd"]                              # Standardbefehl zur Ausführung des Containers
    CMD ["-D", "FOREGROUND"]                                    # Standardargumente für ENTRYPOINT
+
 # Unterschied ENTRYPOINT/CMD
 ENTRYPOINT kann erweitert werden und kann Parameter von run <image> <Erweiterung> annehmen, die hier "-D" und "Foreground" überschreiben
+docker run --entrypoint sleep <image> 10        # Überschreibt Entrypoint zur Laufzeit
 
 # systemd service aus Container generieren
 sudo podman generate systemd reg-httpd | sudo tee -a /usr/lib/systemd/system/reg-httpd.service
