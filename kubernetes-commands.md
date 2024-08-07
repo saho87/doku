@@ -10,8 +10,6 @@ kubectl cluster-info
 
 ```
 
-&nbsp;
-
 ### Cluster erstellen und in debug mode Neustarten
 ```bash
 
