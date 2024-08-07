@@ -18,7 +18,6 @@ minikube start --v=7 --alsologtostderr
 minikube status
 
 ```
-&nbsp;
 
 ### Ressourcen anlegen und bearbeiten
 ```bash
@@ -59,7 +58,7 @@ kubectl exec -it $POD_NAME -- bash
 
 kubectl expose deployment hello-node --type=LoadBalancer --port=8080
 ```
-&nbsp;
+
 
 ### debugging
 
@@ -70,7 +69,7 @@ kubectl exec -it {pod-name} -- bin/bash
 kubectl describe service httpd-service
 
 ```
-&nbsp;
+
 
 ### create or edit config file
 
@@ -88,7 +87,7 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.4.0/a
 kubectl replace -f nginx-deployment.yaml
 
 ```
-&nbsp;
+
 
 ### Rollouts
 ```bash
