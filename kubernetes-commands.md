@@ -100,6 +100,13 @@ kubectl rollout undo deployment/my-deployment # vorheringes replicaset -> rollba
 ```
 &nbsp;
 
+### Secrets
+
+```bash
+echo -n "admin" | base64
+echo -n "YWRtaW4=" | base64 --decode
+```
+
 ### Zusatz
 
 ```bash
