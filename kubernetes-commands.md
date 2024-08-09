@@ -96,6 +96,12 @@ kubectl rollout history deployment/my-deployment
 kubectl rollout undo deployment/my-deployment # vorheringes replicaset -> rollback
 ```
 
+### OS Upgrades on Node
+```bash
+kubectl drain node-1 # verlagert Pods von node-1 auf andere Nodes (müssen rs zugeordnet sein) + cordon
+kubectl cordon node-2 # es können keine neuen Pods mehr auf node-2 ausgeführt werden
+kubectl uncordon node-2 # es können wieder Pods auf node-2 ausgeführt werden
+```
 
 ### Secrets
 
