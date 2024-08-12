@@ -101,6 +101,25 @@ kubectl rollout undo deployment/my-deployment # vorheringes replicaset -> rollba
 kubectl drain node-1 # verlagert Pods von node-1 auf andere Nodes (müssen rs zugeordnet sein) + cordon
 kubectl cordon node-2 # es können keine neuen Pods mehr auf node-2 ausgeführt werden
 kubectl uncordon node-2 # es können wieder Pods auf node-2 ausgeführt werden
+# Doku https://kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/
+
+### für Controlplane
+# 1. *falls notwendig* Repo auf neue Major Version umstellen (z.B. von 1.29.x -> 1.30.x)
+sudo apt-cache madison kubeadm # 2. welche Versionen von kubeadm können installiert werden?
+# 3. Update von kubeadm
+kubeadm version      # 4. kubeadm Version verifizieren
+kubeadm upgrade plan # 5. Upgrade plan aufrufen (Welche Versionen sind verfügbar)
+kubeadm upgrade apply v1.30.0 # 6.gewünschte Version installieren
+# 7. Kubelet updaten
+
+### für zusätzliche Nodes
+# 1. *falls notwendig* Repo auf neue Major Version umstellen (z.B. von 1.29.x -> 1.30.x)
+sudo apt-cache madison kubeadm # 2. welche Versionen von kubeadm können installiert werden?
+# 3. Update von kubeadm
+kubeadm version      # 4. kubeadm Version verifizieren
+kubeadm upgrade node # 5. Worker node updaten
+# 6. Kubelet updaten
+
 ```
 
 ### Secrets
