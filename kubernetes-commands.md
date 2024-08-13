@@ -96,7 +96,7 @@ kubectl rollout history deployment/my-deployment
 kubectl rollout undo deployment/my-deployment # vorheringes replicaset -> rollback
 ```
 
-### OS Upgrades on Node
+### OS Upgrades auf Nodes
 ```bash
 kubectl drain node-1 # verlagert Pods von node-1 auf andere Nodes (müssen rs zugeordnet sein) + cordon
 kubectl cordon node-2 # es können keine neuen Pods mehr auf node-2 ausgeführt werden
@@ -120,6 +120,19 @@ kubeadm version      # 4. kubeadm Version verifizieren
 kubeadm upgrade node # 5. Worker node updaten
 # 6. Kubelet updaten
 
+```
+### ETCD Backup and Restore
+```bash
+# infos ETCD abholen
+kubectl get pod etcd-controlplane -n kube-system -o yaml 
+# Backup
+ETCDCTL_API=3 etcdctl snapshot save /opt/snapshot-pre-boot.db --endpoints 127.0.0.1:237
+9 --cacert /etc/kubernetes/pki/etcd/ca.crt --cert /etc/kubernetes/pki/etcd/server.crt --key /etc/kuberne
+tes/pki/etcd/server.key
+# Restore
+ETCDCTL_API=3 etcdctl snapshot restore /opt/snapshot-pre-boot.db --data-dir /var/lib/etcd-from-backup
+# im etcd-pod volume auf neues data-dir ändern
+vim /etc/kubernetes/manifests/etcd.yaml 
 ```
 
 ### Secrets
