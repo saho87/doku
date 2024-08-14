@@ -123,6 +123,7 @@ kubeadm upgrade node # 5. Worker node updaten
 ```
 ### ETCD Backup and Restore
 ```bash
+# Doku: https://kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/#backing-up-an-etcd-cluster
 # infos ETCD abholen
 kubectl get pod etcd-controlplane -n kube-system -o yaml 
 # Backup
