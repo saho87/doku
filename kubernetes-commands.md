@@ -135,6 +135,17 @@ ETCDCTL_API=3 etcdctl snapshot restore /opt/snapshot-pre-boot.db --data-dir /var
 # im etcd-pod volume auf neues data-dir ändern
 vim /etc/kubernetes/manifests/etcd.yaml 
 ```
+### Zertifikate
+```bash
+
+
+openssl genrsa -out sascha.key 2048 # Key erstellen
+openssl req -new -key sascha.key -subj "/CN=sascha" -out sascha.csr # Signing Request erstellen
+cat sascha.csr | base64 -w 0 # csr base64 codieren und in yaml CertificateSigningRequest Objekt einfügen
+kubectl get csr
+kubectl certificate approve|deny sascha # signing request bestätigen
+
+```
 
 ### Secrets
 
