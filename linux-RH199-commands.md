@@ -1022,10 +1022,17 @@ Vagrant.configure("2") do |config|
 ```
 # .bashrc colored prompt
 ```bash
+### colored prompt
 # root
 export PS1="\[$(tput setaf 160)\]\u\[$(tput setaf 220)\]@\[$(tput setaf 214)\]\h \[$(tput setaf 33)\]\w \[$(tput sgr0)\]$ "
 # sascha
 export PS1="\[$(tput setaf 70)\]\u\[$(tput setaf 220)\]@\[$(tput setaf 214)\]\h \[$(tput setaf 33)\]\w \[$(tput sgr0)\]$ "
+
+### kubernetes auto completion
+alias k='kubectl'
+complete -o default -F __start_kubectl k
+source /usr/share/bash-completion/bash_completion
+source <(kubectl completion bash)
 ```
 
 
