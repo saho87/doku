@@ -159,6 +159,7 @@ curl http://localhost:8080 -k # alle verfügbaren APIs anzeigen
 ### RBAC
 ```bash
 k auth can-i create deployments --as user1 # prüfen ob user1 autorisiert ist...
+k --as user1 get pod testpod # als user1 auf Ressource zugreifen
 ```
 
 
