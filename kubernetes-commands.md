@@ -156,6 +156,13 @@ curl http://localhost:8080 -l  # Auth mit Zertifikat
 curl http://localhost:8080 -k # alle verfügbaren APIs anzeigen
 ```
 
+### RBAC
+```bash
+k auth can-i create deployments --as user1 # prüfen ob user1 autorisiert ist...
+```
+
+
+
 ### Secrets
 
 ```bash
