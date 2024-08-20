@@ -57,6 +57,9 @@ kubectl exec -it $POD_NAME -- bash
 # Erstellen eines Services Typ LoadBalancer
 
 kubectl expose deployment hello-node --type=LoadBalancer --port=8080
+# namespaced and cluster scoped resource types
+kubectl api-resources --namespaced=true
+kubectl api-resources --namespaced=false
 ```
 
 
