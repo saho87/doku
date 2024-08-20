@@ -21,7 +21,7 @@ minikube status
 
 ### Ressourcen anlegen und bearbeiten
 ```bash
-kubectl get nodes | pod | service | rs | deploy | event | svc (-o wide)
+kubectl get nodes | pod | service | rs | deploy | event | svc (-o wide) --as user1
 kubectl get all --selector app=App1,tier=frontend --no-headers -A (--all-namespaces)
 
 # Objekte anlegen
