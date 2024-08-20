@@ -58,7 +58,7 @@ kubectl exec -it $POD_NAME -- bash
 
 kubectl expose deployment hello-node --type=LoadBalancer --port=8080
 # namespaced and cluster scoped resource types
-kubectl api-resources --namespaced=true # listet alle Ressourcen inklusive Shortnames auf (namespacebasiert)
+kubectl api-resources --namespaced=true # listet alle Ressourcen inklusive Shortnames, apiVersion auf (namespacebasiert)
 kubectl api-resources --namespaced=false
 ```
 
