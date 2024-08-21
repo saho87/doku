@@ -165,13 +165,12 @@ k auth can-i create deployments --as user1 # prüfen ob user1 autorisiert ist...
 k --as user1 get pod testpod # als user1 auf Ressource zugreifen
 ```
 
-
-
 ### Secrets
 
 ```bash
 echo -n "admin" | base64
 echo -n "YWRtaW4=" | base64 --decode
+jq -R 'split(".") | select(length > 0) | .[0],.[1] | @base64d | fromjson' <<< $TOKEN # Token zerlegen
 ```
 
 ### Zusatz
