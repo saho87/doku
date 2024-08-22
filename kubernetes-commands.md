@@ -170,6 +170,10 @@ k --as user1 get pod testpod # als user1 auf Ressource zugreifen
 ```bash
 echo -n "admin" | base64
 echo -n "YWRtaW4=" | base64 --decode
+kubectl create secret docker-registry private-reg-cred \
+    --docker-username=docker_user --docker-password=dock_password --docker-server=myprivateregistry.com:5000 \
+    --docker-email=dock_user@myprivateregistry.com
+kubectl create token <service-account-name> --duration=1h    # Token mit Ablaufdatum erstellen
 jq -R 'split(".") | select(length > 0) | .[0],.[1] | @base64d | fromjson' <<< $TOKEN # Token zerlegen
 ```
 
