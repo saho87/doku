@@ -175,6 +175,7 @@ kubectl create secret docker-registry private-reg-cred \
     --docker-email=dock_user@myprivateregistry.com
 kubectl create token <service-account-name> --duration=1h    # Token mit Ablaufdatum erstellen
 jq -R 'split(".") | select(length > 0) | .[0],.[1] | @base64d | fromjson' <<< $TOKEN # Token zerlegen
+# webseite für Zerlegen der Token:   https://jwt.io/
 ```
 
 ### Zusatz
