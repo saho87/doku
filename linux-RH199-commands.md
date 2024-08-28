@@ -872,6 +872,7 @@ getent hosts classroom.example.com		# /etc/hosts mit hostname testen
 host google.com					# einfach; antwortet wenn DNS Namen gefunden
 dig google.com					# detaillierter, keine Answer Section wenn nichts gefundem
 getent hosts HOSTNAME				# Testen der Konfig in /etc/hosts
+cat /etc/resolv.conf				# DNS-Server unter nameserver eingetragen
 ```
 # Kapitel 14: Network-Attached Storage 
 ```bash
