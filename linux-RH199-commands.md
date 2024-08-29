@@ -23,6 +23,11 @@ ssh-keygen, ssh-copy-id, ssh-add, ssh
 # wichtige Dateien/Ordner:
 /home/user/.ssh/
 
+# Konsolen Tastenkombis
+STRG + A/E # Springen an Anfang/Ende
+STRG + U/K # Löschen der Zeichen bis Zeilenanfang/Ende
+STRG + L   # Löschen des Terminalbildschirms
+
 # key-pair erstellen
 ssh-keygen -f .ssh/key-with-pass
 ssh-copy-id -i .ssh/key-with-pass.pub user@remotehost	# Ablage in /.ssh/authorized_keys
