@@ -77,7 +77,6 @@ kubectl describe service httpd-service
 ### create or edit config file
 
 ```bash
-
 vim nginx-deployment.yaml
 
 # Ressource im Cluster aktualisieren (auch für das Hinzufügen neuer Ressourcen) -> bevorzugt
@@ -88,7 +87,6 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.4.0/a
 # vorhandene Ressource wird durch neue Version ersetzt (Ressource ist ggf. kurzzeitig nicht verfügbar)
 
 kubectl replace -f nginx-deployment.yaml
-
 ```
 
 
