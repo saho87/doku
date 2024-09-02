@@ -176,6 +176,18 @@ jq -R 'split(".") | select(length > 0) | .[0],.[1] | @base64d | fromjson' <<< $T
 # webseite für Zerlegen der Token:   https://jwt.io/
 ```
 
+### Network
+
+```bash
+ip link        # devices
+ip addr        # ip Adressen
+ip route       # Routing 
+cat /proc/sys/net/ipv4/ip_forward     # IP Weiterleitung true|false
+arp            # Zuordnung MAC - IP
+netstat -tulpn # offene NW-Verbindungen inkl. Ports
+
+```
+
 ### Zusatz
 
 ```bash
