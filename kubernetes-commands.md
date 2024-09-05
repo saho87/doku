@@ -186,6 +186,9 @@ cat /proc/sys/net/ipv4/ip_forward     # IP Weiterleitung true|false
 arp            # Zuordnung MAC - IP
 netstat -tulpn # offene NW-Verbindungen inkl. Ports
 
+# /opt/cni/bin/   alle Network Plugins für Container Runtimes
+# /etc/cni/net.d  welche Plugins werden genutzt
+
 ```
 
 ### Zusatz
