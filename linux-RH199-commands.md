@@ -788,6 +788,7 @@ ip-link(8), ip-address(8), ip-route(8), ip(8), ping(8),tracepath(8), traceroute(
 # weiter auf S. 482 /home/sascha/Dropbox/Dropbox_Sync/IT-Fortbildung/Linux_Admin
 
 ip link show		# Auflisten aller Netzwerkschnittstellen
+ifconfig		# Auflisten aller Netzwerkschnittstellen (detaillierter)
 ip addr show ens3	# IP-Adressen eines Gerätes anzeigen
 ip -br addr list 	# Auflisten aller IP Adressen eines Servers
 ip -s link show ens3	# Performance des Netzwerks anzeigen
