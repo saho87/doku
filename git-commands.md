@@ -49,6 +49,9 @@ git branch -d [new-branch]
 # Branch wechseln
 git checkout main
 
+# alle remote Branches anzeigen
+git ls-remote
+
 # Konfiguration initial einstellen
 git config --global user.name "Sascha Hoffmann"
 git config --global user.email "sascha.hoffmann@itzbund.de"
