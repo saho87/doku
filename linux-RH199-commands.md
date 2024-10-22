@@ -27,6 +27,7 @@ ssh-keygen, ssh-copy-id, ssh-add, ssh
 STRG + A/E # Springen an Anfang/Ende
 STRG + U/K # Löschen der Zeichen bis Zeilenanfang/Ende
 STRG + L   # Löschen des Terminalbildschirms
+STRG + w   # Löschen eines Wortes
 
 # key-pair erstellen
 ssh-keygen -f .ssh/key-with-pass
