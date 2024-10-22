@@ -6,7 +6,7 @@ minikube start                  # start
 kubectl get nodes
 minikube status
 kubectl version
-kubectl cluster-info
+kubectl cluster-info            # infos z.B. URL Cluster erhalten
 
 ```
 
