@@ -227,5 +227,8 @@ export POD_NAME=$(kubectl get pods -o go-template --template '{{range .items}}{{
 echo $POD_NAME
 curl http://localhost:8001/api/v1/namespaces/default/pods/$POD_NAME/
 
+Port forwarding
+kubectl port-forward --namespace default service/code-server 8080:http
+
 ```
   
