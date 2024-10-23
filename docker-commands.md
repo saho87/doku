@@ -21,6 +21,7 @@ docker rm <CID>                               # Löscht einen gestoppten Contain
 # Informationen zu Containern
 docker logs <CID>            # Listet alle Logs zu einem Container auf
 docker inspect <CID>         # detaillierte Infos zu Container
+docker port <CID>         # genutzte Ports des Containers
 
 # Prozess in bestehenden Container starten
 docker exec -it <CID> sh                 # Führt eine 2. Prozess in einem laufenden Container aus (hier öffnen einer shell)
@@ -108,6 +109,9 @@ docker run --entrypoint sleep <image> 10        # Überschreibt Entrypoint zur L
 # systemd service aus Container generieren
 sudo podman generate systemd reg-httpd | sudo tee -a /usr/lib/systemd/system/reg-httpd.service
 
+# Docker network
+docker network ls             # alle NW-Verbindungen anzeigen
+docker network inspect bridge # Details wie IP, inferface name
 ```
 # Skopeo
 ```bash
