@@ -969,6 +969,8 @@ sed -ri -e "/^Listen 80/c\Listen ${PORT}" /etc/httpd/conf/httpd.conf # Suchen un
 - i in place: direktes Bearbeiten ohne Ausgabe in STOUT
 - e Befele zu eingabe
 ^ "/^Listen 80/ - Markiert den Anfang einer Zeile
+# watch
+watch -n 2 'find . | wc -l' # alle 2 Sekunden werden die Dateinen im Vz gezählt
 
 # jq						# Kann JSON verarbeiten
 {"Repository": "registry.do180.lab:5000/httpd"} # Input
