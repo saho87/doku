@@ -810,8 +810,9 @@ traceroute -I google.com	# muss ggf. installiert werden; UPD Standard, -I ICMP, 
 tracepath6 2001:db8:0:2::451	# IPv6
 
 # Aufruf von Socket-Statistiken:
-ss -tulpna 		# ersetzt netstat 
-netstat -tulpna		# nicht immer installiert
+ss -tulpn		# listet nur lauschende Sockets auf
+ss -tulpna 		# listet alle (lauschende und aktive) Verbindungen auf
+netstat -tulpna		# Alternative, aber nicht immer installiert
 # -n Zahlen anstatt von Namen für Ports
 # -t -u TCP, UPD
 # -l nur abhörende Sockets
