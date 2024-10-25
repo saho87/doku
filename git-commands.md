@@ -10,6 +10,10 @@ git branch --help
 git init
 git clone [proj-Url]
 
+# Änderungen aus Remote Branch abrufen
+git pull
+git pull origin main # Integration neuer Änderungen von main in aktuellen Branch (z.B. dev)
+
 # Staging Area/ Index - Hinzufügen, Löschen, Umbenennen/Verschieben 
 git add *
 git add [file]
