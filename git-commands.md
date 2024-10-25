@@ -44,7 +44,8 @@ git restore --staged --source=4c3c03b69ec760ec16d4ccfeddc56b57c9c1ab4f [file]
 # neuen Branch erstellen, pushen und löschen
 git checkout -b [new-branch]
 git push --set-upstream origin [new-branch]
-git branch -d [new-branch]
+git branch -d [deleted-branch]
+git push origin -d [deleted-branch]
 
 # Branch wechseln
 git checkout main
