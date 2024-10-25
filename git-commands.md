@@ -15,8 +15,8 @@ git pull
 git pull origin main # Integration neuer Änderungen von main in aktuellen Branch (z.B. dev)
 
 # Staging Area/ Index - Hinzufügen, Löschen, Umbenennen/Verschieben 
-git add *
-git add [file]
+git add .
+git add [file1] [file2]
 git rm [file]
 git mv [file] 
 
