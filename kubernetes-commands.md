@@ -68,7 +68,7 @@ kubectl api-resources --namespaced=false
 ```bash
 
 kubectl logs {pod-name}
-kubectl exec -it {pod-name} -- bin/bash
+kubectl exec -it {pod-name} -- bash
 kubectl describe service httpd-service
 
 ```
