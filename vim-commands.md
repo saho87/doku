@@ -22,11 +22,8 @@ vim filename +n      # Open file with cursor at line n
 vim -o *.c           # Open matching files horizontally splitted
 vim -O *.c           # Open matching files vertically splitted
 
-# Use C-w then [h, j, k, l] to switch between vim splits
+# Use STR+w then [h, j, k, l] to switch between vim splits
 
-vim -u NOVIMRC <filename>             # Open file in vanilla vim, without using .vimrc file
-vim --noplugin <filename>             # Open file without using any plugin
-vim --noplugin -u NOVIMRC <filename>  # Above 2 commands combined
 ```
 
 ### Save file
