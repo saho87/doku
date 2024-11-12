@@ -448,6 +448,8 @@ Append alpha to `nrformats` to work with alphabets also
 ```
 
 ```vim
+:%s/alt/neu/g             " Ersetzt alle Vorkommen von alt zu neu
+:1,2s/alt/neu/g           " Ersetzt alt zu neu in Zeile 1 und 2
 :g/pattern/d              " Delete all lines having 'pattern'
 :v/pattern/d              " Delete all lines **not** having 'pattern' or use :g!/pattern/d
 :v/error\|warn\|fail/d    " Delete all lines **not** having error, warn or fail
