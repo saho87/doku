@@ -438,7 +438,9 @@ Append alpha to `nrformats` to work with alphabets also
 
 ### Search, replace and delete in command mode
 ```vim
-:set ic        " Ignore Case in search 
+
+:set ic        " Ignoriert Groß und Kleinschreibung in der Suche 
+:set hls is    " Hebt alle passenden Ausdrücke hervor (hls) und zeigt Zeilübereinstimmungen (is)
 /pattern       " Search next occurrence of 'pattern' in file
 /red\|green    " Search multiple strings at the same time, this selects red and green
 
