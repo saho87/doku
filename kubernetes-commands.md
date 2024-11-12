@@ -230,5 +230,16 @@ curl http://localhost:8001/api/v1/namespaces/default/pods/$POD_NAME/
 Port forwarding
 kubectl port-forward --namespace default service/code-server 8080:http
 
+# Autocompletion, Alias
+https://kubernetes.io/docs/reference/kubectl/quick-reference/
+echo "source <(kubectl completion bash)" >> ~/.bashrc # add autocomplete permanently to your bash shell.
+
+alias k='kubectl'    # in .bashrc
+complete -o default -F __start_kubectl k # # in .bashrc
+
+cat <<EOF>> test
+alias k='kubectl' 
+complete -o default -F __start_kubectl k
+EOF
 ```
   
