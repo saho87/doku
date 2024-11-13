@@ -803,3 +803,25 @@ C-g                " Show current filename with other details(char count, lines.
 * Without plugin: https://www.youtube.com/watch?v=XA2WjJbmmoM
 * From muggle to wizard: https://www.youtube.com/watch?v=MquaityA1SM
 * Cut copy paste: http://vim.wikia.com/wiki/Copy,_cut_and_paste
+
+### Schritte zur Erstellung des Makros
+Starte die Aufnahme des Makros:
+
+Drücke q und dann eine Buchstabentaste (z. B. q und dann a), um das Makro im Register a aufzunehmen. Dein Vim-Status sollte recording @a anzeigen.
+Markiere und formatiere die Zeile:
+
+Drücke ^ oder 0, um zum Anfang der Zeile zu springen.
+Drücke gU und dann $, um die gesamte Zeile in Großbuchstaben zu formatieren.
+Zur nächsten Zeile springen:
+
+Drücke j, um zur nächsten Zeile zu gelangen.
+Beende die Makroaufnahme:
+
+Drücke erneut q, um die Aufnahme zu beenden.
+Makro testen und anwenden
+Makro auf eine Zeile anwenden: Drücke @a, um das Makro einmal auf die aktuelle Zeile anzuwenden.
+Makro auf mehrere Zeilen wiederholen: Drücke 10@a, um das Makro z. B. auf die nächsten 10 Zeilen anzuwenden.
+Hinweise und Tipps
+Makro wiederholen: Wenn du das Makro einmal ausgeführt hast, kannst du einfach @@ drücken, um es erneut auszuführen.
+Auf alle Zeilen bis zum Ende anwenden: Stehe auf der ersten Zeile und gib :normal @a ein, um das Makro bis zum Ende der Datei auf jede Zeile anzuwenden.
+Makro in anderen Registern speichern: Du kannst Makros in anderen Registern speichern, indem du q gefolgt von einem anderen Buchstaben drückst (z. B. qb für das Register b), was nützlich ist, wenn du mehrere Makros parallel nutzen möchtest.
