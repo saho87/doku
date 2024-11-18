@@ -32,7 +32,11 @@ git merge feature/update-readme
 git status
 
 # git history - letzte Commits anzeigen
-git log
+git log branch
+git log --oneline --graph # Commits in einer Zeile und grafisch
+git log -- example.txt    # Commits die bestimmte Datei geändert haben
+git log --pretty=format:"%h - %an, %ar : %s"
+
 
 # Unterschied von Arbeits- und Stagingbereich anzeigen
 git diff [file]
@@ -61,6 +65,20 @@ git checkout main
 
 # alle remote Branches anzeigen
 git ls-remote
+
+# stash und unstash
+git stash
+git pop
+git stash save "Beschreibung" 
+git stash list # alle stashes anzeigen
+git stash clear # alle stashes löschen
+git stash drop # letzten stash löschen
+git stash pop stash@{1}   # stash 1 anwenden und löschen
+git stash apply            # letzten stash anwenden und beibehalten
+
+
+git stash drop stash@{0} # stash 0 löschen
+
 
 # Konfiguration initial einstellen
 git config --global user.name "Sascha Hoffmann"
