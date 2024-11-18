@@ -44,6 +44,7 @@ git diff --staged [file]
 git restore [file]
 git restore --source=[hash-commit] [file]
 git checkout -- [file]
+git checkout HEAD~1 -- [file] # zeigt auf einen Commit vor HEAD
 
 # Dateien im Staging Bereich wiederherstellen 
 git restore --staged [hash-commit]
