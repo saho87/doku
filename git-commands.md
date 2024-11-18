@@ -79,6 +79,8 @@ git stash apply            # letzten stash anwenden und beibehalten
 
 git stash drop stash@{0} # stash 0 löschen
 
+# Löschen von Commits
+git reset --hard HEAD~2 # Löscht die letzten 2 Commits
 
 # Konfiguration initial einstellen
 git config --global user.name "Sascha Hoffmann"
