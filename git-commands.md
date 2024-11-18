@@ -24,6 +24,10 @@ git mv [file]
 git commit -m "Standard Commit durchführen"
 git commit -am "Commit ohne add"
 
+# Branch Mergen
+git checkout main # Feature branch soll in main gemerged werden
+git merge feature/update-readme
+
 # Status von Arbeitsbereich und Staging Bereich anzeigen
 git status
 
