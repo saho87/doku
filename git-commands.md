@@ -23,6 +23,7 @@ git mv [file]
 # Commit durchführen
 git commit -m "Standard Commit durchführen"
 git commit -am "Commit ohne add"
+git commit --amend -m "Commit-Nachricht ändern"
 
 # Branch Mergen
 git checkout main # Feature branch soll in main gemerged werden
@@ -75,9 +76,13 @@ git stash clear # alle stashes löschen
 git stash drop # letzten stash löschen
 git stash pop stash@{1}   # stash 1 anwenden und löschen
 git stash apply            # letzten stash anwenden und beibehalten
-
-
 git stash drop stash@{0} # stash 0 löschen
+
+# interaktives Rebase für die letzten 3 Commits
+git rebase -i HEAD~3
+pick abc123 Commit 1
+reword def456 Commit 2
+pick ghi789 Commit 3
 
 # Löschen von Commits
 git reset --hard HEAD~2 # Löscht die letzten 2 Commits
