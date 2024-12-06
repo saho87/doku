@@ -156,6 +156,12 @@ curl http://localhost:8080 -l  # Auth mit Zertifikat
     --cert admin.crt
     --cacert ca.crt
 curl http://localhost:8080 -k # alle verfügbaren APIs anzeigen
+
+# über Netzwerk
+curl https://192.168.49.2:8443/api/v1/pods \
+      --key /home/sascha/.minikube/sascha.key  \
+      --cert /home/sascha/.minikube/sascha.crt \
+      --cacert /home/sascha/.minikube/ca.crt
 ```
 
 ### RBAC
