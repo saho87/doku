@@ -952,7 +952,7 @@ curl: (7) Failed to connect to serverb.lab.example.com port 80: Connection refus
 date -d "+45 days" -u # Datum 45 Tage in Zukunft in UTC anzeigen
 
 # Suche nach Dateien und Verzeichnissen
-find /dir -iname *test*					# sucht nach test (keine Unterscheidung groß/klein)
+find /dir -iname '*test*'					# sucht nach test (keine Unterscheidung groß/klein)
 find . -type f -name '*.log.gz' -size -1M		# kleiner als 1 MB im aktuellen Ordner
 find /var/log -type f -name '*.log' -size +100c		# größer als 100 Byte unterhalb /var/log
 find . -type d						# Suche nach Verzeichnis
