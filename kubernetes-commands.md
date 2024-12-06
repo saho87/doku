@@ -144,7 +144,8 @@ openssl req -new -key sascha.key -subj "/CN=sascha" -out sascha.csr # Signing Re
 cat sascha.csr | base64 -w 0 # csr base64 codieren und in yaml CertificateSigningRequest Objekt einfügen
 kubectl get csr
 kubectl certificate approve|deny sascha # signing request bestätigen
-
+kubectl get csr sascha -o yaml # den Teil unter "certificate" kopieren, decodieren und in sascha.crt einfügen
+echo -n "LS0...Qo=" | base64 -d > sascha.crt
 ```
 
 ### API
