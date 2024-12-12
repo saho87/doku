@@ -531,7 +531,7 @@ swapoff /dev/sdb2		# SWAP deaktivieren
 5. dump (Backup) | 6. fsck-Reihenfolgefeld 				
 UUID=7a20315d-ed8b-4e75-a5b6-24ff9e1f9838 /dbdata xfs defaults 0 0	# Beispiel xfs 
 UUID=39e2667a-9458-42fe-9665-c5c854605881 swap swap pri=4 0 0 		# Beispiel Swap mit Prio 4
-92.168.178.63:/volume1/music /home/sascha/music nfs defaults 0 0 	# Beispiel Synology NAS NFS
+192.168.178.63:/volume1/music /home/sascha/music nfs defaults 0 0 	# Beispiel Synology NAS NFS
 systemctl daemon-reload							# Konfig wird geladen
 mount MOUNTPOINT 							# Überprüfung ob fstab Eintrag korrekt
 ```
@@ -944,8 +944,8 @@ curl: (7) Failed to connect to serverb.lab.example.com port 80: Connection refus
 ```
 # Kapitel 16: Container 
 ```bash
-```92.168.178.63:/volume1/music /home/sascha/music nfs defaults 0 0 	# Beispiel Synology NAS NFS
 
+```
 
 # Zusätzliche Commandos
 ```bash
@@ -977,6 +977,13 @@ watch -n 2 "find ./jpg -name '*.jpg' | wc -l" # alle 2 Sekunden werden die Datei
 {"Repository": "registry.do180.lab:5000/httpd"} # Input
 IMAGE=$(echo $INPUT | jq .Repository | tr -d \")# Image: registry.do180.lab:5000/httpd
 
+# tr (translate)
+echo "HELLO WORLD" | tr 'A-Z' 'a-z'		  # Großbuchstaben in Kleinbuchstaben umwandeln
+echo "hello world shell script" | tr ' ' '_'	  # Leerzeichen durch Unterstrich ersetzen
+echo "abc123def456" | tr -d '0-9'		  # alle Zahlen löschen
+echo "hello     world   shell script" | tr -s ' ' # Mehrere Leerzeichen zu einem reduzieren (squeeze)
+echo -e "line1\nline2\nline3" | tr '\n' ' '       # Zeilenumbrüche in Leerzeichen verwandeln
+echo "123abc!@#DEF" | tr -cd 'a-zA-Z'		  # alles außer Buchstaben entfernen
 
 # tar
 tar -xvf /colors.tar -C /folder 		# entpackt ein Archiv in einen (vorhandenen) Ordner
