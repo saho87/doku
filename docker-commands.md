@@ -105,6 +105,8 @@ docker tag custom-httpd:latest custom-httpd:v1.0  # Hinzufügen eines Tags zu ei
 # Unterschied ENTRYPOINT/CMD
 ENTRYPOINT kann erweitert werden und kann Parameter von run <image> <Erweiterung> annehmen, die hier "-D" und "Foreground" überschreiben
 docker run --entrypoint sleep <image> 10        # Überschreibt Entrypoint zur Laufzeit
+ENTRYPOINT entspricht in Kubernetes command
+CMD entspricht in Kubernetes args
 
 # systemd service aus Container generieren
 sudo podman generate systemd reg-httpd | sudo tee -a /usr/lib/systemd/system/reg-httpd.service
