@@ -98,3 +98,22 @@ helm template <release-name> <chart-path> --set key1=value1,key2=value2
 helm template <release-name> <chart-path> --show-only templates/<template-file>
 
 ```
+
+# Pull und Push von HELM Charts
+
+```bash
+# Helm-Chart von einem Repo pullen und installieren
+helm repo add bitnami https://charts.bitnami.com/bitnami        
+helm repo update
+helm search repo bitnami
+helm install my-release bitnami/nginx
+helm pull bitnami/nginx
+
+# Helm-Charts in eigenen Harbor pushen
+helm registry login https://craas-1a.itz.cloud.intranet.bund.de/
+helm push nginx-13.2.8.tgz oci://craas-1a.itz.cloud.intranet.bund.de/import-itzbund-fms-devops-tools
+
+
+
+
+```
