@@ -94,9 +94,10 @@ git config --global user.email "sascha.hoffmann@itzbund.de"
 # Farbe verstellen
 git config --global color.ui auto
 
-# Remote Repository registrieren und testen
-git remote set-url origin git@github.com:saho87/repository.git
-git remote -v
+# wenn user/passwort beim Pushen verlangt werden muss von https auf ssh umgestellt werden
+git remote -v                                                  # sollte mit https:// beginnen
+git remote set-url origin git@github.com:saho87/repository.git # auf ssh umstellen
+git remote -v                                                  # testen
 
 # Probleme beim initialen Pushen großer Repos error: RPC failed; curl 56 HTTP/2 stream 5 was reset send-pack:
 # unexpected disconnect while reading sideband packet fatal: the remote end hung up unexpectedly
