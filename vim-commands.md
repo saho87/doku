@@ -1,3 +1,7 @@
+# globale Einstellungen (in ~/.vimrc)
+set autoindent
+set tabstop=2 shiftwidth=2 expandtab
+
 ### yaml setup vim
 echo  "autocmd FileType yaml setlocal ai ts=2 sw=2 et" >> ~/.vimrc
 
