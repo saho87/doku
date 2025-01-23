@@ -51,6 +51,7 @@ kubectl taint nodes node-name key=value:taint-effect # NoSchedule | PreferNoSche
 
 # Zusätzliche Befehle auf Pod ausführen 
 
+kubectl run -it $POD_NAME --image=busibox -- sh
 kubectl exec $POD_NAME -- env                                          
 kubectl exec -it $POD_NAME -- bash                                      
 
@@ -142,6 +143,7 @@ vim /etc/kubernetes/manifests/etcd.yaml
 openssl genrsa -out sascha.key 2048 # Key erstellen
 openssl req -new -key sascha.key -subj "/CN=sascha" -out sascha.csr # Signing Request erstellen
 cat sascha.csr | base64 -w 0 # csr base64 codieren und in yaml CertificateSigningRequest Objekt einfügen
+# der name im csr.object hat nichts mit dem Usernamen zu tun, Username wird mit openssl definiert (Subject: CN = sascha)
 kubectl get csr
 kubectl certificate approve|deny sascha # signing request bestätigen
 kubectl get csr sascha -o yaml # den Teil unter "certificate" kopieren, decodieren und in sascha.crt einfügen
