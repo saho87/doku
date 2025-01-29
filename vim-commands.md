@@ -191,7 +191,8 @@ yg_    " Yank from current cursor position to last char(non space) of line
 
 #### Delete
 ```vim
-dd     " Delete current line
+5dd     " Delete current 5 lines
+:5,14d   " Delete line 5 to 14
 D      " Delete from current cursor position till end of line
 dw     " Delete current word
 db     " Delete previous word
