@@ -39,6 +39,7 @@ kubectl edit deployment nginx-depl # imperativ, nicht empfohlen da yaml nicht pe
 kubectl replace (--force)-f deployment.yaml # imperativ, empfohlen
 kubectl apply -f service.yml # deklarativ, empfohlen
 kubectl scale deployment nginx --replicas=5
+kubectl scale --replicas=6 -f replicaset-definition.yaml
 kubectl set image deployment nginx nginx=nginx:1.18
 kubectl delete pod nginx --force --grace-period 0 
 
