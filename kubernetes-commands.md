@@ -25,7 +25,8 @@ kubectl get nodes | pod | service | rs | deploy | event | svc (-o wide) --as use
 kubectl get all --selector app=App1,tier=frontend --no-headers -A (--all-namespaces)
 
 # Objekte anlegen
-kubectl run redis --image=redis --dry-run=client -o yaml --command -- sleep 1000 #Pod, command am Ende!
+kubectl run redis --image=redis --dry-run=client -o yaml --command -- sleep 1000 # Überschreibt STD Command
+kubectl run redis --image=redis -- --color red # STD Command wird nicht geändert, nur Args hinzugefügt 
 kubectl create deployment my-dep --image=registry.k8s.io/echoserver:1.4 --replicas=3 --dry-run=client -o yaml
 kubectl create -f service.yml # imperativ
 kubectl create configmap sascha-cm --from-file=config.yaml # Dateiinhalt in CM einbinden
