@@ -99,12 +99,13 @@ docker tag custom-httpd:latest custom-httpd:v1.0  # Hinzufügen eines Tags zu ei
    ADD http://someserver.com/archive.tar /var/www/html         # kopiert + extrahiert Files aus lok./remote Quelle in Container-FS
    COPY ./src/ /var/www/html/                                  # kopiert Dateien aus Arbeitsverzeichnis in Container-FS
    USER apache                                                 # User/UID für Verwendung von RUN, CMD oder ENTRYPOINT
-   ENTRYPOINT ["/usr/sbin/httpd"]                              # Standardbefehl zur Ausführung des Containers -> command (kubernetes)
-   CMD ["-D", "FOREGROUND"]                                    # Standardargumente für ENTRYPOINT --> args (kubernetes)
+   ENTRYPOINT ["sleep"]                              # Standardbefehl zur Ausführung des Containers -> command (kubernetes)
+   CMD ["10"]                                    # Standardargumente für ENTRYPOINT --> args (kubernetes)
 
 # Unterschied ENTRYPOINT/CMD
-ENTRYPOINT kann erweitert werden und kann Parameter von run <image> <Erweiterung> annehmen, die hier "-D" und "Foreground" überschreiben
-docker run --entrypoint sleep <image> 10        # Überschreibt Entrypoint zur Laufzeit
+ENTRYPOINT kann erweitert werden und kann Parameter von run <image> <Erweiterung> annehmen, die hier "10" überschreiben
+docker run <image> 20                                  # Überschreibt nur CMD
+docker run --entrypoint sleep2.0 <image> 50            # Überschreibt kompletten Entrypoint zur Laufzeit + CMD (am Ende)
 ENTRYPOINT entspricht in Kubernetes command
 CMD entspricht in Kubernetes args
 
