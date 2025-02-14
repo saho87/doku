@@ -171,6 +171,7 @@ curl https://192.168.49.2:8443/api/v1/pods \
 
 ### RBAC
 ```bash
+k auth can-i --list --as=system:serviceaccount:namespace1:default -n namespace2 # alle Rechte auflisten
 k auth can-i create deployments --as user1 # prüfen ob user1 autorisiert ist...
 k --as user1 get pod testpod # als user1 auf Ressource zugreifen
 
