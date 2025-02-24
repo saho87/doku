@@ -264,4 +264,33 @@ alias k='kubectl'
 complete -o default -F __start_kubectl k
 EOF
 ```
+### Status/Conditions von Pods
+```bash
+#1. PodScheduled
+Bedeutung: Der Pod wurde einem Node zugewiesen.
+True: Der Pod wurde erfolgreich einem Node zugeordnet.
+False: Der Pod wartet noch auf die Zuweisung eines Nodes (z. B. wegen fehlender Ressourcen).
+Unknown: Der Status ist unklar (z. B. wegen Netzwerkproblemen oder Problemen mit dem Scheduler).
+#2. Initialized
+Bedeutung: Alle Init-Container wurden erfolgreich ausgeführt.
+Zustände:
+True: Alle Init-Container wurden erfolgreich abgeschlossen.
+False: Mindestens ein Init-Container läuft noch oder ist fehlgeschlagen.
+3. ContainersReady
+Bedeutung: Alle Container im Pod sind gestartet und laufen ohne Probleme.
+Zustände:
+True: Alle Container sind im Zustand "running" und haben erfolgreich ihre Liveness-Probes (falls konfiguriert) bestanden.
+False: Mindestens ein Container ist noch nicht bereit.
+4. Ready
+Bedeutung: Der Pod kann Traffic empfangen.
+Zustände:
+True: Alle Container sind bereit, haben ihre Readiness-Probes (falls vorhanden) bestanden und das Pod ist im Service-Routing aktiv.
+False: Der Pod ist noch nicht bereit oder wurde aus dem Service-Traffic entfernt (z. B. wegen einer fehlerhaften Readiness-Probe).
+5. PodReadyToStartContainers (ab Kubernetes 1.28)
+Bedeutung: Der Pod ist bereit, Container zu starten, aber sie laufen noch nicht.
+Zustände:
+True: Der Pod hat alle Vorbereitungen getroffen (z. B. Volumes gemountet, Netzwerk konfiguriert).
+False: Der Pod kann die Container noch nicht starten.
+
+```
   
