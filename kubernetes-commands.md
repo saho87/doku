@@ -99,6 +99,7 @@ kubectl replace -f nginx-deployment.yaml
 kubectl rollout status deployment/my-deployment # Status
 kubectl rollout history deployment/my-deployment
 kubectl rollout undo deployment/my-deployment # vorheringes replicaset -> rollback
+kubectl edit deployments nginx-test --record # fügt zusätzlich Revision in History mit Grund zu -> depricated
 ```
 
 ### OS Upgrades auf Nodes
