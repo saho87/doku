@@ -99,7 +99,8 @@ kubectl replace -f nginx-deployment.yaml
 kubectl rollout status deployment/my-deployment # Status
 kubectl rollout history deployment/my-deployment # alle Revisions mit Grund anzeigen
 kubectl rollout history deployment nginx-test --revision=2 # nur Infos von Revision 2
-kubectl rollout undo deployment/my-deployment # vorheringes replicaset -> rollback
+kubectl rollout undo deployment/my-deployment # vorheringes replicaset -> rollback 
+kubectl rollout undo deployment/my-deployment --revision=1 # auf Revision 1 zurück
 kubectl edit deployments nginx-test --record # fügt zusätzlich Revision in History mit Grund zu -> depricated
 ```
 
