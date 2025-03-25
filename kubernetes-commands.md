@@ -76,7 +76,11 @@ kubectl exec -it {pod-name} -- bash
 kubectl describe service httpd-service
 
 ```
-
+### kubeconfig
+kubeclt config view --kubeconfig=my-kube-config # andere als die default konfig (~.kube/config) anschauen
+kubeclt config --kubeconfig=my-kube-config use-context research # current config ändern
+kubectl config set-context --current --namespace=default # aktuellen default namespace ändern
+export KUBECONFIG=/root/my-kube-config # um config dauerhaft zu nutzen
 
 ### create or edit config file
 
