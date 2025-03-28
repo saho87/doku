@@ -223,6 +223,9 @@ netstat -tulpn # offene NW-Verbindungen inkl. Ports
 ### Zusatz
 
 ```bash
+# Anzeige der aktivierten Admission Control Plugins im API-Server
+kubectl -n kube-system exec kube-apiserver-controlplane -- kube-apiserver -h | grep enable-admission-plugins
+
 # Ausgabe der URL eines gewählten Services
 
 minikube service mysql-service --url
