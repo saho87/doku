@@ -21,8 +21,10 @@ minikube status
 
 ### Ressourcen anlegen und bearbeiten
 ```bash
+# Informationen zu Ressourcen bekommen
 kubectl get nodes | pod | service | rs | deploy | event | svc (-o wide) --as user1
 kubectl get all --selector app=App1,tier=frontend --no-headers -A (--all-namespaces)
+kubectl explain jobs # beschreibt Felder und Struktur von Ressourcen
 
 # Objekte anlegen
 kubectl run redis --image=redis --dry-run=client -o yaml --command -- sleep 1000 # Überschreibt ENTRYPOINT
@@ -61,9 +63,7 @@ kubectl exec -it $POD_NAME -- bash
 # Erstellen eines Services Typ LoadBalancer
 
 kubectl expose deployment hello-node --type=LoadBalancer --port=8080
-# namespaced and cluster scoped resource types
-kubectl api-resources --namespaced=true # listet alle Ressourcen inklusive Shortnames, apiVersion auf (namespacebasiert)
-kubectl api-resources --namespaced=false
+
 ```
 
 
@@ -170,12 +170,17 @@ curl http://localhost:8080 -l  # Auth mit Zertifikat
 curl http://localhost:8080 -k # alle verfügbaren APIs anzeigen
 curl .../apis/authentication.k8s.io # aktuelle und preferred Version einer API herausfinden
 -runtime-config=rbac.authorization.k8s.io/v1alpha1 # in kube-apiserver.yaml hinzufügen um Entwicklerversion zu testen
+kubeclt convert -f ingress-old.yaml --output-version networking.k8s.io/v1 (von z.B. v1beta1 zu v1 konvertieren)
 
 # über Netzwerk
 curl https://192.168.49.2:8443/api/v1/pods \
       --key /home/sascha/.minikube/sascha.key  \
       --cert /home/sascha/.minikube/sascha.crt \
       --cacert /home/sascha/.minikube/ca.crt
+
+# namespaced and cluster scoped API's resources (auch shortnames anzeigen)
+kubectl api-resources --namespaced=true # listet alle Ressourcen inklusive Shortnames, apiVersion auf (namespacebasiert)
+kubectl api-resources --namespaced=false
 ```
 
 ### RBAC
