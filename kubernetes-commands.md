@@ -162,7 +162,7 @@ echo -n "LS0...Qo=" | base64 -d > sascha.crt
 
 ### API
 ```bash
-kubectl proxy                  # Proxy (keine weitere Auth notwendig) starten um api-server zu erreichen
+kubectl proxy &                 # Proxy (keine weitere Auth notwendig) starten um api-server zu erreichen - im Hintergrund
 curl http://localhost:8080 -l  # Auth mit Zertifikat
     --key admin.key
     --cert admin.crt
