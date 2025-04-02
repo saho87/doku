@@ -168,6 +168,8 @@ curl http://localhost:8080 -l  # Auth mit Zertifikat
     --cert admin.crt
     --cacert ca.crt
 curl http://localhost:8080 -k # alle verfügbaren APIs anzeigen
+curl .../apis/authentication.k8s.io # aktuelle und preferred Version einer API herausfinden
+-runtime-config=rbac.authorization.k8s.io/v1alpha1 # in kube-apiserver.yaml hinzufügen um Entwicklerversion zu testen
 
 # über Netzwerk
 curl https://192.168.49.2:8443/api/v1/pods \
