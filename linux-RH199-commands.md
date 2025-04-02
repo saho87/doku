@@ -942,10 +942,7 @@ curl: (7) Failed to connect to serverb.lab.example.com port 1001: No route to ho
 curl: (7) Failed to connect to serverb.lab.example.com port 80: Connection refused # Service inaktiv
 
 ```
-# Kapitel 16: Container 
-```bash
 
-```
 
 # Zusätzliche Commandos
 ```bash
