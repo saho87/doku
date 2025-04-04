@@ -102,11 +102,16 @@ helm template <release-name> <chart-path> --show-only templates/<template-file>
 # Pull und Push von HELM Charts
 
 ```bash
+# in artifact hub nach charts suchen:
+helm search hub wordpress --output yaml # Funktioniert ohne hinzufügen eines lokalen repos
+
 # Helm-Chart von einem Repo pullen und installieren
 helm repo add bitnami https://charts.bitnami.com/bitnami        
 helm repo update
-helm search repo bitnami
+helm repo list # alle hinzugefügten Repos anzeigen
+helm search repo bitnami # nur im hinzugefügten Repo bitnami suchen
 helm install my-release bitnami/nginx
+helm list # installierte Releases anzeigen
 helm pull bitnami/nginx
 
 # Helm-Charts in eigenen Harbor pushen
