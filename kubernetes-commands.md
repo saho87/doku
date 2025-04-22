@@ -27,7 +27,7 @@ kubectl get all --selector app=App1,tier=frontend --no-headers -A (--all-namespa
 kubectl explain jobs # beschreibt Felder und Struktur von Ressourcen
 
 # Objekte anlegen
-kubectl run redis --image=redis --dry-run=client -o yaml --command -- sleep 1000 # Überschreibt ENTRYPOINT
+kubectl run redis --image=redis --dry-run=client -o yaml --command -- sh -c "sleep 1000 && echo done" # Überschreibt ENTRYPOINT
 kubectl run redis --image=redis -- --color red # ENRTYPOINT wird nicht geändert, nur ARGS hinzugefügt
 kubectl create deployment my-dep --image=registry.k8s.io/echoserver:1.4 --replicas=3 --dry-run=client -o yaml
 kubectl create -f service.yml # imperativ
