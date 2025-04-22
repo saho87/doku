@@ -45,7 +45,8 @@ kubectl apply -f service.yml # deklarativ, empfohlen
 kubectl scale deployment nginx --replicas=5
 kubectl scale --replicas=6 -f replicaset-definition.yaml
 kubectl set image deployment nginx nginx=nginx:1.18
-kubectl delete pod nginx --force --grace-period 0 
+kubectl delete pod nginx --force --grace-period 0
+kubectl label pod -l type=runner protected=true # allen Pods mit label type=runner das label protected=true hinzufügen
 
 # anderer Namespace
 kubectl config set-context $(kubectl config current-context) --namespace=dev
