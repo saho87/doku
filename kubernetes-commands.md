@@ -32,6 +32,7 @@ kubectl run redis --image=redis -- --color red # ENRTYPOINT wird nicht geändert
 kubectl create deployment my-dep --image=registry.k8s.io/echoserver:1.4 --replicas=3 --dry-run=client -o yaml
 kubectl create -f service.yml # imperativ
 kubectl create configmap sascha-cm --from-file=config.yaml # Dateiinhalt in CM einbinden
+kubectl create configmap sascha-cm --from-file=newkey=config.yaml # key verändern (anstatt des filenames auf Platte)
 kubectl apply -f service.yml # deklarativ
 kubectl expose pod nginx --type=NodePort --port=80 --name=nginx-service --dry-run=client -o yaml # Service 1
 kubectl create service nodeport nginx --tcp=80:80 --node-port=30080 --dry-run=client -o yaml # Service 2
