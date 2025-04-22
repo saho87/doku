@@ -47,6 +47,7 @@ kubectl scale --replicas=6 -f replicaset-definition.yaml
 kubectl set image deployment nginx nginx=nginx:1.18
 kubectl delete pod nginx --force --grace-period 0
 kubectl label pod -l type=runner protected=true # allen Pods mit label type=runner das label protected=true hinzufügen
+kubectl annotate pod -l protected=true protected="do not delete this pod" # Annotation hinzufügen
 
 # anderer Namespace
 kubectl config set-context $(kubectl config current-context) --namespace=dev
