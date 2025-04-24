@@ -77,6 +77,7 @@ kubectl expose deployment hello-node --type=LoadBalancer --port=8080
 kubectl logs {pod-name}
 kubectl exec -it {pod-name} -- bash
 kubectl describe service httpd-service
+kubectl run -i --rm --restart=Never --image=nginx:alpine -- curl service:port # Service testen
 
 ```
 ### kubeconfig
