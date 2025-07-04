@@ -67,6 +67,9 @@ git checkout main
 # alle remote Branches anzeigen
 git ls-remote
 
+# alle Branches/Commits von remote holen
+git fetch
+
 # stash und unstash
 git stash
 git pop
