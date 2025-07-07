@@ -55,6 +55,21 @@ git checkout HEAD~1 -- [file] # zeigt auf einen Commit vor HEAD
 git restore --staged [hash-commit]
 git restore --staged --source=4c3c03b69ec760ec16d4ccfeddc56b57c9c1ab4f [file]
 
+# Commit rückgängig machen mit neuem Commit (nicht, wenn Änderungen schon remote gepushed wurden)
+git revert [hash-commit]
+git push
+
+# Commits zurücksetzen
+git reset --soft HEAD~1 # setzt HEAD-Zeiger um ein Commit zurück, Änderungen bleiben in Staging-Area
+git reset --mixed c6e01150ca4c8d96bf969b06aa84e21a98ce4873 # wie soft, aber auch aus Staging Area entfernt
+git reset --hard HEAD~1 # Rücksetzen von HEAD, Staging-Area, Arbeitsverzeichnis
+git push --force # überschreibt den remote Branch
+
+# Commits zurücksetzen mit rebase - Möglichkeit, mehrere Commits nachträglich zu bearbeiten
+# pick: so lassen, reword: commit-Message ändern, edit: Inhalt ändern, squasch: mit vorherigen Commit zusammenführen, drop: löschen
+git rebase -i [hash-commit] # interaktives Rebase öffnen
+git push --force # überschreibt den remote Branch
+
 # neuen Branch erstellen, pushen und löschen
 git checkout -b [new-branch]
 git push --set-upstream origin [new-branch]
