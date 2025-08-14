@@ -950,6 +950,7 @@ date -d "+45 days" -u # Datum 45 Tage in Zukunft in UTC anzeigen
 
 # Suche nach Dateien und Verzeichnissen
 find /dir -iname '*test*'					# sucht nach test (keine Unterscheidung groß/klein)
+find / | grep test							# gibt alle Dateien und Ordner rekursiv zu / aus und greppt test
 find . -type f -name '*.log.gz' -size -1M		# kleiner als 1 MB im aktuellen Ordner
 find /var/log -type f -name '*.log' -size +100c		# größer als 100 Byte unterhalb /var/log
 find . -type d						# Suche nach Verzeichnis
@@ -1052,5 +1053,6 @@ complete -o default -F __start_kubectl k
 source /usr/share/bash-completion/bash_completion
 source <(kubectl completion bash)
 ```
+
 
 
