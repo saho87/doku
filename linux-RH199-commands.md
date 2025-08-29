@@ -984,7 +984,8 @@ echo -e "line1\nline2\nline3" | tr '\n' ' '       # Zeilenumbrüche in Leerzeich
 echo "123abc!@#DEF" | tr -cd 'a-zA-Z'		  # alles außer Buchstaben entfernen
 
 # tar
-tar -xvf /colors.tar -C /folder 		# entpackt ein Archiv in einen (vorhandenen) Ordner
+tar -xf /colors.tar  					# entpackt eine zip
+tar -xzf archiv.tar.gz					# entpackt tar.gz
 tar -cvf new.tar sourcefolder 			# erstellt neues Archiv von der Quelle
 
 # TCPDump (Netzwerkdiagnosewerkzeug)
@@ -1053,6 +1054,7 @@ complete -o default -F __start_kubectl k
 source /usr/share/bash-completion/bash_completion
 source <(kubectl completion bash)
 ```
+
 
 
 
