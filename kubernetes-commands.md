@@ -20,7 +20,7 @@ minikube status
 ```
 
 ### Ressourcen anlegen und bearbeiten
-```bash
+```bashauto
 # Informationen zu Ressourcen bekommen
 kubectl get nodes | pod | service | rs | deploy | event | svc (-o wide) --as user1
 kubectl get all --selector app=App1,tier=frontend --no-headers -A (--all-namespaces)
@@ -274,16 +274,13 @@ Port forwarding
 kubectl port-forward --namespace default service/code-server 8080:http
 
 # Autocompletion, Alias
-https://kubernetes.io/docs/reference/kubectl/quick-reference/
-echo "source <(kubectl completion bash)" >> ~/.bashrc # add autocomplete permanently to your bash shell.
+source <(kubectl completion bash)
+alias k=kubectl
+alias c=clear
+complete -F __start_kubectl k
 
-alias k='kubectl'    # in .bashrc
-complete -o default -F __start_kubectl k # # in .bashrc
-
-cat <<EOF>> test
-alias k='kubectl' 
-complete -o default -F __start_kubectl k
-EOF
+# root colored prompt
+export PS1="\[$(tput setaf 160)\]\u\[$(tput setaf 220)\]@\[$(tput setaf 214)\]\h \[$(tput setaf 33)\]\w \[$(tput sgr0)\]$ "
 ```
 ### Status/Conditions von Pods
 ```bash
