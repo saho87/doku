@@ -11,31 +11,25 @@ Diese Übersicht zeigt die typischen Schritte zur Analyse von Netzwerkproblemen 
   - `nslookup app.test.de` → einfache DNS-Abfrage (kein Protokoll und kein / am Ende angeben
   - `dig <hostname>` → detaillierte DNS-Abfrage
 - **Ziel:** Liefert eine IP-Adresse zurück? Falls nein → DNS-Problem.
+- **Hinweis:** tools nutzen direkt Primären DNS-Resolver -> kein /etc/hosts !!!
 
 ---
 
 ### 2. **Netzwerkverbindung prüfen – Ist das Ziel grundsätzlich erreichbar?**
 - **Tools:**
-  - `ping <host>` → ICMP-Test
-  - `traceroute <host>` → zeigt den Paketweg
-- **Beispiel:**
-  ```bash
-  ping 8.8.8.8
-  traceroute example.com
-  ```
+  - `ping 8.8.8.8` → ICMP-Test (Layer 3 -> keine Portseinige Server 
+  - `traceroute example.com` → zeigt den Paketweg
+  - `tracert example.com` → WIN Paketweg
 - **Ziel:** Antwortzeiten sichtbar? Route erreichbar? Wenn nicht → Routingproblem oder Host nicht verfügbar.
+- **Hinweis** nutzt /etc/hosts
 
 ---
 
 ### 3. **Port-Erreichbarkeit testen – Ist der richtige Dienst/Port offen?**
 - **Tools:**
-  - `nc -zv <host> <port>` → Port-Check
-  - `telnet <host> <port>` → einfacher Porttest (älteres Tool)
-- **Beispiel:**
-  ```bash
-  nc -zv example.com 443
-  telnet example.com 22
-  ```
+  - `nc -zv example.com 443` → Port-Check
+  - `telnet example.com 22` → einfacher Porttest (älteres Tool)
+  - `Test-NetConnection -ComputerName example.com -Port 443` (Windows, besser IP verwenden)
 - **Ziel:** Verbindungsaufbau möglich? Falls „refused“ oder Timeout → Port nicht erreichbar oder blockiert.
 
 ---
