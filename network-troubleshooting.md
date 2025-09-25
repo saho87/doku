@@ -18,6 +18,8 @@ Diese Dokumentation beschreibt, wie man mit typischen Linux-Netzwerktools (z. B.
 
 ### 2.1 `ping`
 Prüft die grundsätzliche Erreichbarkeit eines Hosts auf ICMP-Ebene.
+Nutzt ICMP Schicht 3, keine Ports notwendig
+
 ```bash
 ping example.com
 ```
@@ -27,6 +29,8 @@ ping example.com
 
 ### 2.2 `nslookup` / `dig`
 Prüft die DNS-Auflösung.
+Hierbei kein Protokoll am Anfang und kein / am Ende angeben!
+
 ```bash
 nslookup example.com
 dig example.com A
