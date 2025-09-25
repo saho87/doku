@@ -9,7 +9,7 @@ Ideal für die Arbeit auf Windows-Servern oder -Clients.
 
 | Befehl | Beschreibung |
 |--------|--------------|
-| `Test-NetConnection -ComputerName google.com -Port 443` | Prüft, ob ein Host über einen bestimmten Port erreichbar ist. |
+| `Test-NetConnection -ComputerName google.com -Port 443` | Prüft, ob ein Host über einen bestimmten Port erreichbar ist. ! über IP suchen, nicht FQDN|
 | `Get-NetIPAddress` | Zeigt alle lokalen IP-Adressen. |
 | `Get-NetTCPConnection` | Listet alle aktiven TCP-Verbindungen auf. |
 | `Resolve-DnsName heise.de` | Führt eine DNS-Abfrage durch (besser als `nslookup`). |
