@@ -27,7 +27,7 @@ Diese Übersicht zeigt die typischen Schritte zur Analyse von Netzwerkproblemen 
 
 ### 3. **Port-Erreichbarkeit testen – Ist der richtige Dienst/Port offen?**
 - **Tools:**
-  - `nc -zv example.com 443` → Port-Check
+  - `nc -zv example.com 443` → Port-Check (baut nur einen nackten TCP-Handshake auf, kein TLS, kein SNI) -> geht nicht bei jedem Server
   - `telnet example.com 22` → einfacher Porttest (älteres Tool)
   - `Test-NetConnection -ComputerName example.com -Port 443` (Windows, besser IP verwenden)
 - **Ziel:** Verbindungsaufbau möglich? Falls „refused“ oder Timeout → Port nicht erreichbar oder blockiert.
