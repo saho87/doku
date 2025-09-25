@@ -29,7 +29,6 @@ ping example.com
 
 ### 2.2 `nslookup` / `dig`
 Prüft die DNS-Auflösung.
-
 Hierbei kein Protokoll am Anfang und kein / am Ende angeben!
 
 ```bash
