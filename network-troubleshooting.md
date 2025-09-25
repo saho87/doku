@@ -1,3 +1,144 @@
+# Netzwerk-Fehleranalyse im Linux-Umfeld
+
+Diese Dokumentation beschreibt, wie man mit typischen Linux-Netzwerktools (z. B. `ping`, `curl`, `nslookup`) systematisch Probleme bei der Erreichbarkeit einer Applikation analysieren und beheben kann.
+
+---
+
+## 1. Grundlegendes Vorgehen
+
+1. **Hostname/IP auflösen** – Funktioniert die DNS-Auflösung?
+2. **Netzwerkverbindung prüfen** – Ist das Ziel grundsätzlich erreichbar?
+3. **Port-Erreichbarkeit testen** – Ist der richtige Dienst/Port offen?
+4. **Protokoll-Ebene prüfen** – Antwortet die App korrekt (HTTP, TCP, etc.)?
+5. **Fehler eingrenzen** – Liegt das Problem an DNS, Netzwerk, Firewall, oder in der App?
+
+---
+
+## 2. Tools und Beispiele
+
+### 2.1 `ping`
+Prüft die grundsätzliche Erreichbarkeit eines Hosts auf ICMP-Ebene.
+```bash
+ping example.com
+```
+👉 Erwartung: Ausgabe von Antwortzeiten. Falls keine Antwort: DNS-Problem oder Host nicht erreichbar.
+
+---
+
+### 2.2 `nslookup` / `dig`
+Prüft die DNS-Auflösung.
+```bash
+nslookup example.com
+dig example.com A
+```
+👉 Erwartung: Ausgabe einer IP-Adresse. Falls leer oder Fehlermeldung: DNS-Problem.
+
+---
+
+### 2.3 `traceroute`
+Zeigt den Weg der Pakete bis zum Ziel.
+```bash
+traceroute example.com
+```
+👉 Erwartung: Auflistung von Routern bis zum Ziel. Abbruch auf halbem Weg → Routingproblem oder Firewall.
+
+---
+
+### 2.4 `curl`
+Prüft die Erreichbarkeit einer App auf HTTP-/HTTPS-Ebene.
+```bash
+# Einfacher Test
+curl http://example.com
+
+# Nur Header anzeigen
+curl -I http://example.com
+
+# Mit detaillierten Debug-Infos
+curl -v http://example.com
+```
+👉 Erwartung: HTTP-Statuscode (z. B. `200 OK`). Fehler wie `Connection refused` oder `Timeout` weisen auf Port-/Firewall-Probleme hin.
+
+---
+
+### 2.5 `telnet` oder `nc` (netcat)
+Prüfen, ob ein Port erreichbar ist.
+```bash
+# Mit telnet
+telnet example.com 80
+
+# Mit netcat
+nc -zv example.com 80
+```
+👉 Erwartung: `succeeded` oder Verbindungsaufbau. Falls „refused“ oder Timeout → Port nicht offen oder blockiert.
+
+---
+
+### 2.6 `ss` / `netstat`
+Lokale Ports und Verbindungen anzeigen.
+```bash
+ss -tulpen   # zeigt offene Ports
+netstat -tulpen
+```
+👉 Erwartung: Die App lauscht auf der richtigen IP und dem richtigen Port.
+
+---
+
+### 2.7 `tcpdump`
+Netzwerkverkehr mitschneiden, um tiefergehende Analysen durchzuführen.
+```bash
+sudo tcpdump -i eth0 host example.com and port 80
+```
+👉 Erwartung: Sichtbare Pakete beim Verbindungsaufbau. Falls keine → Traffic blockiert.
+
+---
+
+## 3. Beispielhafter Ablauf einer Analyse
+
+**Problem:** Eine Web-App unter `http://myapp.local:8080` ist nicht erreichbar.
+
+1. **DNS prüfen:**
+   ```bash
+   nslookup myapp.local
+   ```
+   → Keine IP zurückgegeben → DNS-Fehler. Lösung: DNS-Eintrag setzen oder `/etc/hosts` ergänzen.
+
+2. **Erreichbarkeit prüfen:**
+   ```bash
+   ping 192.168.1.50
+   ```
+   → Host erreichbar.
+
+3. **Port testen:**
+   ```bash
+   nc -zv 192.168.1.50 8080
+   ```
+   → Verbindung verweigert → App lauscht nicht oder Firewall blockt.
+
+4. **Auf Server prüfen:**
+   ```bash
+   ss -tulpen | grep 8080
+   ```
+   → App läuft nicht. Lösung: Service starten.
+
+5. **Erneut testen:**
+   ```bash
+   curl -I http://192.168.1.50:8080
+   ```
+   → `200 OK` – Problem behoben.
+
+---
+
+## 4. Zusammenfassung
+- **DNS** mit `nslookup`, `dig` prüfen.
+- **Grundlegende Erreichbarkeit** mit `ping`.
+- **Routing** mit `traceroute`.
+- **Porttests** mit `nc`, `telnet`.
+- **HTTP-Tests** mit `curl`.
+- **Lokale Dienste** mit `ss`, `netstat`.
+- **Traffic-Analyse** mit `tcpdump`.
+
+Diese systematische Vorgehensweise ermöglicht es, Netzwerkprobleme von der DNS-Auflösung bis zur Anwendungsebene effizient einzugrenzen.
+
 # OSI-Modell – Übersicht der 7 Schichten
 
 Das OSI-Modell beschreibt Netzwerkkommunikation in **7 Schichten (Layern)**. Es dient dazu, Probleme systematisch einzugrenzen.
