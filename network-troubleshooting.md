@@ -8,13 +8,8 @@ Diese Übersicht zeigt die typischen Schritte zur Analyse von Netzwerkproblemen 
 
 ### 1. **Hostname/IP auflösen – Funktioniert die DNS-Auflösung?**
 - **Tools:**
-  - `nslookup <hostname>` → einfache DNS-Abfrage
+  - `nslookup app.test.de` → einfache DNS-Abfrage (kein Protokoll und kein / am Ende angeben
   - `dig <hostname>` → detaillierte DNS-Abfrage
-- **Beispiel:**
-  ```bash
-  nslookup example.com
-  dig example.com A
-  ```
 - **Ziel:** Liefert eine IP-Adresse zurück? Falls nein → DNS-Problem.
 
 ---
