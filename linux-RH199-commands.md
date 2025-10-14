@@ -957,8 +957,16 @@ find . -type d						# Suche nach Verzeichnis
 find music/ -type d -exec chmod 755 {} \;		# Kombi aus chmod und find
 
 # grep
+grep div *.html 		# Möglichkeit 1
+cat *.html | grep div 	# Möglichkeit 2
 grep -c 				# zählt Vorkommen einer bestimmter Zeichenkette
-grep -v '^\s*$' | grep -v '^#' 		# Leerzeichen, Kommentare ausblenden
+grep -v '^\s*$' | grep -v '^#' 		# invertieren -> hier Leerzeichen, Kommentare ausblenden
+grep '^<.*>$'			# Findet Zeilen, die mit < anfangen und > aufhören
+man lsof | grep -e '-a' # durchsucht manpage nach Parameter '-a'
+grep -C3				# gibt Zeilen im Kontext, davor (-B) oder danach (-A) aus
+grep '\b404\b' logs.txt	# \b Wortgrenze -> Finde 404, aber nicht 3404 oder 404g (nur als ganzes Wort) 
+
+
 # sed - command
 sed 's/alt/neu/' file 			# Änderung nur in STOUT; s-stringsearch;
 sed 's!path://alt!path://neu!' file 	# Änderung Trenner
@@ -1055,6 +1063,7 @@ complete -o default -F __start_kubectl k
 source /usr/share/bash-completion/bash_completion
 source <(kubectl completion bash)
 ```
+
 
 
 
