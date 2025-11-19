@@ -1,0 +1,8 @@
+Comment out code (editor.action.addCommentLine):
+
+Windows: Ctrl + K + C
+Mac: Command + K + C
+Un-comment code (editor.action.removeCommentLine):
+
+Windows: Ctrl + K + U
+Mac: Command + K + U
