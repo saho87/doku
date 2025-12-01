@@ -88,10 +88,10 @@ annotations:
 ```bash
 helm template <release-name> <chart-path> [flags]
 
-# spezifische Values
+# spezifische values.yaml (überschreiben sich)
 helm template <release-name> <chart-path> -f <values-file1> -f <values-file2> 
 
-# setzen von Werten
+# setzen von individuellen Werten über Kommandozeile
 helm template <release-name> <chart-path> --set key1=value1,key2=value2
 
 # nur bestimmte Templates rendern
