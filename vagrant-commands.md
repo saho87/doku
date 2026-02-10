@@ -18,8 +18,8 @@ Be sure that you are in the same directory as the Vagrantfile when running these
 - `vagrant ssh <boxname>` -- If you give your box a name in your Vagrantfile, you can ssh into it with boxname. Works from any directory.
 
 # Stopping a VM
-- `vagrant halt`        -- stops the vagrant machine
-- `vagrant suspend`     -- suspends a virtual machine (remembers state)
+- `vagrant halt`        -- stops the vagrant machine (vm wird komplett heruntergefahren)
+- `vagrant suspend`     -- suspends a virtual machine (friert den aktuellen Zustand (RAM-Inhalt) ein -> wird auf Platte gespeichert)
 
 # Cleaning Up a VM
 - `vagrant destroy`     -- stops and deletes all traces of the vagrant machine
