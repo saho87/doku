@@ -10,7 +10,7 @@ docker run -d --rm --name my_container -p 8080:80 httpd:latest       # Portmappi
 docker run -e GREET=Hello -e NAME=RedHat alpine  printenv GREET NAME # Nutzung von Umgebungsvariablen
 -e MYSQL_PASSWORD=mypa55 -e MYSQL_DATABASE=items \
 -e MYSQL_ROOT_PASSWORD=r00tpa55  \ -d registry.redhat.io/rhel8/mysql-80:1
-docker run registry.redhat.io/rhel8/httpd-24 ls /tmp                 # httpd wird nicht gestartet (dafür wird ls /tmp ausgeführt)
+docker run registry.redhat.io/rhel8/httpd-24 ls /tmp                 # container wird mit Kommando ls /tmp gestartet
 docker restart my-httpd                                              # gestoppter Container wird neu gestartet
 
 # Beenden von Containern
@@ -31,6 +31,14 @@ docker exec -it <CID> /bin/bash -c 'ls'  # FÜhrt im Container ein Bash Commando
 docker run -it <CID> /bin/bash           # Erstellt und führt neuen Container aus und gibt uns die Shell zum Zugriff
 docker cp ./file 60ed77c57bb5:.          # Kopieren einer Datei vom Host in den Container
 
+# Container-Netzwerke
+docker network ls                                      # Anzeigen der Netzwerke
+docker network inspect podman                          # Details zum Netzwerk anzeigen (z.B. subnet/IPs)
+podman network create|rm -o isolate webapps            # neues (isoliertes) Netzwerk anlegen|löschen
+docker run --net webapps                               # Container mit Netzwerk verbinden
+podman inspect web1 | jq.[].NetworkSettings.Networks   # json Daten extrahieren
+podman network disconnect                              # Trennt einen Container von einem Netzwerk
+podman network prun                                    # entfernt alle Netzwerke ohne Container
 
 # Einbinden von Volumes
 mkdir -pv /home/student/local/mysql                        # Verzeichnis erstellen
