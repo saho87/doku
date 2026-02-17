@@ -1,6 +1,8 @@
 # Erstellen von containerisierten Services
 ```bash
 
+# Zugriff auf man-Pages über man docker-(subcommand)
+man docker-run
 
 # Starten eines Containers -> Alternativ: run = create + start -a
 # it -Interaktiv, d – im Hintergrund, rm wird nach Ausführung gelöscht, name – Vergabe eines Namens, p- Portweiterleitung
