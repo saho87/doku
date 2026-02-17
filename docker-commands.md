@@ -5,7 +5,7 @@
 man docker-run
 
 # Starten eines Containers -> Alternativ: run = create + start -a
-# it -Interaktiv, d – im Hintergrund, rm wird nach Ausführung gelöscht, name – Vergabe eines Namens, p- Portweiterleitung
+# -it -Interaktiv, -d – im Hintergrund, --rm wird nach Ausführung gelöscht, --name – Vergabe eines Namens, -p- Portweiterleitung
 docker run -d --rm --name my_container -p 8080:80 httpd:latest       # Portmapping 8080 des Hosts -> 80 des Containers
 docker run -e GREET=Hello -e NAME=RedHat alpine  printenv GREET NAME # Nutzung von Umgebungsvariablen
 -e MYSQL_PASSWORD=mypa55 -e MYSQL_DATABASE=items \
