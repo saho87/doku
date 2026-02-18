@@ -39,6 +39,7 @@ docker run --net webapps                               # Container mit Netzwerk 
 docker inspect web1 | jq.[].NetworkSettings.Networks   # json Daten extrahieren
 docker network disconnect                              # Trennt einen Container von einem Netzwerk
 docker network prun                                    # entfernt alle Netzwerke ohne Container
+podman port -a | container                             # zeigt welche Ports verwendet werden
 
 # Einbinden von Volumes
 mkdir -pv /home/student/local/mysql                        # Verzeichnis erstellen
