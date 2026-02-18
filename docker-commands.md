@@ -26,7 +26,7 @@ docker logs <CID>            # Listet alle Logs zu einem Container auf
 docker inspect <CID>         # detaillierte Infos zu Container
 docker port <CID>         # genutzte Ports des Containers
 
-# Prozess in bestehenden Container starten
+# Prozess in bestehenden Container starten (-i - nimmt Eingaben entgegen -t pseudo Terminal zuweisen -e Umgebungsvariablen zuweisen -l letzten Container verwenden)
 docker exec -it <CID> sh                 # Führt eine 2. Prozess in einem laufenden Container aus (hier öffnen einer shell)
 docker exec -it <CID> /bin/bash -c 'ls'  # FÜhrt im Container ein Bash Commando aus
 docker run -it <CID> /bin/bash           # Erstellt und führt neuen Container aus und gibt uns die Shell zum Zugriff
