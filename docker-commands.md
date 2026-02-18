@@ -34,11 +34,11 @@ docker cp ./file 60ed77c57bb5:.          # Kopieren einer Datei vom Host in den 
 # Container-Netzwerke
 docker network ls                                      # Anzeigen der Netzwerke
 docker network inspect podman                          # Details zum Netzwerk anzeigen (z.B. subnet/IPs)
-podman network create|rm -o isolate webapps            # neues (isoliertes) Netzwerk anlegen|löschen
+docker network create|rm -o isolate webapps            # neues (isoliertes) Netzwerk anlegen|löschen
 docker run --net webapps                               # Container mit Netzwerk verbinden
-podman inspect web1 | jq.[].NetworkSettings.Networks   # json Daten extrahieren
-podman network disconnect                              # Trennt einen Container von einem Netzwerk
-podman network prun                                    # entfernt alle Netzwerke ohne Container
+docker inspect web1 | jq.[].NetworkSettings.Networks   # json Daten extrahieren
+docker network disconnect                              # Trennt einen Container von einem Netzwerk
+docker network prun                                    # entfernt alle Netzwerke ohne Container
 
 # Einbinden von Volumes
 mkdir -pv /home/student/local/mysql                        # Verzeichnis erstellen
