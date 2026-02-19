@@ -82,6 +82,10 @@ docker push registry.do180.lab:5000/httpd:twerks
 docker push test-image:1.1 craas-09.itz.cloud.intranet.bund.de/import-itzbund-fms/test-image:1.1
 docker images      # Auflistung aller geladenen Images
 
+skopeo copy (--dest-tls-verify=false) \                # Image von Registry zu anderer Registry kopieren
+docker://${RHOCP_REGISTRY}/default/python:3.9-ubi8 \
+docker://registry.ocp4.example.com:8443/developer/python:3.9-ubi8
+
 # Pushen von quay-io Repos mit Auth
 # Anlegen eines neuen Repos in quay über Web-Gui z.B. duff-repo
 # Berechtigen eines Users auf diesem Repos mit Schreibrechten
