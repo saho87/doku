@@ -16,9 +16,9 @@ docker pause|unpause <CID>                                           # Container
 
 # Beenden von Containern
 docker ps (-a)                                # aller laufenden (a- gelaufenen) Container ausgeben
-docker stop <CID> (-a)   --time 20            # Stoppen in 20 sec (kann wieder gestartet werden) (alle)
+docker stop <CID> (-a)   --time 20            # SIGTERM 20 sec grace period, dann SIGKILL (alle)
 ^stop^rm                                      # führt letzten Befehl mit rm anstatt von stop aus
-docker kill (-s SIGKILL) <CID>                # Stoppen unter Nutzung von Unix-Signalen - falls stop nicht funktioniert
+docker kill (-s SIGKILL) <CID>                # SIGKILL, härten als stop
 docker system prune                           # Löscht alle gestoppte Container
 docker rm (-f)<CID>                           # Löscht einen gestoppten Container (-f stoppt ihn auch)
 
