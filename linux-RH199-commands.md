@@ -944,9 +944,13 @@ curl: (7) Failed to connect to serverb.lab.example.com port 80: Connection refus
 ```
 
 
-# Zusätzliche Commandos
+# Zusätzliche Kommandos
 ```bash
 date -d "+45 days" -u # Datum 45 Tage in Zukunft in UTC anzeigen
+
+# wichtig! letztes Kommando wiederholen und ggf. erweitern
+echo test
+!! 123		# ergibt echo test 123
 
 # Suche nach Dateien und Verzeichnissen
 find /dir -iname '*test*'					# sucht nach test (keine Unterscheidung groß/klein)
@@ -1063,6 +1067,7 @@ complete -o default -F __start_kubectl k
 source /usr/share/bash-completion/bash_completion
 source <(kubectl completion bash)
 ```
+
 
 
 
