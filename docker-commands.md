@@ -12,6 +12,7 @@ docker run -e GREET=Hello -e NAME=RedHat alpine  printenv GREET NAME # Nutzung v
 -e MYSQL_ROOT_PASSWORD=r00tpa55  \ -d registry.redhat.io/rhel8/mysql-80:1
 docker run registry.redhat.io/rhel8/httpd-24 ls /tmp                 # container wird mit Kommando ls /tmp gestartet
 docker restart my-httpd                                              # gestoppter Container wird neu gestartet
+docker pause|unpause <CID>                                           # Container pausieren (SIGSTOP)
 
 # Beenden von Containern
 docker ps (-a)                                # aller laufenden (a- gelaufenen) Container ausgeben
@@ -38,6 +39,7 @@ docker network inspect podman                          # Details zum Netzwerk an
 docker network create|rm -o isolate webapps            # neues (isoliertes) Netzwerk anlegen|löschen
 docker run --net webapps                               # Container mit Netzwerk verbinden
 docker inspect web1 | jq.[].NetworkSettings.Networks   # json Daten extrahieren
+podman inspect --format='{{.State.Status}}' <CID>
 docker network disconnect                              # Trennt einen Container von einem Netzwerk
 docker network prun                                    # entfernt alle Netzwerke ohne Container
 podman port -a | container                             # zeigt welche Ports verwendet werden
