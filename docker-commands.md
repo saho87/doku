@@ -15,11 +15,11 @@ docker restart my-httpd                                              # gestoppte
 
 # Beenden von Containern
 docker ps (-a)                                # aller laufenden (a- gelaufenen) Container ausgeben
-docker stop <CID>                             # Stoppen (kann wieder gestartet werden)
-^stop^rm                                     # führt letzten Befehl mit rm anstatt von stop aus
-docker kill (-s SIGKILL) <CID>                # Stoppen unter Nutzung von Unix-Signalen
+docker stop <CID> (-a)   --time 20            # Stoppen in 20 sec (kann wieder gestartet werden) (alle)
+^stop^rm                                      # führt letzten Befehl mit rm anstatt von stop aus
+docker kill (-s SIGKILL) <CID>                # Stoppen unter Nutzung von Unix-Signalen - falls stop nicht funktioniert
 docker system prune                           # Löscht alle gestoppte Container
-docker rm <CID>                               # Löscht einen gestoppten Container
+docker rm (-f)<CID>                           # Löscht einen gestoppten Container (-f stoppt ihn auch)
 
 # Informationen zu Containern
 docker logs <CID>            # Listet alle Logs zu einem Container auf
