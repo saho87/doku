@@ -123,6 +123,9 @@ docker image prune -a                             # löschen aller nicht als Con
    ENTRYPOINT ["sleep"]                              # Standardbefehl zur Ausführung des Containers -> command (kubernetes)
    CMD ["10"]                                    # Standardargumente für ENTRYPOINT --> args (kubernetes)
 
+# Bauen von Images
+podman build -f Containerfile -t simple-server                  # Angabe der Dockerfile und Taggen des Images
+
 # Unterschied ENTRYPOINT/CMD
 ENTRYPOINT kann erweitert werden und kann Parameter von run <image> <Erweiterung> annehmen, die hier "10" überschreiben
 docker run <image> 20                                  # Überschreibt nur CMD
