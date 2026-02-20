@@ -98,11 +98,14 @@ docker rmi -a                                     # Löschen aller Images, die u
 docker rmi <Image>(:TAG)                          # Löscht komplettes Images oder nur ein Tag
 docker diff <CID>                                 # zeigt Änderungen Image -> Container
 docker save -o httpd.tar custom-httpd:v1.0        # Lokale Ablage eines Images als tar (Alternative zu commit)
+docker export -o mytartfile.tar fb334n33434       # Export des Dateisystems eines Containers (Image Schichten/Metadata bleiben nicht erhalten)
 docker load -i httpd.tar                          # Wiederherstellen des Images
+docker import mytarfle.tar httpdcustom:2.4        # um einen tar-Container in ein Container-Image zu importieren
 docker commit -a 'Sascha Hoffmann' \              # Erstellt neues Imaga auf Basis der Container Änderungen
 official-httpd custom-httpd 
 docker commit -c ‘CMD [“redis-server“]‘ <IMGID>   # Erzeugt ein Image aus einem laufenden Container mit einem Startkommando
 docker tag custom-httpd:latest custom-httpd:v1.0  # Hinzufügen eines Tags zu einem bestehenden Image
+docker image prune -a                             # löschen aller nicht als Container ausgeführten Images
 
 # Erstellen von Dockerfiles/Containerfiles 
    # This is a comment line                                    # Kommentar
