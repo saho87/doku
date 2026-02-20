@@ -112,7 +112,9 @@ docker image prune -a                             # löschen aller nicht als Con
    FROM ubi8/ubi:8.5                                           # Basisimage
    LABEL description="This is a custom httpd container image"  # Metadaten hinzufügen
    MAINTAINER John Doe <jdoe@xyz.com>                          # Autor 
-   RUN yum install -y httpd                                    # Befehle auf neuer übergeordneter Ebene ausführen
+   RUN yum install -y httpd && \                               # y (nicht interaktiv)
+       yum clean                                               # && (nur weiter wenn vorheriges Kommando erfolgreich)
+                                                               # clean reduziert Image Größe
    WORKDIR /custom                                             # legt das Arbeitsverzeichnis fest
    EXPOSE 80                                                   # zeigt an, dass Container Port überwacht
    ENV LogLevel "info" \                                       # Umgebungsvariablen
