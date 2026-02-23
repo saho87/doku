@@ -107,23 +107,26 @@ docker commit -c ‘CMD [“redis-server“]‘ <IMGID>   # Erzeugt ein Image au
 docker tag custom-httpd:latest custom-httpd:v1.0  # Hinzufügen eines Tags zu einem bestehenden Image
 docker image prune -a                             # löschen aller nicht als Container ausgeführten Images
 
-# Erstellen von Dockerfiles/Containerfiles 
+# Erstellen von Dockerfiles/Containerfiles
+man Containerfile # Doku
    # This is a comment line                                    # Kommentar
    FROM ubi8/ubi:8.5                                           # Basisimage
-   LABEL description="This is a custom httpd container image"  # Metadaten hinzufügen
-   MAINTAINER John Doe <jdoe@xyz.com>                          # Autor 
+   LABEL description="This is a custom httpd container image"  # Metadaten hinzufügen (kein zusätzlicher Layer)
+   MAINTAINER John Doe <jdoe@xyz.com>                          # Autor (auch Metadaten)
    RUN yum install -y httpd && \                               # y (nicht interaktiv)
        yum clean                                               # && (nur weiter wenn vorheriges Kommando erfolgreich)
                                                                # clean reduziert Image Größe
    WORKDIR /custom                                             # legt das Arbeitsverzeichnis fest
-   EXPOSE 80                                                   # zeigt an, dass Container Port überwacht
+   EXPOSE 80                                                   # zeigt an, dass Container Port überwacht (nur Metadaten)
    ENV LogLevel "info" \                                       # Umgebungsvariablen
        MYSQL_DATABASE="my_database"
    ADD http://someserver.com/archive.tar /var/www/html         # kopiert + extrahiert Files aus lok./remote Quelle in Container-FS
-   COPY ./src/ /var/www/html/                                  # kopiert Dateien aus Arbeitsverzeichnis in Container-FS
+   COPY ./src/ /var/www/html/                                  # kopiert Dateien rel. zu Arbeitsverzeichnis in Container-FS
    USER apache                                                 # User/UID für Verwendung von RUN, CMD oder ENTRYPOINT
-   ENTRYPOINT ["sleep"]                              # Standardbefehl zur Ausführung des Containers -> command (kubernetes)
-   CMD ["10"]                                    # Standardargumente für ENTRYPOINT --> args (kubernetes)
+                                                               # Openshift ignoriert USER-ID und legt Random User an
+                                                               # zusätzlich fügt Openshift den User zur Gruppe Root hinzu
+   ENTRYPOINT ["sleep"]                                        # Standardbefehl zur Ausführung des Containers -> command (kubernetes)
+   CMD ["10"]                                                  # Standardargumente für ENTRYPOINT --> args (kubernetes)
 
 # Bauen von Images
 podman build -f Containerfile -t simple-server                  # Angabe der Dockerfile und Taggen des Images
