@@ -116,7 +116,7 @@ man Containerfile # Doku
    RUN yum install -y httpd && \                               # y (nicht interaktiv)
        yum clean                                               # && (nur weiter wenn vorheriges Kommando erfolgreich)
                                                                # clean reduziert Image Größe
-   WORKDIR /custom                                             # legt das Arbeitsverzeichnis fest
+   WORKDIR /custom                                             # legt das Arbeitsverzeichnis im Container fest
    EXPOSE 80                                                   # zeigt an, dass Container Port überwacht (nur Metadaten)
    ENV LogLevel "info" \                                       # Umgebungsvariablen
        MYSQL_DATABASE="my_database"
@@ -129,7 +129,8 @@ man Containerfile # Doku
    CMD ["10"]                                                  # Standardargumente für ENTRYPOINT --> args (kubernetes)
 
 # Bauen von Images
-podman build -f Containerfile -t simple-server                  # Angabe der Dockerfile und Taggen des Images
+podman build -f Containerfile -t simple-server                 # Angabe der Dockerfile und Taggen des Images
+podman image tree <Image>                                      # visualiert Layer, Image+Layer-Größe, Tags usw.
 
 # Unterschied ENTRYPOINT/CMD
 ENTRYPOINT kann erweitert werden und kann Parameter von run <image> <Erweiterung> annehmen, die hier "10" überschreiben
