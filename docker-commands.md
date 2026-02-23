@@ -120,6 +120,7 @@ man Containerfile # Doku
    EXPOSE 80                                                   # zeigt an, dass Container Port überwacht (nur Metadaten)
    ENV LogLevel "info" \                                       # Umgebungsvariablen
        MYSQL_DATABASE="my_database"
+   ARG test="1.2.3"                                            # Variablen, die nur beim Bau des Images verfügbar sind, nicht später im Container
    ADD http://someserver.com/archive.tar /var/www/html         # kopiert + extrahiert Files aus lok./remote Quelle in Container-FS
    COPY ./src/ /var/www/html/                                  # kopiert Dateien rel. zu Arbeitsverzeichnis in Container-FS
    USER apache                                                 # User/UID für Verwendung von RUN, CMD oder ENTRYPOINT
@@ -151,6 +152,7 @@ docker network inspect bridge # Details wie IP, inferface name
 
 skopeo list-tags docker://registry.do180.lab:5000/httpd  # alle Tags eine Images anzeigen
 skopeo inspect docker://registry.do180.lab:5000/httpd    # Details zu einem Image anzeigen
+skopeo copy docker://registry1.do180.lab:5000/httpd docker://registry2.do180.lab:5000/httpd # Kopie von Reg1 zu Reg2
 
 ```
 
