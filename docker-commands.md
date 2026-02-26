@@ -45,13 +45,6 @@ docker network prun                                    # entfernt alle Netzwerke
 podman port -a | container                             # zeigt welche Ports verwendet werden
 
 # Einbinden von Volumes
-mkdir -pv /home/student/local/mysql                        # Verzeichnis erstellen
-sudo semanage fcontext -a \                                # SELinux-Kontext erstellen
- -t container_file_t '/home/student/local/mysql(/.*)?'
-sudo restorecon -R /home/student/local/mysql               # Kontext anwenden
-ls -ldZ /home/student/local/mysql                          # Kontext verifizieren
-podman unshare chown -R mysql       # Eigentümer des Verzeichnisses auf mysql-Container-User ändern
-
 podman volume ls                                           # alle Volumes anzeigen
 podman volume create webdata                               # Volume Webdata erzeugen
 podman volume inspect webdate                              # Infos zu Volume anzeigen (z.B. Speicherort)
@@ -62,6 +55,11 @@ podman run --rm -d -p 8080:8080 \                          # direkt ein Verzeich
 podman volume export webdata --output \                    # Exportieren eines Volumes in ein tar.gz
                      webdata.tar.gz
 podman volume import webdata2 webdata.tar.gz               # importieren eines tar.gz als Volume (muss erst erzeugt werden)
+podman run                                                 # Einbinden eines bestehenden Volumes als mount (readonly)
+--mount 'type=volume,source=html-vol,destination=/server,ro' \
+registry.ocp4.example.com:8443/redhattraining/podman-python-server
+podman unshare ls -ld mysql                                # ownership aus Sicht von podman anzeigen
+podman unshare chown -R 27 mysql                           # Eigentümer des Verzeichnisses auf mysql-Container-User ändern
 
 # Zuordnung von Ports
 docker run -d --name apache1 -p 8080:8080 httpd              # Host 8080 -> Container 8080
