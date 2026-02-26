@@ -50,7 +50,7 @@ sudo semanage fcontext -a \                                # SELinux-Kontext ers
  -t container_file_t '/home/student/local/mysql(/.*)?'
 sudo restorecon -R /home/student/local/mysql               # Kontext anwenden
 ls -ldZ /home/student/local/mysql                          # Kontext verifizieren
-podman unshare chown 27:27 /home/student/local/mysql       # Eigentümer des Verzeichnisses auf mysql-Container-User ändern
+podman unshare chown -R mysql       # Eigentümer des Verzeichnisses auf mysql-Container-User ändern
 
 podman volume ls                                           # alle Volumes anzeigen
 podman volume create webdata                               # Volume Webdata erzeugen
@@ -59,6 +59,9 @@ podman run --rm -d -p 8080:8080 \                          # volume webdata einb
            -v webdata:var/www/html:Z                       # :Z Kontext ändern auf container_file_t
 podman run --rm -d -p 8080:8080 \                          # direkt ein Verzeichnis als Volume angeben
            -v /home/student/webroot/:var/www/html:Z        # Immer absoluter Pfad, sonst wird es als Volume interpretiert
+podman volume export webdata --output \                    # Exportieren eines Volumes in ein tar.gz
+                     webdata.tar.gz
+podman volume import webdata2 webdata.tar.gz               # importieren eines tar.gz als Volume (muss erst erzeugt werden)
 
 # Zuordnung von Ports
 docker run -d --name apache1 -p 8080:8080 httpd              # Host 8080 -> Container 8080
