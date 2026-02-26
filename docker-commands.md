@@ -51,11 +51,14 @@ sudo semanage fcontext -a \                                # SELinux-Kontext ers
 sudo restorecon -R /home/student/local/mysql               # Kontext anwenden
 ls -ldZ /home/student/local/mysql                          # Kontext verifizieren
 podman unshare chown 27:27 /home/student/local/mysql       # Eigentümer des Verzeichnisses auf mysql-Container-User ändern
-docker run --name persist-db \                             # Container Start
--d -v /home/student/local/mysql:/var/lib/mysql/data \
--e MYSQL_USER=user1 -e MYSQL_PASSWORD=mypa55 \
--e MYSQL_DATABASE=items -e MYSQL_ROOT_PASSWORD=r00tpa55 \
-registry.redhat.io/rhel8/mysql-80:1
+
+podman volume ls                                           # alle Volumes anzeigen
+podman volume create webdata                               # Volume Webdata erzeugen
+podman volume inspect webdate                              # Infos zu Volume anzeigen (z.B. Speicherort)
+podman run --rm -d -p 8080:8080 \                          # volume webdata einbinden
+           -v webdata:var/www/html:Z                       # :Z Kontext ändern auf container_file_t
+podman run --rm -d -p 8080:8080 \                          # direkt ein Verzeichnis als Volume angeben
+           -v /home/student/webroot/:var/www/html:Z        # Immer absoluter Pfad, sonst wird es als Volume interpretiert
 
 # Zuordnung von Ports
 docker run -d --name apache1 -p 8080:8080 httpd              # Host 8080 -> Container 8080
