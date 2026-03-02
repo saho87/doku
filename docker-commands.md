@@ -90,6 +90,12 @@ skopeo copy (--dest-tls-verify=false) \                # Image von Registry zu a
 docker://${RHOCP_REGISTRY}/default/python:3.9-ubi8 \
 docker://registry.ocp4.example.com:8443/developer/python:3.9-ubi8
 
+#Debugging
+# ich kann z.B. Tools wie ss vom Host benutzen gegen den Container ausführen:
+podman inspect web1 f '{{.State.Pid}}'                                 # Prozess-ID herausfinden
+sudo nsenter -n -t 64839 ss -plunt                                      # über nsenter und PID Befehl ausführen
+
+
 # Pushen von quay-io Repos mit Auth
 # Anlegen eines neuen Repos in quay über Web-Gui z.B. duff-repo
 # Berechtigen eines Users auf diesem Repos mit Schreibrechten
