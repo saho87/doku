@@ -48,10 +48,10 @@ podman port -a | container                             # zeigt welche Ports verw
 podman volume ls                                           # alle Volumes anzeigen
 podman volume create webdata                               # Volume Webdata erzeugen
 podman volume inspect webdate                              # Infos zu Volume anzeigen (z.B. Speicherort)
-podman run --rm -d -p 8080:8080 \                          # volume webdata einbinden
-           -v webdata:var/www/html:Z                       # :Z Kontext ändern auf container_file_t
-podman run --rm -d -p 8080:8080 \                          # direkt ein Verzeichnis als Volume angeben
-           -v /home/student/webroot/:var/www/html:Z        # Immer absoluter Pfad, sonst wird es als Volume interpretiert
+-v webdata:var/www/html:Z                                  # :Z Kontext ändern auf container_file_t
+                                                           # direkt ein Verzeichnis als Volume angeben
+-v /home/student/webroot/:var/www/html:Z                   # Bind: Immer absoluter Pfad, sonst wird es als Volume interpretiert
+-v ./automations.yaml:/config/automations.yaml:Z           # Datei als volume
 podman volume export webdata --output \                    # Exportieren eines Volumes in ein tar.gz
                      webdata.tar.gz
 podman volume import webdata2 webdata.tar.gz               # importieren eines tar.gz als Volume (muss erst erzeugt werden)
