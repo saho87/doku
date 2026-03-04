@@ -175,3 +175,12 @@ docker run -d -p 8081:8081 --name nexus -v /home/sascha/Projects/nexus/nexus-dat
 # Aufruf webbrowser / admin|admin123
 http://localhost:8081/nexus/
 ```
+
+# Podman-Compose
+```bash
+# bash completion
+curl -sL https://raw.githubusercontent.com/containers/podman-compose/devel/completion/bash/podman-compose -o ~/.podman-compose-completion
+echo source ~/.podman-compose-completion >> ~/.bashrc
+source ~/.bashrc
+
+```
