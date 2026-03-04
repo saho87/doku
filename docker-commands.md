@@ -23,9 +23,9 @@ docker system prune                           # Löscht alle gestoppte Container
 docker rm (-f)<CID>                           # Löscht einen gestoppten Container (-f stoppt ihn auch)
 
 # Informationen zu Containern
-docker logs <CID>            # Listet alle Logs zu einem Container auf
-docker inspect <CID>         # detaillierte Infos zu Container
-docker port <CID> | -a        # genutzte Ports des Containers | alle Container
+docker logs <CID>                              # Listet alle Logs zu einem Container auf
+docker inspect <CID> | jq '.[0] | keys'        # detaillierte Infos zu Container -> oberste Ebene aller Elemente anzeigen
+docker port <CID> | -a                         # genutzte Ports des Containers | alle Container
 
 # Prozess in bestehenden Container starten (-i - nimmt Eingaben entgegen -t pseudo Terminal zuweisen -e Umgebungsvariablen zuweisen -l letzten Container verwenden)
 docker exec -it <CID> sh                 # Führt eine 2. Prozess in einem laufenden Container aus (hier öffnen einer shell)
