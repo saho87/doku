@@ -182,5 +182,30 @@ http://localhost:8081/nexus/
 curl -sL https://raw.githubusercontent.com/containers/podman-compose/devel/completion/bash/podman-compose -o ~/.podman-compose-completion
 echo source ~/.podman-compose-completion >> ~/.bashrc
 source ~/.bashrc
+# Exkurs podman-compose
+
+podman-compose up (-d)                                                        # Startet alle Services aus der docker-compose.yml 
+podman-compose down  (-v)                                                     # Stoppt und entfernt alle Container, Netzwerke (+ Volumes)
+podman-compose start                                                          # Startet bereits erstellte Container
+podman-compose stop                                                           # Stoppt laufende Container (ohne Entfernen)
+
+podman-compose restart | <service>                                            # Neustart aller Services | einzelner Services
+
+podman-compose ps (-a)                                                        # Zeigt Status aller Services/Container
+
+podman-compose logs(-f)  <service>                                            # Zeigt Logs aller Services | einzelner Services
+
+podman-compose exec <service> bash                                            # Öffnet eine Shell im laufenden Container
+
+podman-compose run <service> <command>                                        # Führt einmaligen Befehl in neuem Container aus
+podman-compose run --rm <service> <command>                                   # Container wird nach Ausführung gelöscht
+
+podman-compose build                                                          # Baut Images gemäß docker-compose.yml
+podman-compose build <service>                                                # Baut nur ein bestimmtes Image
+
+podman-compose pull                                                           # Lädt Images aus Registry neu
+podman-compose pull <service>                                                 # Lädt nur ein Service-Image
+
+podman-compose config                                                         # Zeigt aufgelöste/validierte Compose-Konfiguration
 
 ```
