@@ -222,19 +222,15 @@ services:
     container_name: example-web
     ports:
       - "8080:80"
-
     environment:
       APP_ENV: production
       APP_DEBUG: "false"
-
     volumes:
       - web_data:/usr/share/nginx/html:ro
       - ./config/nginx.conf:/etc/nginx/nginx.conf:ro
-
     networks:
       - frontend
       - backend
-
     restart: unless-stopped
     depends_on:
       - db
@@ -242,24 +238,19 @@ services:
   db:
     image: postgres:15
     container_name: example-db
-
     environment:
       POSTGRES_DB: exampledb
       POSTGRES_USER: exampleuser
       POSTGRES_PASSWORD: examplepass
-
     volumes:
       - db_data:/var/lib/postgresql/data
-
     networks:
       - backend
-
     restart: unless-stopped
 
 networks:
   frontend:
   backend:
-
 volumes:
   web_data:
   db_data:
