@@ -207,49 +207,37 @@ podman-compose pull                                                           # 
 podman-compose pull <service>                                                 # Lädt nur ein Service-Image
 
 podman-compose config                                                         # Zeigt aufgelöste/validierte Compose-Konfiguration
+```
+## Beispiel Podman Compose Setup
 
+<details>
+<summary>compose.yaml anzeigen</summary>
+
+```yaml
 version: "3.9"
-
-# Beispiel Compose File für Podman / Docker
-# Demonstriert typische Features für Dokumentation
 
 services:
   web:
     image: nginx:latest
     container_name: example-web
-
-    # Ports: Host -> Container
     ports:
       - "8080:80"
 
-    # Environment Variablen
     environment:
       APP_ENV: production
       APP_DEBUG: "false"
 
-    # Volume Mounts
     volumes:
       - web_data:/usr/share/nginx/html:ro
       - ./config/nginx.conf:/etc/nginx/nginx.conf:ro
 
-    # Netzwerkzuordnung
     networks:
       - frontend
       - backend
 
-    # Container Neustartverhalten
     restart: unless-stopped
-
-    # Abhängigkeit zu anderem Service
     depends_on:
       - db
-
-    # Healthcheck für Container Status
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost"]
-      interval: 30s
-      timeout: 5s
-      retries: 3
 
   db:
     image: postgres:15
@@ -268,15 +256,10 @@ services:
 
     restart: unless-stopped
 
-# Benutzerdefinierte Netzwerke
 networks:
   frontend:
-    driver: bridge
   backend:
-    driver: bridge
 
-# Persistente Volumes
 volumes:
   web_data:
   db_data:
-```
