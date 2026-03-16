@@ -45,6 +45,8 @@ ssh -v -i .ssh/key-with-pass user@remotehost
 ```bash
 # Befehle:
 ln, stat
+file
+man, apropos
 
 # wichtige Dateien/Ordner (detaillierter in pdf):
 /boot 		# Dateien für Startvorgang
@@ -59,6 +61,8 @@ ln, stat
 /usr/sbin 	# Befehle Systemadministration
 /usr/local 	# lokal angepasste SW
 /var 		# Systemspezifische variable Daten (Logs, DB)
+
+file test.md			# Info zum Dateityp anzeigen
 
 # Hard- und Softlinks
 ln file.txt /tmp/file-hlink.txt 	# Hardlink
@@ -93,11 +97,18 @@ Will variable host evaluate to host? 			# Auflösung der Variablen
 [user@host glob]$ echo 'Will variable $myhost evaluate to $(hostname -s)?'
 Will variable $myhost evaluate to $(hostname -s)? 	# keine Auflösung der Variablen
 
-stat file			# Zeitstempel und Infos einer Datei anzeigen
+stat file				# Zeitstempel und Infos einer Datei anzeigen
+
+sudo mandb				# man Einträge neu erzeugen
+man man					# Bereich in man
+man 5 passwd			# öffne manpage von /etc/passwd
+man -k | apropos ssh	# alle Befehle mit ssh anzeigen
+man -f | whatis w			# 1 Zeile Beschreibung eines Befehls
 ```
 # Kapitel 3: Verwalten lokaler Benutzer und Gruppen
 ```bash
 # Befehle:
+whoami, wo
 id, su -, sudo -i, sudo 
 useradd, userdmod, userdel - r, passwd
 groupadd, groupmod, groupdel, newgrp
@@ -114,6 +125,9 @@ chage, date
 
 # Gruppenmitgliedschaft eines Benutzers anzeigen
 id sascha
+
+whoami 		# welcher User bin ich
+who			# wer ist noch am System angemeldet
 
 # Benutzer wechseln
 su - user01 
@@ -143,6 +157,9 @@ chage -l user01					# Anzeige PW Richtlinien des Users
 chage -m 0 -M 90 -W 7 -I 14 user01
 chage -E $(date -d "+30 days" +%F) user01	# Ablaufdatum auf +30 Tage setzen
 chage -d 0 user01				# User muss PW bei nächster Anmeldung ändern
+
+# Datum/ Uhrzeit ausgeben
+date +%R # 24h Zeitformat
 
 # nologin-Shell
 usermod -s /sbin/nologin user01
