@@ -117,7 +117,7 @@ cat file.txt | less | wc -l | tee test 		# leitet nach std output und in file um
 # Kapitel 3: Verwalten lokaler Benutzer und Gruppen
 ```bash
 # Befehle:
-whoami, wo
+whoami, who
 id, su -, sudo -i, sudo 
 useradd, userdmod, userdel - r, passwd
 groupadd, groupmod, groupdel, newgrp
