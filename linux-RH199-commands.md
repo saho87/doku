@@ -110,7 +110,8 @@ echo $variable | ${variable}
 export variable					# macht aus lokaler Variable eine Umgebungsvariable
 set 							# Gibt alle aktuellen Shell-Variablen und Funktionen aus
 
-# tee
+# Output redirict
+cat test.txt &> FILE						# gibt STDIN und STDERR an File weiter
 cat file.txt | less | wc -l | tee test 		# leitet nach std output und in file um					
 ```
 # Kapitel 3: Verwalten lokaler Benutzer und Gruppen
