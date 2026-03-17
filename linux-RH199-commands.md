@@ -132,8 +132,9 @@ chage, date
 /etc/shadow # Passwörter
 /var/log/secure # Protokollierung von sudo Befehlen
 
-# Gruppenmitgliedschaft eines Benutzers anzeigen
-id sascha
+visudo 		# sicheres Bearbeiten der /etc/sudoers
+
+id sascha	# Gruppenmitgliedschaft eines Benutzers anzeigen
 
 whoami 		# welcher User bin ich
 who			# wer ist noch am System angemeldet
