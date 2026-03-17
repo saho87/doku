@@ -109,6 +109,9 @@ variable=2						# lokale Variable erstellen (nicht an subshells vererbbar)
 echo $variable | ${variable}
 export variable					# macht aus lokaler Variable eine Umgebungsvariable
 set 							# Gibt alle aktuellen Shell-Variablen und Funktionen aus
+
+# tee
+cat file.txt | less | wc -l | tee test 		# leitet nach std output und in file um					
 ```
 # Kapitel 3: Verwalten lokaler Benutzer und Gruppen
 ```bash
