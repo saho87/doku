@@ -128,7 +128,8 @@ chage, date
 /etc/group # Infos zu Gruppen
 /etc/login.defs # Standardwerte für UID, Passwort Gültigkeit, UMASK
 /etc/sudoers.d/ # Ablage Files für User Berechtigungen
-/etc/sudoers 
+/etc/sudoers
+/etc/skel/	# dort abgelegte Dateien werden in neue Home verzeichnisse kopiert 
 /etc/shadow # Passwörter
 /var/log/secure # Protokollierung von sudo Befehlen
 
