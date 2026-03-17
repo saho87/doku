@@ -133,6 +133,8 @@ chage, date
 /var/log/secure # Protokollierung von sudo Befehlen
 
 visudo 		# sicheres Bearbeiten der /etc/sudoers
+vipw		# sicheres Bearbeiten der /etc/shadows
+vigr		# sicheres Bearbeiten der /etc/group
 
 id sascha	# Gruppenmitgliedschaft eines Benutzers anzeigen
 
