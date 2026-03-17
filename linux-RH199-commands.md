@@ -104,6 +104,8 @@ man man					# Bereich in man
 man 5 passwd			# öffne manpage von /etc/passwd
 man -k | apropos ssh	# alle Befehle mit ssh anzeigen
 man -f | whatis w			# 1 Zeile Beschreibung eines Befehls
+
+set 					# Gibt alle aktuellen Shell-Variablen und Funktionen aus
 ```
 # Kapitel 3: Verwalten lokaler Benutzer und Gruppen
 ```bash
