@@ -118,7 +118,7 @@ cat file.txt | less | wc -l | tee test 		# leitet nach std output und in file um
 ```bash
 # Befehle:
 whoami, who
-id, su -, sudo -i, sudo 
+id, su -, sudo -i, sudo, visudo
 useradd, userdmod, userdel - r, passwd
 groupadd, groupmod, groupdel, newgrp
 chage, date
