@@ -502,6 +502,18 @@ rmp -qpl PACKAGENAME		# Auflisten der Files zu Paket
 --scripts
 rpm -ivh rhcsa-script-1.0.0-1.noarch.rpm	# Install mit verbose
 
+# Flatpaks
+flatpak remote-add myrepo http://flatpak.bla.flatpakrepo
+flatpak remotes
+flatpak install org.freedesktop.Platform
+flatpak remote-delete myrepo
+
+# apps
+flatpak list --app
+flatpak remote-ls myrepo
+flatpak uninstall com.vscodium.codium
+flatpak info com.vscodium.codiumsudo
+
 ```
 # Kapitel 9: Basic Storage  
 ```bash
