@@ -471,7 +471,7 @@ dnf install PACKAGENAME	-y	# Installation eines Paketes (silent)
 dnf remove PACKAGENAME		# Deinstallation Paket und abhängige Pakete
 dnf update PACKAGENAME		# Abruf neuere Version und Installation eines Paketes inklusive Abhängigkeiten
 dnf list kernel				# Anzeige installierte und verfügbare Kernel
-dnf group list				# Anzeige installierter und verfügbarer Gruppen
+dnf group list (--installed)# Anzeige installierter und verfügbarer Gruppen
 dnf group list hidden		# Anzeige installierter und verfügbarer Gruppen (inklusive versteckter Gruppen)
 dnf group info GROUPNAME	# detaill. Infos zur Gruppe, Pakete usw.
 dnf group install GROUPNAME	# Installation einer Gruppe
