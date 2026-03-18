@@ -518,7 +518,7 @@ flatpak info com.vscodium.codiumsudo
 # Kapitel 9: Basic Storage  
 ```bash
 # Befehle:
-• lsblk -fp, parted, udevadm settle, mkfs.xfs, mkswap, mount, free -h, swapon -a
+• lsblk -fp, parted, udevadm settle, mkfs.xfs, mkswap, mount, free -h, swapon -a, fdisk -l, df -h
 # wichtige Dateien/Ordner
 • /etc/fstab
 
@@ -532,7 +532,8 @@ lsblk -fp							# Verfügbare Block Devices anzeigen mit UUID und Mountpath
 umount /mnt/data						# unmount
 lsof /mnt/data							# Anzeige aller Prozesse, die auf FS zugreifen
 			
-# Partitionen und FS 
+# Partitionen und FS
+# /dev/vda3 				# virtuelle Disk / a 1. Disk / 3. Partition
 parted /dev/sdb mklabel gpt	# Ein Disk- Label erstellen ->  GPT / Definieren des GPT-Partitionsschema
 parted /dev/sdb			# Partition auf dem Device erstellen (interaktiver Modus)
 	mkpart
@@ -553,6 +554,9 @@ mount /backup					# neues FS mit fstab mounten -> würde einen Fehler werfen, we
 mount | grep sdb1				# überprüfen, ob neues FS in /archive gemounted ist
 systemctl reboot
 parted /dev/vdb rm 1				# Partition löschen
+fdisk -l						# Partitionen anzeigen
+df -h 							# Filesysteme eines Host anzeigen (mit Mountpaths)
+du -h(s) /usr/share				# Diskbenutzungs-Report eines Verzeichnisses anzeigen (silence) -> zum Schluss Zusammenfassung
 
 # SWAP-Space 
 parted /dev/sdb			# SWAP-Partition ersten (interaktiver Modus)
