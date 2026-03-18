@@ -190,6 +190,7 @@ umask
 # wichtige Dateien/Ordner:
 /etc/profile, /etc/profile.d, /etc/bashrc (zusätzlich im Home)
 
+# Berechtigung bei Verzeichnissen: r -> ich kann mit ls lesen; x -> ich kann mit cd hereinwechseln; w -> ich kann Dateien löschen
 
 # Änderungen von Berechtigungen 
 chmod go-rw document.pdf
