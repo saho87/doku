@@ -518,7 +518,7 @@ flatpak info com.vscodium.codiumsudo
 # Kapitel 9: Basic Storage  
 ```bash
 # Befehle:
-• lsblk -fp, parted, udevadm settle, mkfs.xfs, mkswap, mount, free -h, swapon -a, fdisk -l, df -h
+• lsblk -fp, parted, udevadm settle, mkfs.xfs, mkswap, mount, free -h, swapon -a, fdisk -l, df -h, updatedb
 # wichtige Dateien/Ordner
 • /etc/fstab
 
@@ -557,6 +557,7 @@ parted /dev/vdb rm 1				# Partition löschen
 fdisk -l						# Partitionen anzeigen
 df -h 							# Filesysteme eines Host anzeigen (mit Mountpaths)
 du -h(s) /usr/share				# Diskbenutzungs-Report eines Verzeichnisses anzeigen (silence) -> zum Schluss Zusammenfassung
+updatedb
 
 # SWAP-Space 
 parted /dev/sdb			# SWAP-Partition ersten (interaktiver Modus)
@@ -1007,12 +1008,16 @@ echo test
 !! 123		# ergibt echo test 123
 
 # Suche nach Dateien und Verzeichnissen
-find /dir -iname '*test*'					# sucht nach test (keine Unterscheidung groß/klein)
-find / | grep test							# gibt alle Dateien und Ordner rekursiv zu / aus und greppt test
+find /dir -iname '*test*'						# sucht nach test (keine Unterscheidung groß/klein)
+find / | grep test								# gibt alle Dateien und Ordner rekursiv zu / aus und greppt test
 find . -type f -name '*.log.gz' -size -1M		# kleiner als 1 MB im aktuellen Ordner
-find /var/log -type f -name '*.log' -size +100c		# größer als 100 Byte unterhalb /var/log
-find . -type d						# Suche nach Verzeichnis
+find /var/log -type f -name '*.log' -size +100c	# größer als 100 Byte unterhalb /var/log
+find . -user sascha -group sascha -mmin	-10		# Suche nach User und Group und Zugriff in letzten 10 min
 find music/ -type d -exec chmod 755 {} \;		# Kombi aus chmod und find
+
+# locate - Suche über Datenbank (schnell, aber nicht live)
+updatedb								# DB aktualisieren
+locate -i networkmanager.conf			# ignore case sense Suche nach ...
 
 # grep
 grep div *.html 		# Möglichkeit 1
