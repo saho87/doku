@@ -172,7 +172,9 @@ chage -E $(date -d "+30 days" +%F) user01	# Ablaufdatum auf +30 Tage setzen
 chage -d 0 user01				# User muss PW bei nächster Anmeldung ändern
 
 # Datum/ Uhrzeit ausgeben
-date +%R # 24h Zeitformat
+date +%R # 24h Zeitformat			# aktueller timestamp in 24h + gewünschte Formatierung
+date -d "+7 days" "+%Y-%m-%d"		# -d Zukunft und Vergangenheit berechnen + Formatierung
+date -d "next friday"
 
 # nologin-Shell
 usermod -s /sbin/nologin user01
