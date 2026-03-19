@@ -323,23 +323,27 @@ etc/tuned/tuned-main.conf 	# Konfig des tuned Daemons
 • man nice/renice
 
 # Beenden von Prozessen (Empfehlung: erst SIGTERM-15, dann SIGINT-2, dann SIGKILL-9)
-kill -l 		# Auflisten aller verfügbaren Signale
-kill PID 		# Kill mit SIGTERM-15
-kill -9 PID		# Kill mit SIGKILL-9 | Alternative kill -SIGKILL
-pkill sleep		# Beenden mehrere Prozesse auf Basis seines Behehlsnamens | Alternative: killall sleep
+kill -l 			# Auflisten aller verfügbaren Signale
+kill PID 			# Kill mit SIGTERM-15
+kill -9 PID			# Kill mit SIGKILL-9 | Alternative kill -SIGKILL
+pkill sleep			# Beenden mehrere Prozesse auf Basis seines Behehlsnamens | Alternative: killall sleep
 pkill -U user01 	# Beenden mehrere Prozesse auf Basis von Kriterien (Terminal, UID, GID, Command, Parent)
-jobs -l			# zeigt aktuell laufende Jobs an (Def. Jobs: Prozesse, die über Shell gestartet werden)
+jobs -l				# zeigt aktuell laufende Jobs an (Def. Jobs: Prozesse, die über Shell gestartet werden)
+bg					# + ist default job -> kann mit bg wieder gestartet werden
+fg					# job wird wieder in Vordergrund geholt
+ps jT				# zeigt Prozesse + ihre Threads in einem Job-Control-Format
 kill -SIGSTOP %2	# Stoppt den Job 2 | Alternative kill -19 PID
 kill -SIGCONT %2	# Job wird wieder gestartet
 
+
 # Abmelden von Benutzern/Beenden von Benutzerprozessen
-w 						# angemeldete User anzeigen, wie lange aktiv, welche Prozesse
-pgrep -l -u user01 -t pts/2 			# Anzeigen aller Prozesse von user01 in Terminal pts/2
-ps u $(pgrep sha1sum)				# mit pgrep PID auslesen und über ps anzeigen | Alternative: top
+w 											# angemeldete User anzeigen, wie lange aktiv, welche Prozesse
+pgrep -l -u user01 -t pts/2 				# Anzeigen aller Prozesse von user01 in Terminal pts/2
+ps u $(pgrep sha1sum)						# mit pgrep PID auslesen und über ps anzeigen | Alternative: top
 ps -o pid,pcpu,nice,comm $(pgrep sha1sum)	# PID, CPU, Nice, Name von Prozessen | Alternative: top
-pkill -u user01 -t pts/2 			# Beenden alle Prozesse von user01 in Terminal pts/2
-pstree -p user01				# Prozessbaum von user01 mit PIDs (ggf. Installpaket psmisc notwendig)
-pkill -9 -P PID					# Beenden/SIGKILL für alle untergeordneten Prozesse des angegebenen Prozesses
+pkill -u user01 -t pts/2 					# Beenden alle Prozesse von user01 in Terminal pts/2
+pstree -p user01							# Prozessbaum von user01 mit PIDs (ggf. Installpaket psmisc notwendig)
+pkill -9 -P PID								# Beenden/SIGKILL für alle untergeordneten Prozesse des angegebenen Prozesses
 
 # Überwachen der Prozessaktivität
 uptime # load average letzte 1, 5 und 15 min
