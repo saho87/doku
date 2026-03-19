@@ -218,11 +218,18 @@ chown user01:admins Pictures 		# Benutzer- und Gruppenänderung
 
 # Spezielle Berechtigungen (suid, sgid, sticky)
 -rwsr-xr-x. 1 root root 35504 Jul 16 2010 /usr/bin/passwd 		# setuid
-chmod g+s example							# setuid setzen
+
+#SUID: rogramm läuft mit den Rechten des Datei-Besitzers, nicht des Users
+chmod u+s example							# setuid setzen
 drwxr-sr-x. 3 root systemd-journal 60 May 18 09:15 /run/log/journal	# setgid
-chmod u-s example							# setgid entfernen
+
+#GUID: Programm läuft mit Gruppenrechten der Datei
+chmod g-s example							# setgid entfernen
+
+# Sticky: Nur der Besitzer darf Dateien löschen – auch wenn alle Schreibrechte haben (nur Verzeichnisse)
 drwxrwxrwt. 39 root root 4096 Feb 8 20:52 /tmp				# sticky
-chmod +t								# sticky setzen
+chmod o+t 								# sticky setzen
+# großes T: drwxrws--T > sticky ist gesetzt, aber nicht execute
 
 # Standardberechtigungen umask
 umask 0027 # temporärer umask - User RW, Group R, Other -
