@@ -494,7 +494,7 @@ dnf config-manager \					# Hinzufügen eines neuen Repos (.repo wird in /etc/yum
 subscription-manager register		# Registrierung des System
 subscription-manager attach --auto	# automatische Auswahl einer passenden Subscription
 
-# zusätzliche RPM Befehle
+# RPM Befehle
 rpm -qa 					# alle Pakete auflisten
 rpm -qf /usr/bin/bash		# zu welchem Paket gehört Datei
 rpm -qpi PACKAGENAME 		# Infos zu Paket
@@ -504,15 +504,18 @@ rpm -ivh rhcsa-script-1.0.0-1.noarch.rpm	# Install mit verbose
 
 # Flatpaks
 flatpak remote-add myrepo http://flatpak.bla.flatpakrepo
-flatpak remotes
-flatpak install org.freedesktop.Platform
-flatpak remote-delete myrepo
+flatpak remotes												# alle aktivierten Repositories anzeigen
+flatpak remote-modify --disable rhel						# flatpak deaktivieren
+flatpak remote-add --no-gpg-verify --user myrepo \			# custom repo hinzufügen (nur für Benutzer)
+http://flatpak.lab.example.com/myrepo.flatpakrepo
+flatpak remote-delete myrepo								# Repo löschen				
 
 # apps
-flatpak list --app
-flatpak remote-ls myrepo
-flatpak uninstall com.vscodium.codium
-flatpak info com.vscodium.codiumsudo
+flatpak install org.freedesktop.Platform					# Installation einer App
+flatpak uninstall com.vscodium.codium						# Deinstallation
+flatpak list (--app)										# zeigt alle installierten Runtimes, SDKs und (Apps)
+flatpak remote-ls myrepo									# alle verfügbaren Applikationen und runtimes in repo auflisten
+flatpak info com.vscodium.codiumsudo						# Informationen zum Paket abrufen
 
 ```
 # Kapitel 9: Basic Storage  
