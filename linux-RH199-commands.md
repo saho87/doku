@@ -307,7 +307,7 @@ tail /var/log/audit/audit.log		# Alternative Suche im audit log
 
 # Befehle:
 • ps, kill, killall, pkill, w, pgrep, pstree, jobs
-• uptime, lscpu, top
+• uptime, lscpu, top, htop
 • tuned-adm, (sysctl) 
 • nice 
 
@@ -359,6 +359,9 @@ u 	# nur Prozesse eines bestimmten Users anzeigen
 M|P|N 	# Sortieren nach Mem, CPU, PID
 k 	# Prozess killen
 r	# renice -> nice Wert ändern
+
+# htop Kommando
+htop
 
 # Tuning-Profile
 # ggf. muss tuned Paket installiert werden
