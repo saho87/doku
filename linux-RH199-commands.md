@@ -1176,6 +1176,7 @@ gunzip tmpfiles.tar.gz
 tar czf etc.tar.gz /etc/ # archivieren und komprimierenb
 ssh root@servera tar czf - /etc | tar xzf -
 
+weiter mit 7.2
 
 # TCPDump (Netzwerkdiagnosewerkzeug)
 sudo tcpdump -i eth0 -A -n port 80 		# Überwachung des Geräts (-i eth0) auf Port 80
