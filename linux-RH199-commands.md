@@ -18,16 +18,31 @@ https://docs.github.com/de/get-started/writing-on-github/getting-started-with-wr
 
 ```bash
 # Befehle:
-ssh-keygen, ssh-copy-id, ssh-add, ssh
+ssh-keygen, ssh-copy-id, ssh-add, ssh, ssh-keyscan
 
 # wichtige Dateien/Ordner:
 /home/user/.ssh/
+/etc/ssh/ssh_config
+/etc/shh/ssh_known_hosts | ~/.ssh/known_hosts
 
 # Konsolen Tastenkombis
 STRG + A/E # Springen an Anfang/Ende
 STRG + U/K # Löschen der Zeichen bis Zeilenanfang/Ende
 STRG + L   # Löschen des Terminalbildschirms
 STRG + w   # Löschen eines Wortes
+
+# public keys von Server/ganzen subnetzen abfragen
+ssh-keyscan 192.169.178 >> ~/.ssh/known_hosts
+
+ssh-keygen -R hostb					# löschen von hostb aus ~/.ssh/known_hosts
+ssh-keygen -l -f ~/.ssh/known_hosts #listet die Fingerprints aller  SSH-Host-Keys in  known_hosts
+rm -f /etc/ssh/ssh_host_*			# Löscher aller keys eines Hosts (Regenerationstausch)
+systemctl restart sshd				# keys werden in /etc/ssh/ neu generiert
+
+# systemweit known_hosts ablegen
+ssh-keyscan -t ed25519 serverb
+sudo bash -c 'ssh-keyscan -t ed25519 \
+serverb >> /etc/ssh/ssh_known_hosts'
 
 # key-pair erstellen
 ssh-keygen -f .ssh/key-with-pass
