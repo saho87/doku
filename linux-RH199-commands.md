@@ -533,6 +533,12 @@ systemd-tmpfiles --clean /etc/tmpfiles.d/tmp.conf	# Temporäre Verzeichnisse/Dat
 ```
 # AT zukünftige User-Jobs einrichten
 ```bash
+# Befehle
+atq, at, atrm
+
+# wichtige Dateien/Ordner
+/etc/at.deny 				# Denylist -> User die AT nicht ausführen dürfen
+/etc/at.allow 				# Allowlist -> User die AT ausführen dürfen
 echo "date >> /home/student/myjob.txt" | at now + 2min		# job in 2 min starten
 atq															# Jobs auflisten			
 watch atq													# Jobs in Echtzeit monitoren
