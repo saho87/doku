@@ -531,6 +531,17 @@ systemd-tmpfiles --clean /etc/tmpfiles.d/tmp.conf	# Temporäre Verzeichnisse/Dat
 systemd-tmpfiles --clean /etc/tmpfiles.d/tmp.conf	# Temporäre Verzeichnisse/Dateien anlegen -> eigene Konfig Datei 
 
 ```
+# AT zukünftige User-Jobs einrichten
+```bash
+echo "date >> /home/student/myjob.txt" | at now + 2min		# job in 2 min starten
+atq															# Jobs auflisten			
+watch atq													# Jobs in Echtzeit monitoren
+at -q g teatime												# Job zu Teatime (16 Uhr) starten
+at -q g 16:05
+atrm 2														# Job Nr. 2 löschen
+at -c 2														# Infos/Kommandos von Job 2 anschauen
+```
+
 # Kapitel 8: Installieren von SW Paketen
 ```bash
 # Befehle:
