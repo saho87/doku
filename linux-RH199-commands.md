@@ -474,6 +474,7 @@ for i in {1..3}; do sha1sum /dev/zero & done 	# 3 Jobs/Prozesse, die Last generi
 • man 5 crontab, man crontab, man chrond
 • man tmpfiles.d (Rangfolge Verzeichnisse, Beispiel)
 • man systemd-tmpfiles (Befehle wie --create, --clean)
+• man systemd.time -> timer und Beispiele
 
 # Wiederkehrende Benutzerjobs/Crontabs
 crontab -l 		# Auflisten aller Jobs für aktuellen User
@@ -528,7 +529,7 @@ systemctl enable --now systemd-tmpfiles-clean.timer	# Unit beim Neustart aktivie
 /run/tmpfiles.d/*.conf					# Prio 2: temporäre Speicherorte/Dateien für Daemons
 /usr/lib/tmpfiles.d/*.conf				# Prio 3: temporäre Speicherorte/Dateien für RPM Pakete
 systemd-tmpfiles --clean /etc/tmpfiles.d/tmp.conf	# Temporäre Verzeichnisse/Dateien löschen -> eigene Konfig Datei 
-systemd-tmpfiles --clean /etc/tmpfiles.d/tmp.conf	# Temporäre Verzeichnisse/Dateien anlegen -> eigene Konfig Datei 
+systemd-tmpfiles --create /etc/tmpfiles.d/tmp.conf	# Temporäre Verzeichnisse/Dateien anlegen -> eigene Konfig Datei 
 
 ```
 # AT zukünftige User-Jobs einrichten
@@ -1160,9 +1161,21 @@ echo -e "line1\nline2\nline3" | tr '\n' ' '       # Zeilenumbrüche in Leerzeich
 echo "123abc!@#DEF" | tr -cd 'a-zA-Z'		  # alles außer Buchstaben entfernen
 
 # tar
-tar -xf /colors.tar  					# entpackt eine zip
+tar -xf /colors.tar  					# entpackt eine zip (decomprimiert auch automtisch wenn *.gz)
 tar -xzf archiv.tar.gz					# entpackt tar.gz
 tar -cvf new.tar sourcefolder 			# erstellt neues Archiv von der Quelle
+tar -tf									# Inhalt auflisten
+-v verbose
+-x extract	(Archiv entpacken)
+-c comprimieren (Archiv erstellen)
+-f ??
+-t ??
+-z ??
+gzip tmpfiles.tar # komprimieren
+gunzip tmpfiles.tar.gz
+tar czf etc.tar.gz /etc/ # archivieren und komprimierenb
+ssh root@servera tar czf - /etc | tar xzf -
+
 
 # TCPDump (Netzwerkdiagnosewerkzeug)
 sudo tcpdump -i eth0 -A -n port 80 		# Überwachung des Geräts (-i eth0) auf Port 80
