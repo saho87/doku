@@ -122,12 +122,65 @@ man -f | whatis w			# 1 Zeile Beschreibung eines Befehls
 
 variable=2						# lokale Variable erstellen (nicht an subshells vererbbar)
 echo $variable | ${variable}
+echo ${variable:-default}		# default Wert falls Variable nicht definiert
 export variable					# macht aus lokaler Variable eine Umgebungsvariable
 set 							# Gibt alle aktuellen Shell-Variablen und Funktionen aus
+$PATH							# Verzeichnisse, in denen nach Befehlen gesucht wird
 
 # Output redirict
 cat test.txt &> FILE						# gibt STDIN und STDERR an File weiter
 cat file.txt | less | wc -l | tee test 		# leitet nach std output und in file um					
+```
+
+# Erstellen von Scripten
+```bash
+man bash
+#!/bin/bash
+echo ${1} ${2}
+date
+whoami
+hostname
+echo Das ist ein Fehler >&2 # Ausgabe an STERR
+
+# Aufruf
+./test.sh test1 -> test1
+
+echo $? # Rückgabewert des letzten Befehl ausgeben
+true && echo OK # UND -> nur wenn erste Befehl erfolgreiche ausgeführt, dann wird 2. Befehl ausgefürht
+false || echo NOT OK # ODER -> solange bis RÜckgabewert 0
+if true; then echo OK; else echo NOT OK; fi
+
+#!/bin/bash
+
+# Schleife
+while/tmp/lock ]]; do
+	echo "File /tmp/lock existiert. Warten bis es weg ist"
+	sleep 3
+done
+
+if [[-x /tmp/lock ]]; then
+	echo File /tmp/lock existiert, kann nicht fortsetzen >&2
+	exit 2
+fi
+u=$1
+if [ -z $u]]; then
+	echo Bitte geben Sie den Usernamen als Parameter >&2
+	exit 1
+fi
+if [[ $u! stu]]; then
+fi
+:
+if grep -q ^${u}: /etc/passwd then
+	echo User $u existiert
+else
+	echo User $u existiert nicht
+fi
+
+
+student@workstation:~/bin$ u-student; if grep -q ^${u}: /etc/passwd; then echo User ${u} existiert else echo U
+ser ${u} existiert nicht; fi
+User student existiert
+
 ```
 # Kapitel 3: Verwalten lokaler Benutzer und Gruppen
 ```bash
@@ -1051,7 +1104,7 @@ find music/ -type d -exec chmod 755 {} \;		# Kombi aus chmod und find
 updatedb								# DB aktualisieren
 locate -i networkmanager.conf			# ignore case sense Suche nach ...
 
-# grep
+# grep (Üben unter /usr/share/dict/words)
 grep div *.html 		# Möglichkeit 1
 cat *.html | grep div 	# Möglichkeit 2
 grep -c 				# zählt Vorkommen einer bestimmter Zeichenkette
@@ -1059,8 +1112,11 @@ grep -v '^\s*$' | grep -v '^#' 		# invertieren -> hier Leerzeichen, Kommentare a
 grep '^<.*>$'			# Findet Zeilen, die mit < anfangen und > aufhören
 man lsof | grep -e '-a' # durchsucht manpage nach Parameter '-a'
 grep -C3				# gibt Zeilen im Kontext, davor (-B) oder danach (-A) aus
-grep '\b404\b' logs.txt	# \b Wortgrenze -> Finde 404, aber nicht 3404 oder 404g (nur als ganzes Wort) 
-
+grep '\b404\b' logs.txt	# \b Wortgrenze -> Finde 404, aber nicht 3404 oder 404g (nur als ganzes Wort)
+grep -e student -e devops # suche nach student und devops
+grep -E '^(student|devops):.*/bin/bash$' # regEx
+grep -E '^c.{3,}t$'	# . > beliebiges Zeichen, 3 oder mehrmals 
+grep -E '^c{aei}t$'	# Auswahl a e oder i
 
 # sed - command
 sed 's/alt/neu/' file 			# Änderung nur in STOUT; s-stringsearch;
