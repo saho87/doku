@@ -879,19 +879,24 @@ logger, journalctl, timedatectl
 logger -p local7.notice "Log entry created on host"	# eine Nachricht an rsyslog schicken -> boot.log
 
 # spezifische Log-Nachrichten an neue Logfile senden
-echo "*.debug /var/log/messages-debug" > /etc/syslog.d/debug.conf	# neue config-Datei erstellen:
+echo "*.debug /var/log/messages-debug" > /etc/syslog.d/debug.conf	# neue config-Datei erstellen
+echo "authpriv.alert /var/log/auth-errors" > /etc/syslog.d/auth-errors.conf # Aus lab 5.11
 systemctl restart rsyslog						# rsyslog neu starten
-logger -p user.debug "Debug Message Test"				# Testnachricht schicken
+
 logger -p user.info "Info Message Test"				# Loggt alles ab level debug und höher
+logger -p authpriv.alert "logging test authpriv.alert" # facility: authpriv log-level: alert + höger
 
 # Systemjournal
-journalctl -n 5 -p err		# letzten 5 Nachrichten (nur err Prio) im journalctl betrachten
-journalctl -f			# journalctl log fortführend
-journalctl -u sshd.service 	# nur Nachrichten einer speziellen Unit auflisten
-journalctl --since today	# verschiedene Zeitbereiche
+man journalctl
+journalctl -n 5 -p err					# letzten 5 Nachrichten (nur err Prio) im journalctl betrachten
+journalctl -f							# journalctl log fortführend
+journalctl -u sshd.service 				# nur Nachrichten einer speziellen Unit auflisten
+journalctl --facilities authpriv 		#
+journalctl --since today				# verschiedene Zeitbereiche
 journalctl --since "2022-03-11 20:30" --until "2022-03-14 10:00"
 journalctl --since "-1 hour"
-journalctl -o verbose		# zusätzliche Details einblenden
+journalctl -o verbose					# zusätzliche Details einblenden
+journalctl _SYSTEMD_UNIT=sshd.service	# logs von systemd unit
 
 # gebräuchliche Felder zum Suchen in journalctl (man systemd.journal-fields):
 journalctl _COMM=dbus-daemon			# command name
@@ -908,6 +913,7 @@ journalctl _SYSTEMD_UNIT=sshd.service _PID=2110	# systemd unit that started the 
 
 # nach Änderung journald neustarten
 systemctl restart systemd-journald
+journalctl --flush # sollte auch gehen
 
 # -nur nach Persistierung- Anzeige aller Logs des 2. Systemboots
 journalctl -b 2
