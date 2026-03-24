@@ -1161,22 +1161,24 @@ echo -e "line1\nline2\nline3" | tr '\n' ' '       # Zeilenumbrüche in Leerzeich
 echo "123abc!@#DEF" | tr -cd 'a-zA-Z'		  # alles außer Buchstaben entfernen
 
 # tar
-tar -xf /colors.tar  					# entpackt eine zip (decomprimiert auch automtisch wenn *.gz)
-tar -xzf archiv.tar.gz					# entpackt tar.gz
+tar -xf /colors.tar  					# entpackt eine zip (keine Dekomprimierung)
+tar -xzf archiv.tar.gz					# dekomprimiert und entpackt tar.gz mit gunzip
+tar -cjf archiv.tar.bz2 /etc			# packt und komprimiert /etc Verzeichnis mit bzip2
 tar -cvf new.tar sourcefolder 			# erstellt neues Archiv von der Quelle
 tar -tf									# Inhalt auflisten
 -v verbose
 -x extract	(Archiv entpacken)
 -c comprimieren (Archiv erstellen)
--f ??
--t ??
--z ??
-gzip tmpfiles.tar # komprimieren
-gunzip tmpfiles.tar.gz
-tar czf etc.tar.gz /etc/ # archivieren und komprimierenb
-ssh root@servera tar czf - /etc | tar xzf -
+-f Archiv -immer verwenden
+-t listet Inhalte des Archivs auf
+-z | --gzip
+-j | --bzip2
+-J | --xz
+gzip tmpfiles.tar # komprimieren		# nur komprimieren mit gzip
+bunzip2 tmpfiles.tar.bz2				# nur dekomprimieren in tar mit bzip2
 
-weiter mit 7.2
+ssh root@servera tar czf - /etc | tar xzf - # überträgt Dateien direkt von entfernten Server auf lokalen 
+
 
 # TCPDump (Netzwerkdiagnosewerkzeug)
 sudo tcpdump -i eth0 -A -n port 80 		# Überwachung des Geräts (-i eth0) auf Port 80
