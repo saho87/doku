@@ -335,18 +335,21 @@ ls -Z /var/www
 
 # SELinux- Modus ändern
 getenforce 		# Anzeige aktueller Modus
-setenforce 0		# Deaktivieren für aktuelle Sitzung
+setenforce 0		# Deaktivieren für aktuelle Sitzung -> Permissive | Enforcing
 vi /etc/selinux/config 	# Permanentes Ändern
 
-cp -p # Kopieren einer Datei unter Beibehalten des SELinux Kontextes (bei mv wird Kontext beibehalten)
-
+cp -p # Kopieren einer Datei unter Beibehalten des SELinux Kontextes oder --preserve=context (bei mv wird Kontext beibehalten)
 # SELInux-Kontext ändern
+id -Z										# eigenen context anzeigen
+# unconfined_u	:unconfined_r	:unconfined_t	:s0-s0:c0.c1023
+# 	user		:rolle			:typ			:label
 chcon -t httpd_sys_content_t /virtual
 semanage fcontext -l 						# SELinux-Standarddateikontexte ausgeben
-semanage fcontext -l -C						# nur lokale erstellte Kontexte anzeigen
+semanage fcontext -l -C						# nur lokale erstellte Kontexte anzeigen (was außerhalb Policy geänder)
 restorecon -vr /virtual 					# zurücksetzen des Kontextes zu Standard (verbosity und rekursiv)
-semanage fcontext -a -t httpd_sys_content_t '/virtual(/.*)?'
+semanage fcontext -a -t httpd_sys_content_t '/virtual(/.*)?'	# neuen Kontext für Verzeichnis der Policy hinzufügen
 semanage port -a -t http_port_t -p tcp 1001			# aus LAB Kap.15 -> httpd Service darf Port 1001 überwachen
+semanage -d '/virtual(/.?)' 				# löschen eines Kontextes
 
 # Boolsche SELinux-Werte
 getsebool -a 				# Anzeige der boolschen Werte inklusive Status
