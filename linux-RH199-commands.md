@@ -135,22 +135,18 @@ cat file.txt | less | wc -l | tee test 		# leitet nach std output und in file um
 # Erstellen von Scripten
 ```bash
 man bash
-#!/bin/bash
-echo ${1} ${2}
-date
-whoami
-hostname
-echo Das ist ein Fehler >&2 # Ausgabe an STERR
 
-# Aufruf
-./test.sh test1 -> test1
 
 echo $? # Rückgabewert des letzten Befehl ausgeben
 true && echo OK # UND -> nur wenn erste Befehl erfolgreiche ausgeführt, dann wird 2. Befehl ausgefürht
 false || echo NOT OK # ODER -> solange bis RÜckgabewert 0
 if true; then echo OK; else echo NOT OK; fi
 
+################################################################
 #!/bin/bash
+
+# Ausgabe der Parameter-> Aufruf über ./test.sh param1 param2
+echo ${1} ${2}
 
 # Schleife
 while/tmp/lock ]]; do
@@ -159,7 +155,7 @@ while/tmp/lock ]]; do
 done
 
 if [[-x /tmp/lock ]]; then
-	echo File /tmp/lock existiert, kann nicht fortsetzen >&2
+	echo File /tmp/lock existiert, kann nicht fortsetzen >&2 # Ausgabe an STERR
 	exit 2
 fi
 u=$1
@@ -175,7 +171,6 @@ if grep -q ^${u}: /etc/passwd then
 else
 	echo User $u existiert nicht
 fi
-
 
 student@workstation:~/bin$ u-student; if grep -q ^${u}: /etc/passwd; then echo User ${u} existiert else echo U
 ser ${u} existiert nicht; fi
