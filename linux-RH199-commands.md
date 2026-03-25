@@ -675,12 +675,13 @@ parted /dev/sdb			# SWAP-Partition ersten (interaktiver Modus)
 parted /dev/sdb mkpart swap1 linux-swap 2000M 2512M
 parted /dev/sdb mkpart swap2 linux-swap 2512M 3024M
 parted /dev/sdb print		# Partitionen anzeigen, verifizieren
+# nach parted
 udevadm settle			# neue Partition im System registrieren/ in /dev/* anzeigen
 mkswap /dev/sdb2		# neue Partition mit SWAP-space formatieren
 mkswap /dev/sdb3
 UUID=87976166-4697-47b7-86d1-73a02f0fc803 swap swap pri=10 0 0	# fstab anpassen mit Prio
 systemctl daemon-reload		# den systemd daemon updaten um die euen Eintrag der fstab zu übernehmen
-free -h				# Speicher und SWAP-Space anzeigen
+free -h	| swapon -s # Speicher und SWAP-Space anzeigen
 swapon -a			# SWAP persistent aktivieren (alle Einträge in fstab)
 swapon --show	
 swapon /dev/sdb2		# Alternative: SWAP temporär aktivieren
