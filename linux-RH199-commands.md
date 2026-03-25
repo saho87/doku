@@ -1183,6 +1183,15 @@ bunzip2 tmpfiles.tar.bz2				# nur dekomprimieren in tar mit bzip2
 
 ssh root@servera tar czf - /etc | tar xzf - # überträgt Dateien direkt von entfernten Server auf lokalen 
 
+# Daten zwischen Servern kopieren
+sftp root@serverb								# auf Zielserver anmelden
+sftp> lcd /home/student/serverbackup1/			# Verzeichnis des lokalen Rechners ändern
+sftp> get -r /etc/ssh							# remote Verzeichnis kopieren
+sftp> exit
+
+scp -r root@servera:/tmp/arch.tar.gz ~/serverbackup 	# -r für Verzeichnis
+rsync -r root@servera:/tmp/arch.tar.gz ~/serverbackup 	# würde beim erneuten kopieren nur geänderte Dateien transferieren
+														# auf Basis den Zeitstempels bestimmt
 
 # TCPDump (Netzwerkdiagnosewerkzeug)
 sudo tcpdump -i eth0 -A -n port 80 		# Überwachung des Geräts (-i eth0) auf Port 80
