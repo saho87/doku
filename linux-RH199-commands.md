@@ -625,6 +625,7 @@ flatpak info com.vscodium.codiumsudo						# Informationen zum Paket abrufen
 
 # man/help
 • man fstab
+• man mount # für mount optionen 
 
 # Manuelles Mounten eines FS
 mount UUID="efd314d0-b56e-45db-bbb3-3f32ae98f652" /mnt/data	# manuelles Mounten eines FS mit UUID
@@ -635,6 +636,8 @@ lsof /mnt/data							# Anzeige aller Prozesse, die auf FS zugreifen
 			
 # Partitionen und FS
 # /dev/vda3 				# virtuelle Disk / a 1. Disk / 3. Partition
+
+# Parted
 parted /dev/sdb mklabel gpt	# Ein Disk- Label erstellen ->  GPT / Definieren des GPT-Partitionsschema
 parted /dev/sdb			# Partition auf dem Device erstellen (interaktiver Modus)
 	mkpart
@@ -644,17 +647,19 @@ parted /dev/sdb			# Partition auf dem Device erstellen (interaktiver Modus)
 	2GB			# End
 parted /dev/vdb mkpart primary xfs 2048s 2GB	# Alternativ zum interaltiven Modus
 parted /dev/sdb print				# Partitionen anzeigen, verifizieren
+
+# nach parted
 udevadm settle					# neue Partition im System registrieren/ in /dev/* anzeigen
 mkfs.xfs /dev/sdb1				# neue Partition mit xfs Filesystem formatieren
 mkdir /backup					# neuen Ordner für den Mountpoint erstellen
 lsblk -fp /dev/sdb				# UUID des Device herausfinden
 vim /etc/fstab					# Eintrag in /etc/fstab vornehmen
-mount /dev/vda4 /mnt/data			# Alternative  fstab: temporäres Einbinden
-systemctl daemon-reload				# systemd daemon updaten um neuen Eintrag der fstab zu übernehmen
+mount /dev/vda4 /mnt/data		# Alternative  fstab: temporäres Einbinden
+systemctl daemon-reload			# systemd daemon updaten um neuen Eintrag der fstab zu übernehmen
 mount /backup					# neues FS mit fstab mounten -> würde einen Fehler werfen, wenn fstab nicht korrekt
 mount | grep sdb1				# überprüfen, ob neues FS in /archive gemounted ist
 systemctl reboot
-parted /dev/vdb rm 1				# Partition löschen
+parted /dev/vdb rm 1			# Partition löschen
 fdisk -l						# Partitionen anzeigen
 df -h 							# Filesysteme eines Host anzeigen (mit Mountpaths)
 du -h(s) /usr/share				# Diskbenutzungs-Report eines Verzeichnisses anzeigen (silence) -> zum Schluss Zusammenfassung
