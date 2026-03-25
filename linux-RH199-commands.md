@@ -665,7 +665,8 @@ df -h 							# Filesysteme eines Host anzeigen (mit Mountpaths)
 du -h(s) /usr/share				# Diskbenutzungs-Report eines Verzeichnisses anzeigen (silence) -> zum Schluss Zusammenfassung
 updatedb
 
-# SWAP-Space 
+# SWAP-Space
+# parted
 parted /dev/sdb			# SWAP-Partition ersten (interaktiver Modus)
 	mkpart
 	swap1			# Name
@@ -675,6 +676,7 @@ parted /dev/sdb			# SWAP-Partition ersten (interaktiver Modus)
 parted /dev/sdb mkpart swap1 linux-swap 2000M 2512M
 parted /dev/sdb mkpart swap2 linux-swap 2512M 3024M
 parted /dev/sdb print		# Partitionen anzeigen, verifizieren
+
 # nach parted
 udevadm settle			# neue Partition im System registrieren/ in /dev/* anzeigen
 mkswap /dev/sdb2		# neue Partition mit SWAP-space formatieren
@@ -685,9 +687,10 @@ free -h	| swapon -s # Speicher und SWAP-Space anzeigen
 swapon -a			# SWAP persistent aktivieren (alle Einträge in fstab)
 swapon --show	
 swapon /dev/sdb2		# Alternative: SWAP temporär aktivieren
-swapoff /dev/sdb2		# SWAP deaktivieren 
+swapoff /dev/sdb2		# SWAP deaktivieren
+vmstat -w 2				# letzte 2 Sekunden -> virtelle memory statistik -> viele Einträge zu wenig RAM
 
-# fstab 
+# fstab Einträge
 1. UUID	| 2.Mountpoint | 3. FS-Typ |					# Felder
 4. comma-seperated Liste der Optionen |
 5. dump (Backup) | 6. fsck-Reihenfolgefeld 				
