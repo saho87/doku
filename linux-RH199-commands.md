@@ -349,6 +349,7 @@ semanage fcontext -l -C						# nur lokale erstellte Kontexte anzeigen (was auße
 restorecon -vr /virtual 					# zurücksetzen des Kontextes zu Standard (verbosity und rekursiv)
 semanage fcontext -a -t httpd_sys_content_t '/virtual(/.*)?'	# neuen Kontext für Verzeichnis der Policy hinzufügen
 semanage port -a -t http_port_t -p tcp 1001			# aus LAB Kap.15 -> httpd Service darf Port 1001 überwachen
+semanage port -lC							# list manuelle changes
 semanage -d '/virtual(/.?)' 				# löschen eines Kontextes
 
 # Boolsche SELinux-Werte
@@ -387,6 +388,17 @@ etc/tuned/tuned-main.conf 	# Konfig des tuned Daemons
 • man tuned.conf
 • man ps
 • man nice/renice
+
+# Tuning-Profile
+# ggf. muss tuned Paket installiert werden
+# dynamisches Tuning aktivieren in /etc/tuned/tuned-main.conf -> tuned passt tuning Einstellungen dynamisch an
+tuned-adm active		# aktives Tuning Profile ausgeben
+tuned-adm list			# alle verfügbaren Tuning Profile anzeigen
+tuned-adm profile balanced 	# Umstellen auf balanced Profil -> persistent
+tuned-adm profile_info		# Infos zum aktuellen Profil ausgeben
+tuned-adm recommend		# empfohlenes Profil ausgeben
+tuned-adm off			# Tuning deaktivieren
+sysctl vm.dirty_ratio		# tatsächliche Systemeinstellung (vm.dirty_ratio) auslesen
 
 # Beenden von Prozessen (Empfehlung: erst SIGTERM-15, dann SIGINT-2, dann SIGKILL-9)
 kill -l 			# Auflisten aller verfügbaren Signale
@@ -432,17 +444,6 @@ r	# renice -> nice Wert ändern
 
 # htop Kommando
 htop
-
-# Tuning-Profile
-# ggf. muss tuned Paket installiert werden
-# dynamisches Tuning aktivieren in /etc/tuned/tuned-main.conf -> tuned passt tuning Einstellungen dynamisch an
-tuned-adm active		# aktives Tuning Profile ausgeben
-tuned-adm list			# alle verfügbaren Tuning Profile anzeigen
-tuned-adm profile balanced 	# Umstellen auf balanced Profil
-tuned-adm profile_info		# Infos zum aktuellen Profil ausgeben
-tuned-adm recommend		# empfohlenes Profil ausgeben
-tuned-adm off			# Tuning deaktivieren
-sysctl vm.dirty_ratio		# tatsächliche Systemeinstellung (vm.dirty_ratio) auslesen
 
 # Prozessplanung
 # nice-Wert: je niedriger, desto höher die Prio; Standard ist 0 (in top prio 20); höchste Prio sind -20 (in top prio 0)
@@ -1095,6 +1096,9 @@ systemctl enable --now autofs	# autofs Service starten und enablen
 ```bash
 # nftables-Framework ersetzt iptables
 
+/etc/firewalld # persistente konfig
+/runtime
+
 # manpages
 man firewalld, firewalld.zones, firewall-cmd
 
@@ -1107,6 +1111,7 @@ firewall-cmd --info-zone=public	# erlaubte service usw. anzeigen
 firewall-cmd --permanent --zone=public \	# Port 1001 in Zone erlauben
 --add-port=1001/tcp
 sudo firewall-cmd --reload			# nach Änderung (permanent) neu laden
+firwall-cmd runtime-permanent # ???? gesamte Konfiguration permanent speicher
 
 # Fehlermeldungen:
 curl: (7) Failed to connect to serverb.lab.example.com port 1001: No route to host # Firewall
