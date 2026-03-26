@@ -771,6 +771,17 @@ pvremove /dev/vdb1 /dev/vdb2
 # Kapitel 11: Kontrolldienste und Bootvorgang 
 ```bash
 
+# die Boot-Loader Konfiguration ändern
+grubby --default-index					# aktuellen kernelindex herausfinen
+grubby --info 1							# Informationen zu kernel an index 1 herausfinden
+grubby --set-default-index 0			# kernel an Index 0 zum Booten benutzen
+grubby --update-kernel \				# rhgb quiet als cli Kommando hinzufügen
+/boot/vmlinuz-6.12.0-55.9.1.el10_0.x86_64 --args="rhgb quiet"
+grubby --update-kernel \				# rhgb quiet entfernen
+/boot/vmlinuz-6.12.0-55.9.1.el10_0.x86_64 --remove-args="rhgb quiet"
+
+dracut -
+
 # alle unit types von systemctl anzeigen
 systemctl -t help
 
@@ -814,6 +825,8 @@ systemctl reboot 	# Alternative: init 6
 systemctl poweroff	# Alternative: init 0
 
 # Ziele/Targets
+# rescue target -> root FS ist r/w
+# emergency target -> root FS ist ro, keine andere FS gemounted
 systemctl isolate multi-user.target		# Target zur Laufzeit auswählen
 systemctl get-default				# default Profil anzeigen
 systemctl set-default graphical.target		# default Profil setzen
@@ -822,7 +835,7 @@ systemctl cat graphical.target			# zeigt config-files der Unit an (u.a. ob man e
 # ein anderen Ziel während des Bootvorgangs: 
 1. bootloader mit beliebiger Taste (außer Enter) unterbrechen
 2. Standard Kernel auswählen und e drücken
-3. in Zeile Linux am Ende folgendes anfügen: systemd.unit=rescue.target
+3. in Zeile Linux am Ende folgendes anfügen: systemd.unit=rescue.target # oder emergency.target
 4. STRG + X Drücken
 
 # Root Passwort zurücksetzen
