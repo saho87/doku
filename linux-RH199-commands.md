@@ -81,9 +81,10 @@ file test.md			# Info zum Dateityp anzeigen
 
 # Hard- und Softlinks
 # hardlink: ein weiterer Name für dieselbe Datei (selbe Inode)
-# sym Link: enthält nur Verknüpfung, hat eigene Inode, kann ohne Zieldatei nicht existieren
+# sym Link: enthält nur Verknüpfung auf Ziel, hat eigene Inode, kann ohne Zieldatei nicht existieren
 ln file.txt /tmp/file-hlink.txt 	# Hardlink
 ln -s file.txt /tmp/file-slink.txt 	# Softlink
+ls -li								# Zeigen der Inode
 
 # Globbing
 [user@host glob]$ ls [ac]* 		# Anfang mit a oder c
