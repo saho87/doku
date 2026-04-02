@@ -298,6 +298,7 @@ chmod g-s example							# setgid entfernen
 drwxrwxrwt. 39 root root 4096 Feb 8 20:52 /tmp				# sticky
 chmod o+t 								# sticky setzen
 # großes T: drwxrws--T > sticky ist gesetzt, aber nicht execute
+# Oktal 7(777) > 1 STicky-Bet 2 SET-GID 4 SET-UID > können aber nicht mit 0(777) wieder entfernt werden
 
 # Standardberechtigungen umask
 umask 0027 # temporärer umask - User RW, Group R, Other -
