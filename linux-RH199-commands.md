@@ -577,7 +577,7 @@ dnf install PACKAGENAME	-y	# Installation eines Paketes (silent)
 dnf remove PACKAGENAME		# Deinstallation Paket und abhängige Pakete
 dnf update PACKAGENAME		# Abruf neuere Version und Installation eines Paketes inklusive Abhängigkeiten
 dnf list kernel				# Anzeige installierte und verfügbare Kernel
-dnf group list (--installed)# Anzeige installierter und verfügbarer Gruppen
+dnf group list (--installed)# Anzeige installierter Gruppen
 dnf group list hidden		# Anzeige installierter und verfügbarer Gruppen (inklusive versteckter Gruppen)
 dnf group info GROUPNAME	# detaill. Infos zur Gruppe, Pakete usw.
 dnf group install GROUPNAME	# Installation einer Gruppe
@@ -601,12 +601,13 @@ subscription-manager register		# Registrierung des System
 subscription-manager attach --auto	# automatische Auswahl einer passenden Subscription
 
 # RPM Befehle
-rpm -qa 					# alle Pakete auflisten
+rpm -qa 					# alle Pakete auflisten -q query
 rpm -qf /usr/bin/bash		# zu welchem Paket gehört Datei
 rpm -qpi PACKAGENAME 		# Infos zu Paket
 rmp -qpl PACKAGENAME		# Auflisten der Files zu Paket
 --scripts
 rpm -ivh rhcsa-script-1.0.0-1.noarch.rpm	# Install mit verbose
+rpm -q PAKETNAME 			# verifzieren, dass Paket installiert wurde
 
 # Flatpaks
 flatpak remote-add myrepo http://flatpak.bla.flatpakrepo
