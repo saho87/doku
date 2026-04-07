@@ -291,7 +291,8 @@ chown user01:admins Pictures 		# Benutzer- und Gruppenänderung
 chmod u+s example							# setuid setzen
 drwxr-sr-x. 3 root systemd-journal 60 May 18 09:15 /run/log/journal	# setgid
 
-#GUID: Programm läuft mit Gruppenrechten der Datei
+# GUID: Programm läuft mit Gruppenrechten der Datei
+# bei Verzeichnissen: neue Dateien erhalten die Gruppe im Verzeichnis
 chmod g-s example							# setgid entfernen
 
 # Sticky: Nur der Besitzer darf Dateien löschen – auch wenn alle Schreibrechte haben (nur Verzeichnisse)
