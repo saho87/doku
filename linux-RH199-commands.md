@@ -287,7 +287,7 @@ chown user01:admins Pictures 		# Benutzer- und Gruppenänderung
 # Spezielle Berechtigungen (suid, sgid, sticky)
 -rwsr-xr-x. 1 root root 35504 Jul 16 2010 /usr/bin/passwd 		# setuid
 
-#SUID: rogramm läuft mit den Rechten des Datei-Besitzers, nicht des Users
+#SUID: Programm läuft mit den Rechten des Datei-Besitzers, nicht des aktuellen Users
 chmod u+s example							# setuid setzen
 drwxr-sr-x. 3 root systemd-journal 60 May 18 09:15 /run/log/journal	# setgid
 
