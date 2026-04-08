@@ -407,6 +407,9 @@ tuned-adm recommend		# empfohlenes Profil ausgeben
 tuned-adm off			# Tuning deaktivieren
 sysctl vm.dirty_ratio		# tatsächliche Systemeinstellung (vm.dirty_ratio) auslesen
 
+# Prozess: Ein laufendes Programm, das vom Kernel verwaltet wird und eine PID hat
+# Job: Ein von der Shell verwalteter Prozess oder eine Gruppe von Prozessen, sichtbar über jobs
+
 # Beenden von Prozessen (Empfehlung: erst SIGTERM-15, dann SIGINT-2, dann SIGKILL-9)
 kill -l 			# Auflisten aller verfügbaren Signale
 kill PID 			# Kill mit SIGTERM-15
