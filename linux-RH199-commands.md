@@ -558,7 +558,7 @@ at -c 2														# Infos/Kommandos von Job 2 anschauen
 # Kapitel 8: Installieren von SW Paketen
 ```bash
 # Befehle:
-• dnf list, dnf search, dnf info, dnf provides, dnf install, dnf update, dnf remove, dnf group list
+• dnf list, dnf search, dnf info, dnf provides, dnf install, dnf remove, dnf group list
 • dnf repolist all, dnf config-manager --enable rhel-server-debug-pms, dnf update
 
 # wichtige Dateien/Ordner
