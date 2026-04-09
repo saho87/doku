@@ -984,11 +984,11 @@ ip, ping, tracepath, traceroute, ss, nmcli, host, dig, getent
 ip-link(8), ip-address(8), ip-route(8), ip(8), ping(8),tracepath(8), traceroute(8), ss(8) und netstat(8)
 # weiter auf S. 482 /home/sascha/Dropbox/Dropbox_Sync/IT-Fortbildung/Linux_Admin
 
-ip link show		# Auflisten aller Netzwerkschnittstellen
+ip link (show ens3)		# Auflisten aller Netzwerkschnittstellen (nur von ens)
 ifconfig		# Auflisten aller Netzwerkschnittstellen (detaillierter)
 ip addr show ens3	# IP-Adressen eines Gerätes anzeigen
 ip -br addr list 	# Auflisten aller IP Adressen eines Servers
-ip -s link show ens3	# Performance des Netzwerks anzeigen
+ip -s link (show ens3)	# Performance aller Geräte (nur eines Gerätes) anzeigen
 ping6 2001:db8:0:1::1	# Verbindung zu anderen Hosts testen (ipv6)
 ping -c3 192.0.2.254	# Verbindung zu anderen Hosts testen (ipv4) - nur 3 Pakete
 ping6 ff02::1%ens4	# ping an multicast Gruppen (ens4 oder je nach Name des Gerätes)
