@@ -801,7 +801,7 @@ systemctl
 systemctl list-units --type=service	# alle systemctl service units anzeigen (nur active)
 systemctl list-units --type=service --all # auch state inactive 
 systemctl list-units --type=service --state=inactive # nur state inactive
-systemctl list-unit-files # alle installiertem und nicht geladene Units
+systemctl list-unit-files 	# Anzeige ob enabled oder disabled
 systemctl status sshd.service	# status einer Unit im Detail anschauen
 systemctl is-active sshd.service # true|false
 systemctl is-enabled sshd.service
