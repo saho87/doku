@@ -995,11 +995,6 @@ ping6 ff02::1%ens4	# ping an multicast Gruppen (ens4 oder je nach Name des Gerä
 ip route		# Routing anzeigen
 ip -6 route
 
-# noch zu Bearbeiten:
-# was ist eine link-local address?
-# Was ist link-local all-nodes multicast group?
-# Was ist Global Scope?
-
 # Nachverfolgen von Routen
 tracepath access.redhat.com
 traceroute -I google.com	# muss ggf. installiert werden; UPD Standard, -I ICMP, -T TCP
@@ -1026,7 +1021,10 @@ ssh -fN -L 8080:172.19.0.2:80 cnbc@128.140.77.235
 
 # Netzwerk Config Files sind in /etc/NetworkManager/system-connections/
 
+
 # nmcli - Kommandozeilentool zur Verwaltung des Netzwerk Managers (Abkürzungen wie con möglich)
+# Device = das physische oder virtuelle Interface selbst, also der „Draht“ mit aktuellem Status, IP und MAC-Adresse.
+# Connection = die gespeicherte Konfiguration, also das „Rezept“, wie NetworkManager dieses Device benutzen soll (IP, Gateway, DNS, Methode).
 nmcli dev status		# NW-Manager Status aller NW-Geräte anzeigen
 nmcli con show --active 	# nur aktive NW-Verbindungen anzeigen
 nmcli con show ens3		# detaillierte Einstellungen anzeigen
