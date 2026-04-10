@@ -1065,9 +1065,9 @@ nmcli con del static-ens3	# löscht Verdindung
 nmcli gen permissions		# aktuelle Berechtigungen anzeigen
 
 # Hostnamen/DNS
-hostname					# Anzeigen des Hostnamens
-hostnamectl set-hostname host.example.com	# Ändern des Hostnamens
-hostnamectl status				# Infos zu OS, Architektur, usw.
+hostname								# Anzeigen des Hostnamens
+hostnamectl hostname host.example.com	# Ändern des Hostnamens
+hostnamectl status						# Infos zu OS, Architektur, usw.
 getent hosts classroom.example.com		# /etc/hosts mit hostname testen
 
 # Testen der DNS-Namensauflösung
