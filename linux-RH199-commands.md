@@ -57,7 +57,12 @@ eval $(ssh-agent)
 ssh-add .ssh/key-with-pass				
 
 # SSH-Verbindung mit Debugging und speziellem Key
-ssh -v -i .ssh/key-with-pass user@remotehost	
+ssh -v -i .ssh/key-with-pass user@remotehost
+
+# sshd config unter /etc/ssh/sshd-config
+PermitRootLogin no  # ich kann mich nicht mehr über ssh direkt mit root@server verbinden
+PasswordAuthentication no # ich kann mich nicht mehr mit PW über ssh anmelden, nur mit Schlüssel
+
 ```
 # Kapitel 2: Verwalten von Dateien über Befehlszeile
 ```bash
