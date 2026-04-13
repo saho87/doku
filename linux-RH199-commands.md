@@ -22,8 +22,9 @@ ssh-keygen, ssh-copy-id, ssh-add, ssh, ssh-keyscan
 
 # wichtige Dateien/Ordner:
 /home/user/.ssh/
-/etc/ssh/ssh_config
-/etc/shh/ssh_known_hosts | ~/.ssh/known_hosts
+/etc/ssh/	# Systemkonfiguration von ssh, nicht user-spezifisch 
+/etc/ssh/known_hosts | ~/.ssh/known_hosts	# systemweite known_hosts vs userspezifische known_hosts
+~/.ssh/known hosts # system public key aus /etc/ssh wird dort abgelegt
 
 # Konsolen Tastenkombis
 STRG + A/E # Springen an Anfang/Ende
@@ -36,6 +37,8 @@ ssh-keyscan 192.169.178 >> ~/.ssh/known_hosts
 
 ssh-keygen -R hostb					# löschen von hostb aus ~/.ssh/known_hosts
 ssh-keygen -l -f ~/.ssh/known_hosts #listet die Fingerprints aller  SSH-Host-Keys in  known_hosts
+
+# Regenerationstausch der systemweiten ssh-keys
 rm -f /etc/ssh/ssh_host_*			# Löscher aller keys eines Hosts (Regenerationstausch)
 systemctl restart sshd				# keys werden in /etc/ssh/ neu generiert
 
