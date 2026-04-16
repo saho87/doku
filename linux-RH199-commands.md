@@ -161,33 +161,29 @@ if true; then echo OK; else echo NOT OK; fi
 # Ausgabe der Parameter-> Aufruf über ./test.sh param1 param2
 echo ${1} ${2}
 
-# Schleife
-while/tmp/lock ]]; do
+# Schleife / Bedingung
+
+for host in servera serverb; do
+	ssh student@${host} hostname
+	if [[ "${host}" == "servera" ]]; then
+	echo "The host is servera"
+	else
+	echo "The host is not servera"
+	fi
+done
+
+# While Schleife
+while [[ -e /tmp/lock ]]; do
 	echo "File /tmp/lock existiert. Warten bis es weg ist"
 	sleep 3
 done
 
-if [[-x /tmp/lock ]]; then
-	echo File /tmp/lock existiert, kann nicht fortsetzen >&2 # Ausgabe an STERR
-	exit 2
-fi
+# Abfrage, ob ein Parameter nicht gesetzt ist (-z String ist empty)
 u=$1
 if [ -z $u]]; then
 	echo Bitte geben Sie den Usernamen als Parameter >&2
 	exit 1
 fi
-if [[ $u! stu]]; then
-fi
-:
-if grep -q ^${u}: /etc/passwd then
-	echo User $u existiert
-else
-	echo User $u existiert nicht
-fi
-
-student@workstation:~/bin$ u-student; if grep -q ^${u}: /etc/passwd; then echo User ${u} existiert else echo U
-ser ${u} existiert nicht; fi
-User student existiert
 
 ```
 # Kapitel 3: Verwalten lokaler Benutzer und Gruppen
