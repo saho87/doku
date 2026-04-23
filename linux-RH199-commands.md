@@ -1206,7 +1206,7 @@ echo -e "line1\nline2\nline3" | tr '\n' ' '       # Zeilenumbrüche in Leerzeich
 echo "123abc!@#DEF" | tr -cd 'a-zA-Z'		  # alles außer Buchstaben entfernen
 
 # tar
-tar -xf /colors.tar  					# entpackt eine zip (keine Dekomprimierung)
+tar -xf /colors.tar  					# entpackt eine tar (keine Dekomprimierung)
 tar -xzf archiv.tar.gz					# dekomprimiert und entpackt tar.gz mit gunzip
 tar -cjf archiv.tar.bz2 /etc			# packt und komprimiert /etc Verzeichnis mit bzip2
 tar -cvf new.tar sourcefolder 			# erstellt neues Archiv von der Quelle
@@ -1228,11 +1228,12 @@ ssh root@servera tar czf - /etc | tar xzf - # überträgt Dateien direkt von ent
 sftp root@serverb								# auf Zielserver anmelden
 sftp> lcd /home/student/serverbackup1/			# Verzeichnis des lokalen Rechners ändern
 sftp> get -r /etc/ssh							# remote Verzeichnis kopieren
+sftp> put securedoc								# etwas remote hochladen
 sftp> exit
 
 scp -r root@servera:/tmp/arch.tar.gz ~/serverbackup 	# -r für Verzeichnis
-rsync -r root@servera:/tmp/arch.tar.gz ~/serverbackup 	# würde beim erneuten kopieren nur geänderte Dateien transferieren
-														# auf Basis den Zeitstempels bestimmt
+rsync -av root@servera:/tmp/arch.tar.gz ~/serverbackup 	# würde beim erneuten kopieren nur geänderte Dateien transferieren
+														# auf Basis den Zeitstempels bestimmt -a originalgetreu mit Metadaten
 
 # TCPDump (Netzwerkdiagnosewerkzeug)
 sudo tcpdump -i eth0 -A -n port 80 		# Überwachung des Geräts (-i eth0) auf Port 80
