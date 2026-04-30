@@ -855,6 +855,15 @@ systemctl cat graphical.target			# zeigt config-files der Unit an (u.a. ob man e
 4. STRG + X Drücken
 
 # Root Passwort zurücksetzen
+1. Boot-Vorgang mit ESC unterbrechen und e drücken
+2. alle console Einträge in der Zeile entfernen
+3. am Ende der Zeile init=/bin/bash eingeben
+4. F10 drücken
+5. mount -o remount,rw /
+6. touch /.autorelabel	(Sytem soll SELinux Relabeling nach Reboot durchführen)
+7. exec /sbin/init	(Bootvorgang starten)
+
+# alte Möglichkeit
 1. beim Bootvorgang (Kernel-Auswahl) beliebige Taste drücken 
 2. Rescue-Kernel auswählen und e drücken
 3. rd.break in linux Zeile anhängen
