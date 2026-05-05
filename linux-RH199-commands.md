@@ -1140,6 +1140,7 @@ man firewalld, firewalld.zones, firewall-cmd
 
 firewall-cmd --get-services	# vordefinierte Servicekonfigurationen anzeigen
 firewall-cmd --get-default-zone	# Standard-Zone herausfinden
+firewall-cmd --list-all # alle offenen Ports, Quellen usw. anzeigen
 
 firewall-cmd --add-service=https --zone=public # https in public zone erlauben
 firewall-cmd --remove-service=https --zone=public # https in public zone verbieten
