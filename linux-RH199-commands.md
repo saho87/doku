@@ -1137,6 +1137,7 @@ systemctl enable --now autofs	# autofs Service starten und enablen
 
 # manpages
 man firewalld, firewalld.zones, firewall-cmd
+# wichtig: --permanent Option angeben
 
 firewall-cmd --get-services	# vordefinierte Servicekonfigurationen anzeigen
 firewall-cmd --get-default-zone	# Standard-Zone herausfinden
