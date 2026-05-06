@@ -1144,6 +1144,7 @@ firewall-cmd --get-default-zone	# Standard-Zone herausfinden
 firewall-cmd --list-all # alle offenen Ports, Quellen usw. anzeigen
 
 firewall-cmd --add-service=https --zone=public # https in public zone erlauben
+firewall-cmd --add-source=172.25.250.10/32 --zone=block # Blockt alles von IP
 firewall-cmd --remove-service=https --zone=public # https in public zone verbieten
 firewall-cmd --info-zone=public	# erlaubte service usw. anzeigen
 firewall-cmd --permanent --zone=public \	# Port 1001 in Zone erlauben
