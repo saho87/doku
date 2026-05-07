@@ -521,6 +521,8 @@ systemctl daemon-reload				# Daemon neu laden
 systemctl enable --now sysstat-collect.timer	# Timer Aktivieren
 
 # Beispiel sysstat-collect.timer (ruft alle 10 min sysstat-collect.service auf:
+# OnCalendar=Stunde:Minute -> minimal
+# OnCalendar=Mon 2026-05-11 14:30:00 -> maximal
 Activates activity collector every 10 minutes
 
 [Unit]
