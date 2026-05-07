@@ -455,6 +455,7 @@ u 	# nur Prozesse eines bestimmten Users anzeigen
 M|P|N 	# Sortieren nach Mem, CPU, PID
 k 	# Prozess killen
 r	# renice -> nice Wert ändern
+f -> Auswahl Pfeiltasten -> s -> q # Sortierung
 
 # htop Kommando
 htop
