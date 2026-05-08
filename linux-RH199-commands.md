@@ -921,6 +921,7 @@ logger, journalctl, timedatectl
 # wichtige Dateien/Ordner
 /etc/rsyslog.conf	# config von Logging Regeln
 /etc/chrony.conf	# config Zeitsync, NTP
+/etc/systemd/journald.conf	# config journald (persistieren usw)
 /var/log		# persistente Speicherung von logs
 
 # man/help
