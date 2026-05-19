@@ -1178,6 +1178,7 @@ find . -type f -name '*.log.gz' -size -1M		# kleiner als 1 MB im aktuellen Ordne
 find /var/log -type f -name '*.log' -size +100c	# größer als 100 Byte unterhalb /var/log
 find . -user sascha -group sascha -mmin	-10		# Suche nach User und Group und Zugriff in letzten 10 min
 find music/ -type d -exec chmod 755 {} \;		# Kombi aus chmod und find
+find /usr/share -type f -size -1M -exec cp {} /root/find \; # Script aus RHCSA EX200
 
 # locate - Suche über Datenbank (schnell, aber nicht live)
 updatedb								# DB aktualisieren
