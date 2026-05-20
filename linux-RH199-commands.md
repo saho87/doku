@@ -762,12 +762,17 @@ vgextend vg01 /dev/vdb3
 # ein LV vergrößern (um 500 MB bzw. auf 700 MB)
 lvextend -L +500M /dev/vg01/lv01
 lvextend -L 700M /dev/vg01/lv01
+lvextend -l +100 -r /dev/vg01/lv01 # lv erweitern um 100 Extends inklusive resize des FS
 
 # XFS FS auf die Größe des LV erweitern
 xfs_growfs /mnt/data/
 
 # EXT4 FS auf die Größe des LV erweitern
 resize2fs /dev/vg01/lv01
+# Aufgabe aus Examen
+vgcreate -s 8M datastore /dev/sdb1 # extend size ist mit 8MiB gegeben
+lvcreate -l 50 -n database datastore # 50 extend size (50 x 8 = 400 M)
+
 
 # Swap erweitern (lv muss existieren)
 swapoff -v /dev/vg01/swap
