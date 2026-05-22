@@ -139,6 +139,7 @@ set 							# Gibt alle aktuellen Shell-Variablen und Funktionen aus
 $PATH							# Verzeichnisse, in denen nach Befehlen gesucht wird
 
 # Output redirict
+cat test.txt 1> (1>>) File					# überschreibt (hängt) STDIN an File an | auch > und >> möglich!
 cat test.txt 2> (2>>) FILE					# überschreibt (hängt) STDERR an File an
 cat test.txt &> (&>>) FILE					# überschreibt (hängt) STDIN und STDERR an File an
 cat file.txt | less | wc -l | tee test 		# leitet nach std output und in file um
