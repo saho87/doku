@@ -185,6 +185,18 @@ if [ -z $u]]; then
 	exit 1
 fi
 
+# Beispiel: Prüfe ob User existiert (muss über Aufruf Script mitgegeben werden -> ./script.sh root
+#!/bin/bash
+if [ -z $1 ]; then
+        echo "Kein Parameter angegeben"
+		exit 1
+fi
+if id "$1" &>/dev/null; then
+        echo "User existiert"
+else
+        echo "User existiert nicht"
+fi
+
 ```
 # Kapitel 3: Verwalten lokaler Benutzer und Gruppen
 ```bash
