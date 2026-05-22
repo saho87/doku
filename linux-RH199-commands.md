@@ -536,16 +536,31 @@ systemctl enable --now sysstat-collect.timer	# Timer Aktivieren
 # Beispiel sysstat-collect.timer (ruft alle 10 min sysstat-collect.service auf:
 # OnCalendar=Stunde:Minute -> minimal
 # OnCalendar=Mon 2026-05-11 14:30:00 -> maximal
-Activates activity collector every 10 minutes
 
+### Prüfungsaufgabe-> Script erstellen in /usr/local/bin dass über einen service eingebunden und durch timer getriggert wird
+# Service
+cat /etc/systemd/system/timer-script.service
 [Unit]
-Description=Run system activity accounting tool every 10 minutes
+Description=script for a timer
+
+[Service]
+ExecStart=/usr/local/bin/timer-test-script.sh
+
+# Timer (Service wird über gleichen Namen verknüpft)
+[Unit]
+Description=Run system activity accounting tool every 1 minute
 
 [Timer]
-OnCalendar=*:00/10
+OnCalendar=*:00/1
+Persistent=true
 
 [Install]
-WantedBy=sysstat.service
+WantedBy=timers.target
+
+# Script (chmod +x)
+cat /usr/local/bin/timer-test-script.sh 
+#!/bin/sh
+echo "This ist a Timer test" >> /var/log/ex200script.log
 
 
 # Temporäre Dateien verwalten
