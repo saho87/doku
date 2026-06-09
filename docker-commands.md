@@ -54,7 +54,7 @@ podman volume inspect webdate                              # Infos zu Volume anz
 -v ./automations.yaml:/config/automations.yaml:Z           # Datei als volume
 podman volume export webdata --output \                    # Exportieren eines Volumes in ein tar.gz
                      webdata.tar.gz
-podman volume import webdata2 webdata.tar.gz               # importieren eines tar.gz als Volume (muss erst erzeugt werden)
+podman volume import webdata2 webdata.tar.gz               # Importieren + Entpacken eines tar.gz als Volume (vol vorher erzeugt werden)
 podman run                                                 # Einbinden eines bestehenden Volumes als mount (readonly)
 --mount 'type=volume,source=html-vol,destination=/server,ro' \
 registry.ocp4.example.com:8443/redhattraining/podman-python-server
