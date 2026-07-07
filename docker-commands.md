@@ -92,7 +92,7 @@ docker://registry.ocp4.example.com:8443/developer/python:3.9-ubi8
 
 #Debugging
 # ich kann z.B. Tools wie ss vom Host benutzen gegen den Container ausführen:
-podman inspect web1 f '{{.State.Pid}}'                                 # Prozess-ID herausfinden
+podman inspect web1 -f '{{.State.Pid}}'                                 # Prozess-ID herausfinden
 sudo nsenter -n -t 64839 ss -plunt                                      # über nsenter und PID Befehl ausführen
 
 
