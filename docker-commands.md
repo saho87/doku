@@ -107,6 +107,7 @@ podman push quay.io/sascha_hoffmann/duff-nginx:1.0 # pushen des Repos
 docker rmi -a                                     # Löschen aller Images, die unbenutzt sind
 docker rmi <Image>(:TAG)                          # Löscht komplettes Images oder nur ein Tag
 docker diff <CID>                                 # zeigt Änderungen Image -> Container
+# save und load sowie export und import gehören immer zusammen
 docker save -o httpd.tar custom-httpd:v1.0        # IMAGE -> Tar Erstellen Archiv aus Image inkl. Layer, History Metadata
 docker load -i httpd.tar                          # Tar -> Image Wiederherstellen des Images (inklusive Metadaten)
 docker export -o mytartfile.tar fb334n33434       # Container -> Tar Export Dateisystem Container (Image Schichten/Metadata bleiben nicht erhalten)
