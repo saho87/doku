@@ -130,7 +130,8 @@ man Containerfile # Doku
    EXPOSE 80                                                   # zeigt an, dass Container Port überwacht (nur Metadaten)
    ENV LogLevel "info" \                                       # Umgebungsvariablen
        MYSQL_DATABASE="my_database"
-   ARG test="1.2.3"                                            # Variablen, die nur beim Bau des Images verfügbar sind, nicht später im Container
+   ARG test                                                    # Variablen, die nur beim Bau des Images verfügbar sind, nicht später im Container
+   ENV bla=${test}                                             # Übernahme der des Build Args als Env
    ADD http://someserver.com/archive.tar /var/www/html         # kopiert + extrahiert Files aus lok./remote Quelle in Container-FS
    COPY ./src/ /var/www/html/                                  # kopiert Dateien rel. zu Arbeitsverzeichnis in Container-FS
    USER apache                                                 # User/UID für Verwendung von RUN, CMD oder ENTRYPOINT
@@ -140,7 +141,8 @@ man Containerfile # Doku
    CMD ["10"]                                                  # Standardargumente für ENTRYPOINT --> args (kubernetes)
 
 # Bauen von Images
-podman build -f Containerfile -t simple-server                 # Angabe der Dockerfile und Taggen des Images
+podman build -f Containerfile -t simple-server --build-arg test=abc   # Angabe der Dockerfile und Taggen des Images, Übergabe Build Arg
+
 podman image tree <Image>                                      # visualiert Layer, Image+Layer-Größe, Tags usw.
 
 # Unterschied ENTRYPOINT/CMD
