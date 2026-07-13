@@ -107,10 +107,10 @@ podman push quay.io/sascha_hoffmann/duff-nginx:1.0 # pushen des Repos
 docker rmi -a                                     # Löschen aller Images, die unbenutzt sind
 docker rmi <Image>(:TAG)                          # Löscht komplettes Images oder nur ein Tag
 docker diff <CID>                                 # zeigt Änderungen Image -> Container
-docker save -o httpd.tar custom-httpd:v1.0        # Lokale Ablage eines Images als tar (Alternative zu commit)
-docker export -o mytartfile.tar fb334n33434       # Export des Dateisystems eines Containers (Image Schichten/Metadata bleiben nicht erhalten)
-docker load -i httpd.tar                          # Wiederherstellen des Images
-docker import mytarfle.tar httpdcustom:2.4        # um einen tar-Container in ein Container-Image zu importieren
+docker save -o httpd.tar custom-httpd:v1.0        # IMAGE -> Tar Erstellen Archiv aus Image inkl. Layer, History Metadata
+docker load -i httpd.tar                          # Tar -> Image Wiederherstellen des Images (inklusive Metadaten)
+docker export -o mytartfile.tar fb334n33434       # Container -> Tar Export Dateisystem Container (Image Schichten/Metadata bleiben nicht erhalten)
+docker import mytarfle.tar httpdcustom:2.4        # tar-Container -> Image Erstellt ein einfaches Image ohne History und Metadaten
 docker commit -a 'Sascha Hoffmann' \              # Erstellt neues Imaga auf Basis der Container Änderungen
 official-httpd custom-httpd 
 docker commit -c ‘CMD [“redis-server“]‘ <IMGID>   # Erzeugt ein Image aus einem laufenden Container mit einem Startkommando
