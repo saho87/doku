@@ -93,7 +93,8 @@ echo 'address=/.apps-crc.testing/192.168.130.11' | sudo tee /etc/NetworkManager/
 ```bash
 Allgemein
 oc diff -f manifest.yaml        # vergleicht Inhalt der yaml mit aktuellen Inhalt auf API-Server
-oc pa
+oc rollout restart deploy/database -n declarative-manifests   # löst neuen Rollout aus -> benötige ich wenn z.B. secrets geändert wurden
+                                                              # denn das triggert kein neues deployment über oc apply
 ```
 ```bash
 vi .kube/config  # config Cluster
