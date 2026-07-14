@@ -45,9 +45,9 @@ oc create deployment test \  # erstellt Deployment auf Basis von Image
 --image registry.ocp4.example.com:8443/redhattraining/hello-world-nginx
 oc new-app mysql -o yaml MYSQL_USER=user \         
 MYSQL_PASSWORD=pass MYSQL_DATABASE=testdb -l db=mysql
---dry-run -o yaml        # keine Ressourcen werden erstell, aber Ausgabe als yaml
+--dry-run=client --validate -o yaml        # keine Ressourcen werden erstell, aber Ausgabe als yaml, Prüfung Syntax
 oc new-app -i mysql      # oc get is mysql -n openshift
-oc create -f pv1001.yaml  # erstellt eine Ressource auf Basis eine abgelegten yaml
+oc create -R -f  mysql/  # erstellt für jedes Manifest eine Ressource
 
 oc status # Status und ob Deployment erfolgreich
 oc delete all --selector app=greetings # app + Ressourcen entfernen
@@ -89,16 +89,11 @@ echo 'address=/.apps-crc.testing/192.168.130.11' | sudo tee /etc/NetworkManager/
 ```
 
 # DO288
+
 ```bash
-# Todo
-- Was ist ein Service Account, was kann man damit machen? Insbesonder Pull SEcrets
-- Was hat Rolebinding damit zu tun?
-- Was bedeutet ROlling Update, welche anderen Strategien gibt es?
-- Was bedeutet RWO und RWOP? https://kubernetes.io/docs/concepts/storage/persistent-volumes/#access-modes
-- Was macht Istio (Service Mesh)
-- Security Context Constraints
-- Was hat SEcurity mit labels zu tun (oc describe project)
-- Wann brauche ich ein stateful set?
+Allgemein
+oc diff -f manifest.yaml        # vergleicht Inhalt der yaml mit aktuellen Inhalt auf API-Server
+oc pa
 ```
 ```bash
 vi .kube/config  # config Cluster
@@ -147,8 +142,9 @@ oc cancel-build bc/java-application        # Build abbrechen
 oc set env bc/java-application BUILD_LOGLEVEL=3
 oc wait --for=condition=complete \         # auf Fertigstellung des Builds warten
   --timeout=600s build/vertx-site-1
-oc patch deployment hello -p \             # Aktualisieren oder Hinzufügen von Feldern 
+oc patch deployment hello -p \             # Aktualisieren oder Hinzufügen von Feldern (benötigt json)
 '{"spec":{"template":{"spec":{"resources":{"requests":{"cpu": "100m"}}}}}}'
+oc patch deployment hello --patch-file ~/patch.yaml # Alternative: patchen auf Basis einer yaml
 
 # Image Stream 
 oc import-image custom-server --confirm \    # neuer Image Stream
