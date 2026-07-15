@@ -209,7 +209,8 @@ helm template -s templates/postgres-secret.yaml . \             # Ressource aus 
 helm template -s templates/postgres-secret.yaml . \             # Ressourcen direct in Cluster deployen
   oc apply -f f --dry-run=client --validate
 # Kustomize
-touch kustomization.yaml     # angeben, welche Dateien ich benutzen werden
+oc kustomize .                                                   # Rendern und Anzeigen der Manifeste (kein deployen)
+oc apply -k base/                                                # Deployment mit Kustomize
 resources:
   - pvc-apache.yaml
   - www.data-cm.yaml
