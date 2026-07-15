@@ -33,6 +33,7 @@ git merge feature/update-readme
 git status
 
 # git history - letzte Commits anzeigen
+git show                        # zeigt Änderungen des letzten Commits an
 git log branch
 git log --oneline --graph # Commits in einer Zeile und grafisch
 git log -- example.txt    # Commits die bestimmte Datei geändert haben
