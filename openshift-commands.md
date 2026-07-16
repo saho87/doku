@@ -1,9 +1,9 @@
-# Login DO288
+# Login DO280
 ```bash
-oc login -u developer -p developer https://console-openshift-console.apps.ocp4.example.com:6443
-oc login -u admin -p redhatocp https://console-openshift-console.apps.ocp4.example.com:6443
-podman login -u="developer" -p="HCjhSca2LgddivwRAUazqBcatBMKWDSos57ZLfQyazWYK6tiYfgnER4gP0X5/IxR" registry.ocp4.example.com:8443
-https://meet.google.com/kmp-ybuo-nbb?pli=1 
+oc login -u developer -p developer https://api.ocp4.example.com:6443
+oc login -u admin -p redhatocp https://api.ocp4.example.com:6443
+
+
 ```
 # Doku
 ```bash
