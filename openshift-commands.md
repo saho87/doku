@@ -112,7 +112,7 @@ oc create secret docker-registry SECRET_NAME \           # neues Secret über Ko
 --docker-username USER \
 --docker-password PASSWORD \
 --docker-email=EMAIL
-oc extract secret/postgresql --to=.                      # Secret in aktuellen Ordner extrahieren
+oc extract secret/postgresql --to=.                      # Secret in aktuellen Ordner extrahieren (encoded)
 
 # Debugging
 oc debug -t deployment/todo-http \                       # Debugging-Pod starten
@@ -192,6 +192,10 @@ oc describe node/master01  # Ressourcen eines Nodes anzeigen
 oc create clusterresourcequota example               # Clusterresourcequota -> limit CPU auf 10
 --project-label-selector=group=dev --hard=requests.cpu=10
 oc describe AppliedClusterResourceQuota -n example-2 # falls keine Leserechte auf ClusterResourceQuotas
+
+# Openshift Templates
+oc process {template} -p APPLICATION_USER=user1 -o yaml > template_manifest.yaml | Rendern von Template
+pc process {template} --param-file=params.env | oc apply -f - | Parameter werden in file bereitsgestellt, oc apply über STDIN
 
 # Helm
 Helm repo list                                               # verbundene Repos anzeigen
