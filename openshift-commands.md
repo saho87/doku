@@ -194,6 +194,9 @@ oc create clusterresourcequota example               # Clusterresourcequota -> l
 oc describe AppliedClusterResourceQuota -n example-2 # falls keine Leserechte auf ClusterResourceQuotas
 
 # Openshift Templates
+oc get templates -n openshift
+oc -n openshift process --parameters {template}   # Parameter eines Templates anzeigen
+oc new-app --template=mysql-persistent -p MYSQLUSER=user1 -p MYSQLPASSWORD=mypasswd # Template deployen im Cluster
 oc process {template} -p APPLICATION_USER=user1 -o yaml > template_manifest.yaml | Rendern von Template
 pc process {template} --param-file=params.env | oc apply -f - | Parameter werden in file bereitsgestellt, oc apply über STDIN
 
