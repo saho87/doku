@@ -203,15 +203,19 @@ pc process {template} --param-file=params.env | oc apply -f - | Parameter werden
 # Helm
 Helm repo list                                               # verbundene Repos anzeigen
 helm repo add bitnami https://charts.bitnami.com/bitnami     # neues Repo hinzufügen
-helm search repo mariadb                                     # in vorhandenen Repos nach mariadb suchen
+helm search repo mariadb                                     # in vorhandenen Repos nach mariadb suchen (mariadb kann auch weggelassen werden)
+helm show chart ./                                           # Metainformationen zu Chart anzeigen
+helm show values ./ > values.yaml                            # konfigurierbare values anzeigen und selbst verwenden
 helm create demoapp
 helm pull bitnami/mariadb
-helm install quarkus-demo openshift/redhat-quarkus           # helm charts installieren (nur im Cluster)
+helm install {release-name} ./mychart (--dry-run) --values values.yaml   # helm charts installieren (nur im Cluster)
 helm template . (wie oc process)
-helm template -s templates/deployment .
-Helm install apache-demo .
-Helm uninstall apache-demo
-helm upgrade apache-demo .
+helm template -s templates/deployment . --values v.yaml      # wie dry-run ohne Kontakt API -> nur deployment wird gerendert
+Helm install apache-demo .                                   # rendert Templates -> schickt sie als yaml-Manifeste an API Server                   
+helm history {release}
+helm rollback {release_name} {revision}                             # Rollback von Release auf Revision
+helm uninstall {release}
+helm upgrade {release} .                                      # neueste chart Version deployen, gleiche Parameter wie helm install
 helm template -s templates/postgres-secret.yaml . \             # Ressource aus helm template erzeugen
 helm template -s templates/postgres-secret.yaml . \             # Ressourcen direct in Cluster deployen
   oc apply -f f --dry-run=client --validate
