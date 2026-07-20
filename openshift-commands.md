@@ -206,6 +206,7 @@ helm repo add bitnami https://charts.bitnami.com/bitnami     # neues Repo hinzuf
 helm search repo mariadb (--versions)                        # in vorhandenen Repos nach mariadb suchen (mariadb kann auch weggelassen werden)
 helm show chart ./                                           # Metainformationen zu Chart anzeigen
 helm show values ./ > values.yaml                            # konfigurierbare values anzeigen und selbst verwenden
+helm show values repo/chart --version 2.3.2                  # konkrete Values einer Version anzeigen
 helm create demoapp
 helm pull bitnami/mariadb
 helm install {release-name} ./mychart (--dry-run) --values values.yaml   # helm charts installieren (nur im Cluster)
