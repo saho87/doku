@@ -212,6 +212,10 @@ helm pull bitnami/mariadb
 helm install {release-name} ./mychart (--dry-run) --values values.yaml   # helm charts installieren (nur im Cluster)
 helm template . (wie oc process)
 helm template -s templates/deployment . --values v.yaml      # wie dry-run ohne Kontakt API -> nur deployment wird gerendert
+helm template example-app do280/etherpad \                   # welche Änderungen ergeben sich -> values zu Cluster
+  --version 0.0.7 \
+  --values values.yaml \
+  | oc diff -f -                          
 Helm install apache-demo .                                   # rendert Templates -> schickt sie als yaml-Manifeste an API Server                   
 helm history {release}
 helm rollback {release_name} {revision}                             # Rollback von Release auf Revision
