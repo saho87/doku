@@ -62,7 +62,7 @@ helm repo remove bitnami
 # 3. Charts suchen
 
 ```bash
-helm search repo nginx        # nginx kann auch weggelassen werden, da wird alles ausgegeben
+helm search repo nginx                    # nginx kann auch weggelassen werden, da wird alles ausgegeben
 helm search repo nginx --versions
 helm search hub wordpress
 ```
@@ -90,7 +90,7 @@ helm install myapp bitnami/nginx -n demo --create-namespace
 Values
 
 ```bash
-helm install myapp do280/etherpad -f values.yaml
+helm install myapp do280/etherpad -f values.yaml -f values2.yaml
 ```
 
 Einzelne Werte
