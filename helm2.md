@@ -1,77 +1,59 @@
-# Helm – Befehlsübersicht und Praxisbeispiele
+# Helm Referenz – Kubernetes & OpenShift
 
-> **Zweck:** Helm ist der Paketmanager für Kubernetes. Charts bündeln Kubernetes-Manifeste und ermöglichen reproduzierbare Installationen, Upgrades und Rollbacks.
+> Kompakte Referenz zum schnellen Nachschlagen von Helm-Befehlen, Templates und typischen Workflows (OpenShift/EX280).
 
 ## Inhaltsverzeichnis
 
-1. Helm-Grundlagen
-2. Repositories
-3. Charts suchen
-4. Release installieren
-5. Releases verwalten
-6. Upgrades
-7. Rollbacks
-8. Werte (values.yaml)
-9. Templates rendern
-10. Chart-Informationen
-11. Packaging
-12. OpenShift-Praxis
-13. Häufige Fehler
-14. Spickzettel
+- [1. Grundlagen](#1-grundlagen)
+- [2. Repositorys](#2-repositorys)
+- [3. Charts suchen](#3-charts-suchen)
+- [4. Installieren](#4-installieren)
+- [5. Upgrade & Rollback](#5-upgrade--rollback)
+- [6. Releases verwalten](#6-releases-verwalten)
+- [7. values.yaml](#7-valuesyaml)
+- [8. Template-Rendering](#8-template-rendering)
+- [9. Go-Template Referenz](#9-go-template-referenz)
+- [10. Control Statements](#10-control-statements)
+- [11. Wichtige Funktionen](#11-wichtige-funktionen)
+- [12. _helpers.tpl](#12-_helperstpl)
+- [13. OCI Registry](#13-oci-registry)
+- [14. Debugging](#14-debugging)
+- [15. OpenShift Tipps](#15-openshift-tipps)
+- [16. Troubleshooting](#16-troubleshooting)
+- [17. Cheatsheet](#17-cheatsheet)
 
 ---
 
-# 1. Helm-Grundlagen
-
-## Wichtige Begriffe
+# 1. Grundlagen
 
 | Begriff | Bedeutung |
-|---------|-----------|
+|---|---|
 | Chart | Helm-Paket |
 | Release | Installierte Instanz eines Charts |
-| Repository | Sammlung von Charts |
-| values.yaml | Konfigurationswerte |
-| Template | Kubernetes-Manifeste mit Go-Templates |
-
-Beispiel:
+| Repository | Quelle für Charts |
+| values.yaml | Konfiguration |
+| Template | Kubernetes YAML mit Go-Templates |
 
 ```text
 Chart
-   │
+  │
 helm install
-   │
+  │
 Release
-   │
-Deployment
-Service
-Ingress ...
+  │
+Deployment / Service / Secret / Route ...
 ```
+
+💡 **Merke:** Ein Chart kann beliebig oft installiert werden. Jede Installation ist ein eigenes **Release**.
 
 ---
 
-# 2. Repositories
-
-Repository hinzufügen
+# 2. Repositorys
 
 ```bash
 helm repo add bitnami https://charts.bitnami.com/bitnami
-```
-
-Repository aktualisieren
-
-```bash
 helm repo update
-```
-
-Repositories anzeigen
-
-```bash
 helm repo list
-```
-
-Repository entfernen
-
-```bash
 helm repo remove bitnami
 ```
 
@@ -79,193 +61,132 @@ helm repo remove bitnami
 
 # 3. Charts suchen
 
-Remote suchen
-
 ```bash
 helm search repo nginx
-```
-
-Alle Versionen
-
-```bash
 helm search repo nginx --versions
-```
-
-Lokale Charts
-
-```bash
 helm search hub wordpress
 ```
 
 ---
 
-# 4. Release installieren
-
-Standard
+# 4. Installieren
 
 ```bash
-helm install my-nginx bitnami/nginx
+helm install myapp bitnami/nginx
 ```
 
 Bestimmte Version
 
 ```bash
-helm install myapp do280/etherpad \
-  --version 0.0.7
+helm install myapp do280/etherpad --version 0.0.7
 ```
 
-Eigenes Namespace
+Namespace
 
 ```bash
-helm install myapp bitnami/nginx \
-  -n demo \
-  --create-namespace
+helm install myapp bitnami/nginx -n demo --create-namespace
 ```
 
-Mit values-Datei
+Values
 
 ```bash
-helm install myapp do280/etherpad \
-  -f values.yaml
+helm install myapp do280/etherpad -f values.yaml
 ```
 
-Einzelne Werte überschreiben
+Einzelne Werte
 
 ```bash
 helm install myapp do280/etherpad \
-  --set replicaCount=3
-```
-
-Mehrere Werte
-
-```bash
-helm install myapp do280/etherpad \
-  --set image.tag=2.0 \
-  --set service.type=NodePort
+  --set replicaCount=3 \
+  --set image.tag=2.0
 ```
 
 ---
 
-# 5. Releases verwalten
-
-Alle Releases
+# 5. Upgrade & Rollback
 
 ```bash
-helm list
+helm upgrade myapp do280/etherpad -f values.yaml
 ```
 
-Alle Namespaces
-
-```bash
-helm list -A
-```
-
-Status
-
-```bash
-helm status myapp
-```
-
-Historie
-
-```bash
-helm history myapp
-```
-
-Deinstallieren
-
-```bash
-helm uninstall myapp
-```
-
----
-
-# 6. Upgrades
-
-Normales Upgrade
+Upgrade oder Install:
 
 ```bash
 helm upgrade myapp do280/etherpad \
+  --install \
   -f values.yaml
-```
-
-Bestimmte Version
-
-```bash
-helm upgrade myapp do280/etherpad \
-  --version 0.0.7 \
-  -f values.yaml
-```
-
-Installieren falls Release fehlt
-
-```bash
-helm upgrade myapp do280/etherpad \
-  --install
 ```
 
 Dry Run
 
 ```bash
 helm upgrade myapp do280/etherpad \
-  --dry-run \
-  -f values.yaml
-```
-
-Debug
-
-```bash
-helm upgrade myapp do280/etherpad \
-  --dry-run \
-  --debug
-```
-
----
-
-# 7. Rollback
-
-Historie
-
-```bash
-helm history myapp
+  --dry-run --debug
 ```
 
 Rollback
 
 ```bash
+helm history myapp
 helm rollback myapp 2
 ```
 
 ---
 
-# 8. values.yaml
-
-Default-Werte anzeigen
+# 6. Releases verwalten
 
 ```bash
-helm show values do280/etherpad
+helm list
+helm list -A
+helm status myapp
+helm history myapp
+helm uninstall myapp
 ```
 
-Eigene Werte verwenden
+Manifest anzeigen
 
 ```bash
-helm install myapp do280/etherpad \
-  -f values.yaml
+helm get manifest myapp
+```
+
+Werte anzeigen
+
+```bash
+helm get values myapp
+helm get values myapp --all
+```
+
+---
+
+# 7. values.yaml
+
+Priorität (unten überschreibt oben)
+
+```text
+Chart values.yaml
+      ↓
+Parent values.yaml
+      ↓
+-f values1.yaml
+      ↓
+-f values2.yaml
+      ↓
+--set
+      ↓
+--set-string
 ```
 
 Mehrere Dateien
 
 ```bash
-helm upgrade myapp do280/etherpad \
-  -f common.yaml \
-  -f prod.yaml
+helm upgrade myapp chart \
+-f common.yaml \
+-f prod.yaml
 ```
-
-Spätere Dateien überschreiben frühere.
 
 ---
 
-# 9. Templates rendern
+# 8. Template Rendering
 
 Nur rendern
 
@@ -273,264 +194,334 @@ Nur rendern
 helm template myapp do280/etherpad
 ```
 
-Mit values
+Mit Values
 
 ```bash
 helm template myapp do280/etherpad \
-  -f values.yaml
+-f values.yaml
 ```
 
-Rendern und mit Cluster vergleichen
+Nur ein Template
 
 ```bash
-helm template myapp do280/etherpad \
-  -f values.yaml \
-  | oc diff -f -
-```
-
-> `helm template` eignet sich besser für Pipes als `helm upgrade --dry-run`, da ausschließlich Kubernetes-Manifeste ausgegeben werden.
-
-Renderte Manifeste einer Installation anzeigen
-
-```bash
-helm get manifest myapp
-```
-
----
-
-# 10. Chart-Informationen
-
-Chart anzeigen
-
-```bash
-helm show chart do280/etherpad
-```
-
-README
-
-```bash
-helm show readme do280/etherpad
-```
-
-Alle Informationen
-
-```bash
-helm show all do280/etherpad
-```
-
-Abhängigkeiten
-
-```bash
-helm dependency list .
-```
-
-Aktualisieren
-
-```bash
-helm dependency update .
-```
-
----
-
-# 11. Packaging
-
-Chart validieren
-
-```bash
-helm lint .
-```
-
-Chart paketieren
-
-```bash
-helm package .
-```
-
-Chart entpacken
-
-```bash
-helm pull do280/etherpad --untar
-```
-
-Chart als tgz laden
-
-```bash
-helm pull do280/etherpad
-```
-
----
-
-# 12. OpenShift-Praxis
-
-Releases
-
-```bash
-helm list -A
-```
-
-Gerenderte YAML prüfen
-
-```bash
-helm template myapp do280/etherpad \
-  -f values.yaml
+helm template myapp chart \
+--show-only templates/service.yaml
 ```
 
 Mit Cluster vergleichen
 
 ```bash
-helm template myapp do280/etherpad \
-  -f values.yaml \
-  | oc diff -f -
-```
-
-Namespace explizit
-
-```bash
-helm upgrade myapp do280/etherpad \
-  -n demo \
-  -f values.yaml
-```
-
-Vorhandene Ressourcen übernehmen
-
-```bash
-helm upgrade myapp do280/etherpad \
-  --install
-```
-
----
-
-# 13. Häufige Fehler
-
-## repository not found
-
-```text
-Error: chart not found
-```
-
-Repository aktualisieren
-
-```bash
-helm repo update
-```
-
----
-
-## unknown chart version
-
-Version prüfen
-
-```bash
-helm search repo do280/etherpad --versions
-```
-
----
-
-## values werden nicht übernommen
-
-Kontrollieren
-
-```bash
-helm get values myapp
-```
-
-Alle Werte
-
-```bash
-helm get values myapp --all
-```
-
----
-
-## Dry Run liefert kein gültiges YAML
-
-Falsch
-
-```bash
-helm upgrade myapp do280/etherpad \
-  --dry-run \
+helm template myapp chart \
 | oc diff -f -
 ```
 
-Richtig
+⚠️ **Nicht** `helm upgrade --dry-run | oc diff`, da `upgrade` zusätzliche Statusinformationen ausgibt.
 
-```bash
-helm template myapp do280/etherpad \
-| oc diff -f -
+---
+
+# 9. Go-Template Referenz
+
+## .Values
+
+```gotemplate
+{{ .Values.service.name }}
+```
+
+## .Release
+
+```gotemplate
+{{ .Release.Name }}
+{{ .Release.Namespace }}
+```
+
+## .Chart
+
+```gotemplate
+{{ .Chart.Name }}
+{{ .Chart.Version }}
+```
+
+## .Capabilities
+
+```gotemplate
+{{- if .Capabilities.APIVersions.Has "autoscaling/v2" }}
+apiVersion: autoscaling/v2
+{{- else }}
+apiVersion: autoscaling/v1
+{{- end }}
+```
+
+## .Template
+
+```gotemplate
+{{ .Template.Name }}
 ```
 
 ---
 
-## Lint verwenden
+# 10. Control Statements
+
+## if
+
+```gotemplate
+{{- if .Values.service.enabled }}
+kind: Service
+{{- end }}
+```
+
+## if / else
+
+```gotemplate
+{{- if .Values.service.enabled }}
+enabled
+{{- else }}
+disabled
+{{- end }}
+```
+
+## with
+
+```gotemplate
+{{- with .Values.service }}
+name: {{ .name }}
+type: {{ .type }}
+{{- end }}
+```
+
+## range
+
+```gotemplate
+{{- range .Values.ports }}
+- port: {{ . }}
+{{- end }}
+```
+
+---
+
+# 11. Wichtige Funktionen
+
+## default
+
+```gotemplate
+{{ .Values.replicaCount | default 1 }}
+```
+
+## required
+
+```gotemplate
+{{ required "Image fehlt!" .Values.image }}
+```
+
+## quote
+
+```gotemplate
+{{ .Values.env | quote }}
+```
+
+## include
+
+```gotemplate
+{{ include "mychart.fullname" . }}
+```
+
+## tpl
+
+```gotemplate
+{{ tpl .Values.description . }}
+```
+
+## lookup
+
+```gotemplate
+{{- $svc := lookup "v1" "Service" "default" "mysql" -}}
+```
+
+> Funktioniert nur mit Clusterzugriff.
+
+## toYaml + nindent
+
+```gotemplate
+resources:
+{{- toYaml .Values.resources | nindent 2 }}
+```
+
+## indent
+
+```gotemplate
+{{ include "labels" . | indent 4 }}
+```
+
+## b64enc
+
+```gotemplate
+{{ .Values.password | b64enc }}
+```
+
+---
+
+# 12. _helpers.tpl
+
+Definition
+
+```gotemplate
+{{- define "mychart.fullname" -}}
+{{ .Release.Name }}-{{ .Chart.Name }}
+{{- end }}
+```
+
+Verwendung
+
+```gotemplate
+metadata:
+  name: {{ include "mychart.fullname" . }}
+```
+
+---
+
+# 13. OCI Registry
+
+Login
+
+```bash
+helm registry login registry.example.com
+```
+
+Pull
+
+```bash
+helm pull oci://registry.example.com/charts/nginx
+```
+
+Push
+
+```bash
+helm push nginx-1.0.0.tgz \
+oci://registry.example.com/charts
+```
+
+Harbor/OpenShift Registry funktionieren ebenfalls über OCI.
+
+---
+
+# 14. Debugging
+
+Chart prüfen
 
 ```bash
 helm lint .
 ```
 
-Findet viele Template-Fehler frühzeitig.
+Templates rendern
+
+```bash
+helm template myapp .
+```
+
+Chart Informationen
+
+```bash
+helm show chart chart
+helm show values chart
+helm show readme chart
+```
+
+Dependencies
+
+```bash
+helm dependency list .
+helm dependency update .
+```
 
 ---
 
-# 14. Spickzettel
+# 15. OpenShift Tipps
+
+Rendern und vergleichen
 
 ```bash
-# Repository
-helm repo list
-helm repo update
+helm template myapp chart \
+| oc diff -f -
+```
 
-# Suchen
+Installieren
+
+```bash
+helm upgrade myapp chart \
+--install \
+-n demo
+```
+
+GitOps (Argo CD) verwendet typischerweise:
+
+- Chart
+- values.yaml
+- valueFiles
+- OCI Charts
+
+---
+
+# 16. Troubleshooting
+
+| Problem | Ursache | Lösung |
+|---|---|---|
+| Chart not found | Repo fehlt | `helm repo update` |
+| Unknown version | Falsche Version | `helm search repo --versions` |
+| Values greifen nicht | Reihenfolge | `helm get values --all` |
+| YAML Fehler | Template | `helm template --debug` |
+| Release existiert | install statt upgrade | `helm upgrade --install` |
+
+---
+
+# 17. Cheatsheet
+
+```bash
+# Repositories
+helm repo add
+helm repo update
+helm repo list
+
+# Suche
 helm search repo nginx --versions
 
-# Installieren
+# Install
 helm install RELEASE CHART
 
 # Upgrade
 helm upgrade RELEASE CHART
-
-# Upgrade oder Install
 helm upgrade RELEASE CHART --install
 
 # Rollback
-helm rollback RELEASE REVISION
+helm history RELEASE
+helm rollback RELEASE REV
 
 # Releases
 helm list -A
-
-# Status
 helm status RELEASE
 
-# Historie
-helm history RELEASE
-
-# Rendern
+# Rendering
 helm template RELEASE CHART
+helm template RELEASE CHART -f values.yaml
+helm template RELEASE CHART | oc diff -f -
 
-# Default Values
+# Values
 helm show values CHART
-
-# Manifest einer Installation
-helm get manifest RELEASE
-
-# Benutzerwerte
 helm get values RELEASE --all
 
-# Lint
+# Debug
 helm lint .
+helm show chart CHART
+helm get manifest RELEASE
 
-# Paket bauen
-helm package .
-
-# Chart herunterladen
-helm pull CHART --untar
-
-# Diff mit OpenShift
-helm template RELEASE CHART | oc diff -f -
+# OCI
+helm registry login REGISTRY
+helm pull oci://REGISTRY/CHART
+helm push chart.tgz oci://REGISTRY
 ```
 
-## Tipps für EX280
+## EX280 Merksätze
 
-- `helm template` statt `helm upgrade --dry-run` für `oc diff`
-- Unterschied zwischen **Chart** und **Release** kennen.
-- `values.yaml` und `--set` sicher beherrschen.
-- `helm show values`, `helm get values` und `helm history` gehören zu den wichtigsten Diagnosebefehlen.
-- Vor einem Upgrade mit `helm template` prüfen, welche Ressourcen erzeugt werden.
+- `helm template` für Vergleiche mit `oc diff`.
+- Chart = Paket, Release = Installation.
+- `values.yaml` + `-f` + `--set` sicher beherrschen.
+- `include`, `default`, `required`, `toYaml`, `nindent` gehören zu den wichtigsten Template-Funktionen.
+- `_helpers.tpl` enthält wiederverwendbare Template-Funktionen.
