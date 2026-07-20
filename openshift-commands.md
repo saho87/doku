@@ -203,7 +203,7 @@ pc process {template} --param-file=params.env | oc apply -f - | Parameter werden
 # Helm
 Helm repo list                                               # verbundene Repos anzeigen
 helm repo add bitnami https://charts.bitnami.com/bitnami     # neues Repo hinzufügen
-helm search repo mariadb                                     # in vorhandenen Repos nach mariadb suchen (mariadb kann auch weggelassen werden)
+helm search repo mariadb (--versions)                        # in vorhandenen Repos nach mariadb suchen (mariadb kann auch weggelassen werden)
 helm show chart ./                                           # Metainformationen zu Chart anzeigen
 helm show values ./ > values.yaml                            # konfigurierbare values anzeigen und selbst verwenden
 helm create demoapp
