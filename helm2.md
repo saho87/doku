@@ -62,7 +62,7 @@ helm repo remove bitnami
 # 3. Charts suchen
 
 ```bash
-helm search repo nginx
+helm search repo nginx        # nginx kann auch weggelassen werden, da wird alles ausgegeben
 helm search repo nginx --versions
 helm search hub wordpress
 ```
