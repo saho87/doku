@@ -263,8 +263,8 @@ oc set data secret/htpasswd-secret \                     # Secret updaten
 oc get identities                                        # Identity aus Open-Shift auslesen
 oc delete user manager                                   # Ressourcen von User löschen
 htpasswd -n -b dba redhat                                # erstellt Hash -> Ausgabe Konsole
-oc create secret generic htpasswd-secret \
---from-file htpasswd=/tmp/htpasswd -n openshift-config
+oc create secret generic htpasswd-secret \               # erstellt secret aus htpasswd file
+--from-file htpasswd=/tmp/htpasswd -n openshift-config   # key "passwd" ist wichtig, namespace auch
 oc adm policy add-cluster-role-to-user cluster-admin student # Clusterrechte einem User zuweisen
 oc adm groups new developers                             # neue Gruppe erstellen
 
