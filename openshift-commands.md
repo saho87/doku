@@ -265,11 +265,13 @@ oc extract secret/htpasswd-secret -n openshift-config \  # Inhalt von htpasswd s
 --to /tmp/ --confirm
 oc set data secret/htpasswd-secret \                     # Secret updaten nach Änderung
 --from-file htpasswd=/tmp/htpasswd -n openshift-config
+watch oc get pods -n openshift-authentication            # jede oauth Änderung führt zum Neustarten der Oauth pods
+oc delete user manager                                   # Ressourcen von User löschen -> aus Openshift löschen
+oc get identities                                        # Identity aus Open-Shift auslesen[user@host ~]$ oc delete identity my_htpasswd_provider:manager
+oc delete identity my_htpasswd_provider:manager          # identity löschen
 
 oc adm policy add-cluster-role-to-user cluster-admin student # Clusterrechte einem User zuweisen
 oc adm groups new developers                             # neue Gruppe erstellen
-oc get identities                                        # Identity aus Open-Shift auslesen
-oc delete user manager                                   # Ressourcen von User löschen
 
 # RBAC
 oc adm policy add-cluster-role-to-user {cluster-role} {username}       # Cluster-Role zu User hinzufügen
