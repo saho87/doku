@@ -252,21 +252,24 @@ oc set sa deployment/nginx sascha-sa  # Service-Account dem Deployment zuweisen
 oc get oauth cluster \                                   # config identity provider lokal ablegen -> ändern
 -o yaml > ~/DO280/labs/auth-providers/oauth.yaml
 oc replace -f ~/DO280/labs/auth-providers/oauth.yaml     # geänderte config in CLuster hochladen
-oc extract secret/htpasswd-secret -n openshift-config \  # aus Secret eine Passwort Datei extrahieren
---to /tmp/ --confirm
+
+# htpasswd
+# Workflow: htpasswd lokal generieren -> User hinzufügen -> Secret anlegen -> htpasswd lokal extrahieren/ändern -> secret ändern (über set data)
 htpasswd -c -b -B ./file sascha passwrd                  # erstellt (neue) htpasswd file -B bcrypt very secure
 htpasswd -D /tmp/htpasswd manager                        # User löschen (auch manuell in Datei möglich)
-htpasswd -b ~/DO280/labs/auth-providers/htpasswd \       # User hinzufügen
-manager redhat
-oc set data secret/htpasswd-secret \                     # Secret updaten
---from-file htpasswd=/tmp/htpasswd -n openshift-config
-oc get identities                                        # Identity aus Open-Shift auslesen
-oc delete user manager                                   # Ressourcen von User löschen
-htpasswd -n -b dba redhat                                # erstellt Hash -> Ausgabe Konsole
+htpasswd -b ~/tmp/passwd manager redhat                  # User hinzufügen
+htpasswd -n -b dba redhat                                # erstellt Hash -> nur Ausgabe Konsole zum Testen
 oc create secret generic htpasswd-secret \               # erstellt secret aus htpasswd file
 --from-file htpasswd=/tmp/htpasswd -n openshift-config   # key "passwd" ist wichtig, namespace auch
+oc extract secret/htpasswd-secret -n openshift-config \  # Inhalt von htpasswd secret anzeigen/extrahieren
+--to /tmp/ --confirm
+oc set data secret/htpasswd-secret \                     # Secret updaten nach Änderung
+--from-file htpasswd=/tmp/htpasswd -n openshift-config
+
 oc adm policy add-cluster-role-to-user cluster-admin student # Clusterrechte einem User zuweisen
 oc adm groups new developers                             # neue Gruppe erstellen
+oc get identities                                        # Identity aus Open-Shift auslesen
+oc delete user manager                                   # Ressourcen von User löschen
 
 # RBAC
 oc adm policy add-cluster-role-to-user {cluster-role} {username}       # Cluster-Role zu User hinzufügen
