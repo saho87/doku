@@ -254,6 +254,7 @@ oc get oauth cluster \                                   # config identity provi
 oc replace -f ~/DO280/labs/auth-providers/oauth.yaml     # geänderte config in CLuster hochladen
 oc extract secret/htpasswd-secret -n openshift-config \  # aus Secret eine Passwort Datei extrahieren
 --to /tmp/ --confirm
+htpasswd -c -b -B ./file sascha passwrd                  # erstellt (neue) htpasswd file -B bcrypt very secure
 htpasswd -D /tmp/htpasswd manager                        # User löschen (auch manuell in Datei möglich)
 htpasswd -b ~/DO280/labs/auth-providers/htpasswd \       # User hinzufügen
 manager redhat
