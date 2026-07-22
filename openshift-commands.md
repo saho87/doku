@@ -253,7 +253,7 @@ oc get oauth cluster \                                   # config identity provi
 -o yaml > ~/DO280/labs/auth-providers/oauth.yaml
 oc replace -f ~/DO280/labs/auth-providers/oauth.yaml     # geänderte config in CLuster hochladen
 
-# htpasswd
+# htpasswd: CR oauth muss auch im Namespace openshift-authentication nach offizieller Doku angepasst werden!
 # Workflow: htpasswd lokal generieren -> User hinzufügen -> Secret anlegen -> htpasswd lokal extrahieren/ändern -> secret ändern (über set data)
 htpasswd -c -b -B ./file sascha passwrd                  # erstellt (neue) htpasswd file -B bcrypt very secure
 htpasswd -D /tmp/htpasswd manager                        # User löschen (auch manuell in Datei möglich)
