@@ -2,21 +2,21 @@
 
 ## Inhaltsverzeichnis
 
-1. Grundlagen
-2. Aufbau eines curl-Befehls
-3. HTTP-Methoden
-4. Header
-5. HTTPS & TLS
-6. Authentifizierung
-7. Cookies
-8. Daten senden
-9. Downloads
-10. Redirects
-11. Debugging
-12. OpenShift
-13. REST APIs
-14. Fehleranalyse
-15. Cheatsheet
+1. [Grundlagen](#1-grundlagen)
+2. [Aufbau eines curl-Befehls](#2-aufbau-eines-curl-befehls)
+3. [HTTP-Methoden](#3-http-methoden)
+4. [Header](#4-header)
+5. [HTTPS & TLS](#5-https--tls)
+6. [Authentifizierung](#6-authentifizierung)
+7. [Cookies](#7-cookies)
+8. [Daten senden](#8-daten-senden)
+9. [Downloads](#9-downloads)
+10. [Redirects](#10-redirects)
+11. [Debugging](#11-debugging)
+12. [OpenShift](#12-openshift)
+13. [REST APIs](#13-rest-apis)
+14. [Fehleranalyse](#14-fehleranalyse)
+15. [Cheatsheet](#15-cheatsheet)
 
 ---
 
