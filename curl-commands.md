@@ -1,356 +1,862 @@
-curl Referenz – OpenShift / Kubernetes / Linux
+# curl Referenz
 
-Kompakte Referenz zum Debuggen von HTTP, HTTPS, TLS, APIs und OpenShift-Routes.
-
-Inhaltsverzeichnis
+## Inhaltsverzeichnis
 
 1. Grundlagen
-
-2. HTTP Requests
-
-3. HTTP Header
-
-4. Verbose & Debugging
-
+2. Aufbau eines curl-Befehls
+3. HTTP-Methoden
+4. Header
 5. HTTPS & TLS
-
-6. Redirects
-
-7. Authentifizierung
-
+6. Authentifizierung
+7. Cookies
 8. Daten senden
+9. Downloads
+10. Redirects
+11. Debugging
+12. OpenShift
+13. REST APIs
+14. Fehleranalyse
+15. Cheatsheet
 
-9. Downloads & Uploads
+---
 
-10. OpenShift Debugging
+# 1. Grundlagen
 
-11. Troubleshooting
+## Was ist curl?
 
-12. Cheatsheet
+`curl` (Client URL) ist ein Kommandozeilenwerkzeug zum Übertragen von Daten über verschiedenste Netzwerkprotokolle.
 
-1. Grundlagen
+Unterstützte Protokolle (Auswahl):
 
-Begriff
+- HTTP
+- HTTPS
+- FTP
+- FTPS
+- SFTP
+- SCP
+- LDAP
+- MQTT
+- SMB
 
-Bedeutung
+Die häufigste Verwendung ist das Testen von
 
-HTTP
+- Webservern
+- REST APIs
+- OpenShift Routes
+- Kubernetes Services
+- TLS-Verbindungen
 
-Unverschlüsseltes Hypertext Transfer Protocol
+---
 
-HTTPS
+## Aufbau
 
-HTTP über TLS
+```bash
+curl [OPTIONEN] URL
+```
 
-GET
+Beispiel
 
-Standardmethode von curl
+```bash
+curl https://example.com
+```
 
-HEAD
+---
 
-Liefert nur HTTP-Header
+## Standardverhalten
 
-Body
+Ohne Optionen führt curl einen **HTTP GET Request** aus.
 
-Inhalt der HTTP-Antwort
+```bash
+curl https://example.com
+```
 
-curl
- │
- ├── DNS Lookup
- │
- ├── TCP Verbindung
- │
- ├── TLS Handshake (nur HTTPS)
- │
- ├── HTTP Request
- │
- └── HTTP Response
+entspricht
 
-💡 Merke: Gibt man kein Schema an, verwendet curl standardmäßig http://.
+```http
+GET / HTTP/1.1
+Host: example.com
+```
 
-2. HTTP Requests
+---
 
-Standard-GET
+# 2. Aufbau eines curl-Befehls
 
-curl http://service
+## Allgemeine Syntax
 
-HEAD-Request
+```bash
+curl [Optionen] URL
+```
 
-curl -I http://service
+Beispiel
 
-HTTP-Methode auswählen
+```bash
+curl -v https://example.com
+```
 
-curl -X POST http://server/api
-curl -X PUT http://server/api
-curl -X DELETE http://server/api/1
+| Bestandteil | Bedeutung |
+|-------------|-----------|
+| curl | Programm |
+| -v | Verbose |
+| URL | Ziel |
 
-Nur HTTP-Status ausgeben
+---
 
-curl -s -o /dev/null -w "%{http_code}\n" http://service
+## Mehrere Optionen kombinieren
 
-3. HTTP Header
+```bash
+curl -k -L -v https://example.com
+```
 
-Nur Header anzeigen
+oder
 
+```bash
+curl -kLv https://example.com
+```
+
+---
+
+# 3. HTTP-Methoden
+
+## GET (Standard)
+
+```bash
+curl https://example.com
+```
+
+---
+
+## HEAD
+
+Nur Header abrufen.
+
+```bash
 curl -I https://example.com
+```
 
-Eigene Header setzen
+Ausgabe
 
+```http
+HTTP/1.1 200 OK
+Content-Type: text/html
+Content-Length: 1234
+```
+
+---
+
+## POST
+
+```bash
+curl \
+-X POST \
+https://example.com/api
+```
+
+---
+
+## PUT
+
+```bash
+curl \
+-X PUT \
+https://example.com/api
+```
+
+---
+
+## DELETE
+
+```bash
+curl \
+-X DELETE \
+https://example.com/api/1
+```
+
+---
+
+## PATCH
+
+```bash
+curl \
+-X PATCH \
+https://example.com/api/1
+```
+
+---
+
+# 4. Header
+
+## Header anzeigen
+
+```bash
+curl -I https://example.com
+```
+
+---
+
+## Verbose Header
+
+```bash
+curl -v https://example.com
+```
+
+Dabei werden angezeigt:
+
+- Request Header
+- Response Header
+
+---
+
+## Eigene Header setzen
+
+```bash
 curl \
 -H "Accept: application/json" \
+https://example.com
+```
+
+Mehrere Header
+
+```bash
+curl \
+-H "Accept: application/json" \
+-H "Content-Type: application/json" \
+-H "X-Test: Demo" \
+https://example.com
+```
+
+---
+
+## Authorization Header
+
+```bash
+curl \
 -H "Authorization: Bearer TOKEN" \
-https://api.example.com
+https://example.com
+```
 
-Header und Body getrennt speichern
+---
 
-curl -D headers.txt -o body.txt https://example.com
-
-4. Verbose & Debugging
-
-Verbose-Ausgabe
-
-curl -v http://service
-
-Zeigt:
-
-DNS-Auflösung
-
-TCP-Verbindung
-
-Request Header
-
-Response Header
-
-TLS analysieren
-
-curl -Iv https://route.apps.example.com
-
-Zeigt zusätzlich:
-
-TLS-Version
-
-Cipher Suite
-
-Zertifikat
-
-Servername
-
-TLS-Handshake
-
-5. HTTPS & TLS
+# 5. HTTPS & TLS
 
 HTTPS verwenden
 
-curl https://route.apps.example.com
+```bash
+curl https://example.com
+```
 
-Selbstsignierte Zertifikate akzeptieren
+---
 
-curl -k https://route.apps.example.com
+## TLS ignorieren
 
-TLS vollständig analysieren
+Selbstsignierte Zertifikate akzeptieren.
 
-curl -kIv https://route.apps.example.com
+```bash
+curl -k https://example.com
+```
 
-⚠️ Merke: Ein TLS-Handshake findet nur bei https:// statt.
+---
 
-6. Redirects
+## TLS analysieren
 
-Redirect anzeigen
+```bash
+curl -Iv https://example.com
+```
 
-curl -I http://route.apps.example.com
+Angezeigt werden u.a.
 
-Redirect automatisch folgen
+- TLS Version
+- Cipher
+- Zertifikat
+- Issuer
+- Subject
+- Ablaufdatum
 
-curl -L http://route.apps.example.com
+---
 
-Typische Ausgabe
+## Warum findet nur bei HTTPS ein TLS-Handshake statt?
 
-HTTP/1.1 301 Moved Permanently
-Location: https://route.apps.example.com
+HTTP
 
-7. Authentifizierung
+```text
+Client
+   │
+TCP
+   │
+HTTP
+```
 
-Basic Authentication
+HTTPS
 
-curl -u user:password https://api.example.com
+```text
+Client
+   │
+TCP
+   │
+TLS Handshake
+   │
+HTTP
+```
 
-Bearer Token
+Merke:
 
+- HTTP → keine Verschlüsselung
+- HTTPS → TLS wird aufgebaut
+
+---
+
+## Wichtige TLS-Optionen
+
+| Option | Bedeutung |
+|---------|-----------|
+| -k | Zertifikat ignorieren |
+| -I | Nur Header |
+| -v | Verbose |
+| -Iv | Header + TLS |
+| --cacert | Eigenes CA Zertifikat |
+| --cert | Client-Zertifikat |
+| --key | Privater Schlüssel |
+
+---
+
+# 6. Authentifizierung
+
+## Basic Auth
+
+```bash
+curl \
+-u user:password \
+https://example.com
+```
+
+---
+
+## Bearer Token
+
+```bash
 curl \
 -H "Authorization: Bearer TOKEN" \
-https://api.example.com
+https://example.com
+```
 
-Cookies speichern
+---
 
+## Client Zertifikat
+
+```bash
+curl \
+--cert client.crt \
+--key client.key \
+https://example.com
+```
+
+---
+
+## CA Zertifikat
+
+```bash
+curl \
+--cacert ca.crt \
+https://example.com
+```
+
+---
+
+# 7. Cookies
+
+## Cookies speichern
+
+```bash
 curl -c cookies.txt https://example.com
+```
 
-Cookies wiederverwenden
+Die vom Server gesetzten Cookies werden in der Datei gespeichert.
 
+---
+
+## Cookies verwenden
+
+```bash
 curl -b cookies.txt https://example.com
+```
 
-8. Daten senden
+---
 
-POST mit Formulardaten
+## Cookies direkt setzen
 
-curl -X POST \
--d "username=test&password=secret" \
-http://server/login
+```bash
+curl \
+-b "SESSIONID=123456" \
+https://example.com
+```
 
-POST mit JSON
+---
 
-curl -X POST \
+# 8. Daten senden
+
+## POST Formulardaten
+
+```bash
+curl \
+-X POST \
+-d "username=max&password=secret" \
+https://example.com/login
+```
+
+---
+
+## Mehrere Parameter
+
+```bash
+curl \
+-d "name=Sascha" \
+-d "city=Gotha" \
+https://example.com
+```
+
+---
+
+## JSON senden
+
+```bash
+curl \
+-X POST \
 -H "Content-Type: application/json" \
 -d '{"name":"Sascha"}' \
-http://server/api
+https://example.com/api
+```
 
-Datei als Body senden
+---
 
-curl --data-binary @payload.json \
+## JSON aus Datei
+
+```bash
+curl \
+-X POST \
 -H "Content-Type: application/json" \
-http://server/api
+--data @payload.json \
+https://example.com/api
+```
 
-9. Downloads & Uploads
+---
 
-Datei herunterladen
+## Datei als Request Body
 
-curl -O https://example.com/file.txt
+```bash
+curl \
+--data-binary @payload.json \
+https://example.com/api
+```
 
-Eigenen Dateinamen vergeben
+---
 
-curl -o image.png https://example.com/logo.png
+## Multipart Upload
 
-Datei hochladen
+```bash
+curl \
+-F "file=@bild.png" \
+https://example.com/upload
+```
 
-curl -T backup.tar.gz ftp://server/
+---
 
-Multipart Upload
+# 9. Downloads
 
-curl -F "file=@image.png" http://server/upload
+## Datei herunterladen
 
-10. OpenShift Debugging
+```bash
+curl -O https://example.com/image.iso
+```
 
-Service testen
+Dateiname bleibt erhalten.
 
+---
+
+## Eigenen Dateinamen vergeben
+
+```bash
+curl \
+-o ubuntu.iso \
+https://example.com/image.iso
+```
+
+---
+
+## Download fortsetzen
+
+```bash
+curl \
+-C - \
+-O https://example.com/image.iso
+```
+
+---
+
+## Mehrere Dateien herunterladen
+
+```bash
+curl -O https://server/file1
+curl -O https://server/file2
+curl -O https://server/file3
+```
+
+---
+
+# 10. Redirects
+
+## Redirect anzeigen
+
+```bash
+curl -I http://example.com
+```
+
+Beispiel
+
+```http
+HTTP/1.1 301 Moved Permanently
+Location: https://example.com
+```
+
+---
+
+## Redirect folgen
+
+```bash
+curl -L http://example.com
+```
+
+---
+
+## Mehrere Redirects verfolgen
+
+```bash
+curl -Lv http://example.com
+```
+
+---
+
+# 11. Debugging
+
+## Verbose
+
+```bash
+curl -v https://example.com
+```
+
+Zeigt
+
+- DNS
+- TCP
+- Header
+- HTTP Status
+
+---
+
+## TLS analysieren
+
+```bash
+curl -Iv https://example.com
+```
+
+Zeigt zusätzlich
+
+- Zertifikat
+- TLS Version
+- Cipher
+- Ablaufdatum
+
+---
+
+## Maximale Details
+
+```bash
+curl --trace-ascii trace.log https://example.com
+```
+
+---
+
+## HTTP Statuscode ausgeben
+
+```bash
+curl \
+-s \
+-o /dev/null \
+-w "%{http_code}\n" \
+https://example.com
+```
+
+---
+
+## Response Time
+
+```bash
+curl \
+-o /dev/null \
+-s \
+-w "%{time_total}\n" \
+https://example.com
+```
+
+---
+
+## Mehrere Werte ausgeben
+
+```bash
+curl \
+-o /dev/null \
+-s \
+-w "
+Status : %{http_code}
+Zeit   : %{time_total}
+IP     : %{remote_ip}
+Bytes  : %{size_download}
+\n" \
+https://example.com
+```
+
+---
+
+# 12. OpenShift
+
+## Route testen
+
+```bash
+curl https://todo.apps.ocp.example.com
+```
+
+---
+
+## Route mit Header
+
+```bash
+curl -I https://todo.apps.ocp.example.com
+```
+
+---
+
+## TLS prüfen
+
+```bash
+curl -Iv https://todo.apps.ocp.example.com
+```
+
+---
+
+## Edge Route
+
+```bash
+curl \
+-kIv \
+https://route.apps.cluster.example.com
+```
+
+---
+
+## Service testen
+
+```bash
 curl http://todo-service:8080
+```
 
-Route testen
+---
 
-curl -Iv https://todo.apps.ocp4.example.com
+## Pod testen
 
-HTTP → HTTPS Redirect prüfen
+```bash
+oc exec podname -- \
+curl localhost:8080
+```
 
-curl -I http://todo.apps.ocp4.example.com
+---
 
-Nur Statuscode prüfen
+## Kubernetes API
 
-curl -s -o /dev/null -w "%{http_code}\n" \
-https://todo.apps.ocp4.example.com
+```bash
+TOKEN=$(oc whoami -t)
 
-Typischer Workflow
+curl \
+-H "Authorization: Bearer $TOKEN" \
+https://api.cluster.example.com:6443/api
+```
 
-curl
-   │
+---
+
+## Typischer Debugging-Ablauf
+
+```text
+Browser
+    │
 Route
-   │
+    │
+Router
+    │
 Service
-   │
+    │
 Endpoints
-   │
+    │
 Pod
+```
 
-11. Troubleshooting
+curl eignet sich hervorragend, um jede Ebene einzeln zu testen.
 
-Problem
+---
 
-Ursache
+# 13. REST APIs
 
-Lösung
+## GET
 
-Connection refused
+```bash
+curl https://api.example.com/users
+```
 
-Pod oder Service nicht erreichbar
+---
 
-oc get pods, oc get svc
+## POST
 
-404 Not Found
+```bash
+curl \
+-X POST \
+-H "Content-Type: application/json" \
+-d '{"name":"Max"}' \
+https://api.example.com/users
+```
 
-Falscher Pfad
+---
 
-Route oder API prüfen
+## PUT
 
-503 Service Unavailable
+```bash
+curl \
+-X PUT \
+-H "Content-Type: application/json" \
+-d '{"name":"Peter"}' \
+https://api.example.com/users/5
+```
 
-Keine Endpoints
+---
+
+## DELETE
+
+```bash
+curl \
+-X DELETE \
+https://api.example.com/users/5
+```
+
+---
+
+# 14. Fehleranalyse
+
+| Fehler | Ursache | Lösung |
+|---------|----------|---------|
+| Connection refused | Dienst läuft nicht | Pod oder Service prüfen |
+| Timeout | Netzwerkproblem | Firewall, Route prüfen |
+| 301 | Redirect | `curl -L` |
+| 302 | Redirect | Redirect folgen |
+| 401 | Authentifizierung fehlt | Token prüfen |
+| 403 | Keine Berechtigung | RBAC prüfen |
+| 404 | Falscher Pfad | Route oder URL prüfen |
+| 500 | Serverfehler | Logs prüfen |
+| 503 | Keine Endpoints | `oc get endpoints` |
+
+---
+
+## Typische OpenShift-Kommandos
+
+```bash
+oc get routes
+
+oc get svc
 
 oc get endpoints
 
-SSL certificate problem
+oc logs POD
 
-Selbstsigniertes Zertifikat
+oc describe route NAME
 
-curl -k
+oc exec POD -- curl localhost:8080
+```
 
-Timeout
+---
 
-Netzwerkproblem
+# 15. Cheatsheet
 
-Firewall, Service oder Route prüfen
+## Die wichtigsten Optionen
 
-301 Redirect
+| Option | Beschreibung |
+|---------|--------------|
+| -I | HEAD Request |
+| -L | Redirect folgen |
+| -k | Zertifikat ignorieren |
+| -v | Verbose |
+| -s | Silent |
+| -S | Fehler trotz Silent anzeigen |
+| -o | Ausgabe in Datei |
+| -O | Original-Dateiname |
+| -H | HTTP Header |
+| -d | Daten senden |
+| -X | HTTP Methode |
+| -u | Basic Auth |
+| -F | Multipart Upload |
+| -c | Cookies speichern |
+| -b | Cookies verwenden |
+| --cacert | CA Zertifikat |
+| --cert | Client Zertifikat |
+| --key | Privater Schlüssel |
+| --trace-ascii | Vollständiger Trace |
 
-HTTP wird auf HTTPS umgeleitet
+---
 
-curl -L
+## EX280 Merksätze
 
-12. Cheatsheet
+✅ `curl` verwendet standardmäßig **GET**
 
-# GET
-curl URL
+✅ `-I` = HEAD
 
-# HEAD
-curl -I URL
+✅ `-v` = HTTP Debugging
 
-# Verbose
-curl -v URL
+✅ `-Iv` = TLS + Header
 
-# TLS + Header
-curl -Iv URL
+✅ `-k` = Zertifikat ignorieren
 
-# Zertifikat ignorieren
-curl -k URL
+✅ `-L` = Redirect folgen
 
-# Redirect folgen
-curl -L URL
+✅ `-o` = eigener Dateiname
 
-# Header setzen
-curl -H "Header: Wert" URL
+✅ `-O` = Original-Dateiname
 
-# POST JSON
-curl -X POST \
--H "Content-Type: application/json" \
--d '{}' URL
+✅ `-H` = Header setzen
 
-# HTTP-Status
-curl -s -o /dev/null -w "%{http_code}\n" URL
+✅ `-d` = Request Body senden
 
-# Download
-curl -O URL
+✅ `-F` = Datei hochladen
 
-# Download unter anderem Namen
-curl -o DATEI URL
+✅ `curl` ist das wichtigste Werkzeug zum Testen von:
 
-EX280 Merksätze
+- OpenShift Routes
+- Kubernetes Services
+- REST APIs
+- TLS
+- Zertifikaten
+- HTTP Statuscodes
 
-curl verwendet standardmäßig GET.
+---
 
--I sendet einen HEAD-Request.
+# Zusammenfassung
 
--v zeigt DNS, TCP und HTTP-Details.
-
--Iv zeigt zusätzlich TLS-Handshake und Zertifikate.
-
--k ignoriert Zertifikatsfehler.
-
--L folgt HTTP-Redirects automatisch.
-
-Für OpenShift-Routes gehören curl -I, curl -Iv, curl -k und curl -L zu den wichtigsten Debugging-Befehlen.
+```text
+GET                 curl URL
+HEAD                curl -I URL
+Verbose             curl -v URL
+TLS Debug           curl -Iv URL
+Ignore Cert         curl -k URL
+Redirect            curl -L URL
+POST JSON           curl -X POST -H "Content-Type: application/json" -d '{}'
+Header              curl -H "Header: Wert"
+Download            curl -O URL
+Download Name       curl -o DATEI URL
+Statuscode          curl -s -o /dev/null -w "%{http_code}"
+Cookie speichern    curl -c cookies.txt
+Cookie verwenden    curl -b cookies.txt
+Basic Auth          curl -u user:pass
+Bearer Token        curl -H "Authorization: Bearer TOKEN"
+```
