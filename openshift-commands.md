@@ -55,7 +55,7 @@ oc delete all --all  # alle Ressourcen löschen
 
 # Routen (Verbindung zw. öffentlichen IP und DNS-Hostname zu interner Service-IP)
 oc expose service quotedb --name quote  # Route über oc zu Service erstellen
-oc create route edge todo-https \       # route mit edge
+oc create route edge todo-https \       # route mit edge- nutzt default cert
 --service todo-http --hostname todo-https.apps.ocp4.example.com
 oc get pod --all-namespaces | grep router # Standard Routing-Service abrufen
 oc port-forward <CID> 3306:3306 # Alternativ: Portweiterleitung direkt in Pod
@@ -115,7 +115,7 @@ oc create secret docker-registry SECRET_NAME \           # neues Secret über Ko
 oc extract secret/postgresql --to=.                      # Secret in aktuellen Ordner extrahieren (encoded)
 
 # Debugging
-oc debug -t deployment/todo-http \                       # Debugging-Pod starten
+oc debug -t deployment/todo-http \                       # Debugging-Pod am Deployment starten (opt. mit anderem Image)
 --image registry.ocp4.example.com:8443/ubi8/ubi:8.4
 oc rsh pod123                                            # Console auf Pod starten
 
