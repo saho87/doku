@@ -285,7 +285,6 @@ oc policy add-role-to-user {role-name} {username} -n {namespace}       # Rolle z
 └─────────────────────────────────────────────────────────────────────────────┘
 
 1) Edge Route
-==============
 
            HTTPS                        HTTP
 +--------+===========>+-------------+----------->+-----------+
@@ -297,12 +296,8 @@ oc policy add-role-to-user {role-name} {username} -n {namespace}       # Rolle z
                      (tls.crt / tls.key)
 
 TLS wird am Router beendet.
-
-
 ──────────────────────────────────────────────────────────────────────────────
-
 2) Passthrough Route
-====================
 
                 HTTPS (eine durchgehende TLS-Verbindung)
 
@@ -317,7 +312,6 @@ TLS wird am Router beendet.
 
                      Router schaut nur auf SNI
                      und leitet die Verbindung weiter.
-
                            ▲
                            │
                     Backend-Zertifikat
@@ -325,11 +319,9 @@ TLS wird am Router beendet.
 
 TLS wird erst im Pod beendet.
 
-
 ──────────────────────────────────────────────────────────────────────────────
 
 3) Re-encrypt Route
-===================
 
          HTTPS                         HTTPS
 
@@ -344,6 +336,7 @@ TLS wird erst im Pod beendet.
 
 Der Router entschlüsselt den Traffic und baut anschließend
 eine neue TLS-Verbindung zum Backend auf.
+
 https://www.redhat.com/architect/encryption-secure-routes-openshift
 oc expose svc todo-http \                                          # Route ohne Verschlüsselung
 --hostname todo-http.apps.ocp4.example.com
