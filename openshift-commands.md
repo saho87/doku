@@ -338,10 +338,13 @@ Der Router entschlüsselt den Traffic und baut anschließend
 eine neue TLS-Verbindung zum Backend auf.
 
 https://www.redhat.com/architect/encryption-secure-routes-openshift
+# Befehle zum Erstellen der Routen
 oc expose svc todo-http \                                          # Route ohne Verschlüsselung
 --hostname todo-http.apps.ocp4.example.com
+
 oc create route edge todo-https --service todo-http \              # Route mit Edge-Verschlüsselung (Cert von OpenShift)
 --hostname todo-https.apps.ocp4.example.com
+
 openssl genrsa -out training.key 4096                              # private key erstellen
 openssl req -new -key training.key -out training.csr \             # CSR für CN erstellen
 -subj "/C=US/ST=North Carolina/L=Raleigh/O=Red Hat/\               # CSR=Zertifikatsanfrage, die später von einer (CA) signiert werden kann
@@ -350,8 +353,8 @@ openssl x509 -req -in training.csr \                               # Erstellen d
 -passin file:passphrase.txt \
 -CA training-CA.pem -CAkey training-CA.key -CAcreateserial \
 -out training.crt -days 1825 -sha256 -extfile training.ext
-oc create secret tls todo-certs \                                  # TLS Secret aus cert und key erstellen
---cert certs/training.crt --key certs/training.key                     
+oc create secret tls todo-certs \                                  # TLS Secret aus cert und key erstellen, Secret als Volume im Pod gemounted
+--cert certs/training.crt --key certs/training.key             
 oc create route passthrough todo-https \                           # Route mit Passthrough
 --service todo-https --port 8443 \
 --hostname todo-https.apps.ocp4.example.com
