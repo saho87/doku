@@ -280,7 +280,88 @@ oc adm policy who-can delete user                                      # Herausf
 oc policy add-role-to-user {role-name} {username} -n {namespace}       # Rolle zu User hinzufügen
 
 # Network Security
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                         OpenShift Route-Typen                               │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+1) Edge Route
+==============
+
+           HTTPS                        HTTP
++--------+===========>+-------------+----------->+-----------+
+| Client |            | OCP Router  |            |    Pod    |
++--------+            +-------------+            +-----------+
+                           ▲
+                           │
+                    Router-Zertifikat
+                     (tls.crt / tls.key)
+
+TLS wird am Router beendet.
+
+
+──────────────────────────────────────────────────────────────────────────────
+
+2) Passthrough Route
+====================
+
+                HTTPS (eine durchgehende TLS-Verbindung)
+
++--------+===============================================>+-----------+
+| Client |                                                |    Pod    |
++--------+                                                +-----------+
+                      │
+                      ▼
+                +-------------+
+                | OCP Router  |
+                +-------------+
+
+                     Router schaut nur auf SNI
+                     und leitet die Verbindung weiter.
+
+                           ▲
+                           │
+                    Backend-Zertifikat
+                     (Secret im Pod)
+
+TLS wird erst im Pod beendet.
+
+
+──────────────────────────────────────────────────────────────────────────────
+
+3) Re-encrypt Route
+===================
+
+         HTTPS                         HTTPS
+
++--------+===========>+-------------+===========>+-----------+
+| Client |            | OCP Router  |            |    Pod    |
++--------+            +-------------+            +-----------+
+                           ▲                         ▲
+                           │                         │
+                    Router-Zertifikat        Backend-Zertifikat
+
+             TLS #1 endet hier       TLS #2 beginnt hier
+
+Der Router entschlüsselt den Traffic und baut anschließend
+eine neue TLS-Verbindung zum Backend auf.
 https://www.redhat.com/architect/encryption-secure-routes-openshift
+oc expose svc todo-http \                                          # Route ohne Verschlüsselung
+--hostname todo-http.apps.ocp4.example.com
+oc create route edge todo-https --service todo-http \              # Route mit Edge-Verschlüsselung (Cert von OpenShift)
+--hostname todo-https.apps.ocp4.example.com
+openssl genrsa -out training.key 4096                              # private key erstellen
+openssl req -new -key training.key -out training.csr \             # CSR für CN erstellen
+-subj "/C=US/ST=North Carolina/L=Raleigh/O=Red Hat/\               # CSR=Zertifikatsanfrage, die später von einer (CA) signiert werden kann
+CN=todo-https.apps.ocp4.example.com"
+openssl x509 -req -in training.csr \                               # Erstellen der Certs durch private Key der CA
+-passin file:passphrase.txt \
+-CA training-CA.pem -CAkey training-CA.key -CAcreateserial \
+-out training.crt -days 1825 -sha256 -extfile training.ext
+oc create secret tls todo-certs \                                  # TLS Secret aus cert und key erstellen
+--cert certs/training.crt --key certs/training.key                     
+oc create route passthrough todo-https \                           # Route mit Passthrough
+--service todo-https --port 8443 \
+--hostname todo-https.apps.ocp4.example.com
 
 # Network Policies
 # Beispiel yaml:
