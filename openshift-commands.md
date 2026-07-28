@@ -360,6 +360,8 @@ oc create route passthrough todo-https \                           # Route mit P
 --hostname todo-https.apps.ocp4.example.com
 
 # Network Policies
+
+oc describe netpol                                     # gute Beschreibung der definierten Netpol
 # Beispiel yaml:
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -381,6 +383,8 @@ spec:
       ports:
       - port: 8080
         protocol: TCP
+# admin network policys können traffic auf verbieten (können NS netpol nicht)
+
 # interner Traffic mit TLS
 oc annotate service hello \                    # Generieren eines Zertifikats und Schlüsselpaares für einen Service
 service.beta.openshift.io/serving-cert-secret-name=hello-secret
