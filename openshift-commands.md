@@ -359,6 +359,7 @@ oc create route passthrough todo-https \                           # Route mit P
 --service todo-https --port 8443 \
 --hostname todo-https.apps.ocp4.example.com
 
+
 # Network Policies
 
 oc describe netpol                                     # gute Beschreibung der definierten Netpol
@@ -383,14 +384,29 @@ spec:
       ports:
       - port: 8080
         protocol: TCP
-# admin network policys können traffic auf verbieten (können NS netpol nicht)
-
-# interner Traffic mit TLS
-oc annotate service hello \                    # Generieren eines Zertifikats und Schlüsselpaares für einen Service
-service.beta.openshift.io/serving-cert-secret-name=hello-secret
 
 oc label namespace different-namespace \ # Namespace muss extra gelabelt werden
 network=different-namespace
+
+oc -n openshift-ingress describe deployment <depl-name> # Label ermitteln für das erlauben von Ingress Traffic
+
+# admin network policys können traffic auf verbieten (können NS netpol nicht)
+
+# interner Traffic mit TLS
+oc annotate service hello \                    # Secret wird erzeugt namens hello-secret mit Zertifikats und Schlüsselpaare für service hello
+service.beta.openshift.io/serving-cert-secret-name=hello-secret
+
+oc patch deployment server \                  # Secret muss im Deployment gemounted werden
+--patch-file ~/DO280/labs/network-svccerts/server-secret.yaml
+
+oc exec no-ca-bundle -- \                      # Test ob cert akzeptiert wird (Fehler bei self signed cert, deren CA nicht vertraut wird)
+openssl s_client -connect server.network-svccerts.svc:443
+oc exec deploy/client -- \                     # weiterer Test
+curl -s https://server.network-svccerts.svc
+
+oc create configmap ca-bundle                  # leere CM erzeugen
+oc annotate configmap ca-bundle \              # CM wird mit CA-bundle (Zertifikatskette) befüllt
+service.beta.openshift.io/inject-cabundle=true  # muss anschließend im Deploy/Pod gemounted werden
 
 # Selfservice und Templating
 
