@@ -197,3 +197,237 @@ Bis jetzt kennen wir nur den ersten Teil der Geschichte.
 ```
 
 Im nächsten Kapitel lösen wir dieses Problem mithilfe der **asymmetrischen Verschlüsselung**. Dort lernen wir Public Keys, Private Keys und den eigentlichen Durchbruch kennen, der HTTPS und TLS überhaupt erst möglich gemacht hat.
+
+# 6. Asymmetrische Verschlüsselung
+
+Im vorherigen Kapitel haben wir ein fundamentales Problem kennengelernt.
+
+Die symmetrische Verschlüsselung funktioniert hervorragend – **wenn beide Seiten bereits denselben geheimen Schlüssel besitzen.**
+
+Doch genau dieser Schlüssel muss zunächst sicher übertragen werden.
+
+Wie kann man einen geheimen Schlüssel austauschen, ohne dass ihn unterwegs jemand mitliest?
+
+Viele Jahre galt dieses Problem als praktisch unlösbar.
+
+Die Lösung war ein völlig neues Konzept:
+
+**Die asymmetrische Verschlüsselung.**
+
+---
+
+## Eine revolutionäre Idee
+
+Anstatt einen einzigen geheimen Schlüssel zu verwenden, besitzt nun jeder Kommunikationspartner **zwei mathematisch zusammengehörige Schlüssel**.
+
+```text
+                Schlüsselpaar
+
+          +----------------------+
+          |      Public Key      |
+          +----------------------+
+                     ▲
+                     │
+      Gehört zusammen│
+                     ▼
+          +----------------------+
+          |     Private Key      |
+          +----------------------+
+```
+
+Beide Schlüssel werden gemeinsam erzeugt.
+
+Sie gehören immer zusammen.
+
+Aus dem Public Key lässt sich der Private Key jedoch praktisch nicht berechnen.
+
+Dadurch entsteht eine völlig neue Möglichkeit der sicheren Kommunikation.
+
+---
+
+## Die Rollen der beiden Schlüssel
+
+Die Namen verraten bereits ihre Aufgabe.
+
+### Public Key
+
+Der Public Key darf beliebig verteilt werden.
+
+Er ist **nicht geheim**.
+
+Jeder darf ihn besitzen.
+
+```text
+                Public Key
+
+             Server
+
+                │
+                │ veröffentlicht
+                ▼
+
+      Browser A
+
+      Browser B
+
+      Browser C
+
+      Browser D
+```
+
+Der Public Key darf sogar auf einer öffentlichen Webseite stehen.
+
+Seine Veröffentlichung stellt **kein Sicherheitsproblem** dar.
+
+---
+
+### Private Key
+
+Der Private Key ist das genaue Gegenteil.
+
+Er verbleibt ausschließlich beim Besitzer.
+
+```text
+               Private Key
+
+            +-------------+
+            |   Server    |
+            +-------------+
+
+        Darf niemals
+        weitergegeben werden.
+```
+
+Verliert der Besitzer seinen Private Key, verliert er seine Identität.
+
+Deshalb wird dieser Schlüssel besonders geschützt.
+
+---
+
+## Warum benötigt man überhaupt zwei Schlüssel?
+
+Der eigentliche Durchbruch besteht darin, dass **verschiedene Aufgaben auf unterschiedliche Schlüssel verteilt werden können**.
+
+Der Public Key darf veröffentlicht werden.
+
+Der Private Key bleibt geheim.
+
+Dadurch muss kein geheimer Schlüssel mehr über das Netzwerk übertragen werden.
+
+Das löst erstmals das Schlüsselverteilungsproblem.
+
+```text
+                    Früher
+
+Client ---------------- Server
+
+        Secret Key
+
+muss geheim übertragen werden
+
+❌ Problem
+
+
+──────────────────────────────────────
+
+
+                    Heute
+
+Client <------------ Public Key
+
+(Server veröffentlicht ihn)
+
+
+Private Key
+
+bleibt ausschließlich
+beim Server
+
+✔ Kein geheimer Schlüssel wird verteilt
+```
+
+---
+
+## Moment ...
+
+An dieser Stelle könnte man auf die Idee kommen:
+
+> "Dann verschlüsseln wir doch einfach sämtliche Daten mit dem Public Key."
+
+Das klingt zunächst logisch.
+
+Leider funktioniert das in der Praxis nicht.
+
+Asymmetrische Verschlüsselung ist um Größenordnungen langsamer als symmetrische Verfahren.
+
+Bereits wenige Megabyte würden deutlich mehr Rechenleistung benötigen als dieselben Daten mit AES.
+
+Deshalb eignet sie sich **nicht** für die eigentliche Datenübertragung.
+
+---
+
+## Der eigentliche Durchbruch
+
+Die asymmetrische Verschlüsselung ersetzt die symmetrische Verschlüsselung **nicht**.
+
+Sie ergänzt sie.
+
+```text
+          Asymmetrische Kryptografie
+
+                    │
+                    ▼
+
+      Sicherer Austausch eines
+      gemeinsamen Geheimnisses
+
+                    │
+                    ▼
+
+          Symmetrische Kryptografie
+
+                    │
+                    ▼
+
+     Schnelle Verschlüsselung aller Daten
+```
+
+Genau diese Kombination bildet später das Fundament von TLS.
+
+Asymmetrische Verfahren lösen das Schlüsselproblem.
+
+Symmetrische Verfahren übernehmen anschließend die eigentliche Kommunikation.
+
+---
+
+## Ein neues Problem entsteht
+
+Der Public Key darf öffentlich verteilt werden.
+
+Doch woher weiß der Client eigentlich, dass der empfangene Public Key wirklich zum gewünschten Server gehört?
+
+```text
+              Client
+
+                 │
+                 ▼
+
+      "Hier ist mein Public Key."
+
+                 ▲
+                 │
+
+         Aber von wem?
+
+      Vom echten Server?
+
+      Oder von einem Angreifer?
+```
+
+Wir haben also das Schlüsselproblem gelöst.
+
+Dafür ist ein neues Problem entstanden:
+
+**Wie kann ein Client einem Public Key vertrauen?**
+
+Genau dieses Problem lösen wir im nächsten Kapitel mit **digitalen Signaturen und Zertifikaten**.
