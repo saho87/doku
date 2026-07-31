@@ -354,6 +354,7 @@ https://example.com
 ## CA Zertifikat
 
 ```bash
+# Prüfung: Wurde server.crt von dieser CA signiert?Ist die Signatur gültig?Ist das Zertifikat noch gültig (nicht abgelaufen)? Passt der Hostname ?(example.com) zum Zertifikat?
 curl \
 --cacert ca.crt \
 https://example.com
