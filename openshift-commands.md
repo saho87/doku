@@ -408,6 +408,11 @@ oc create configmap ca-bundle                  # leere CM erzeugen
 oc annotate configmap ca-bundle \              # CM wird mit CA-bundle (Zertifikatskette) befüllt
 service.beta.openshift.io/inject-cabundle=true  # muss anschließend im Deploy/Pod gemounted werden
 
+# Load-Balancer | MetalLB
+oc expose deploy/nginx --type LoadBalancer --port 8554  # Deployment über Load Balancer (feste IP + Port) zur Verfügung stellen
+oc get metallb -n metallb-system                        # CR anschauen
+oc get ipaddresspool -n metallb-system                  # zugeordneten IP-Adresspool anzeigen
+
 # Selfservice und Templating
 
 oc edit clusterrolebinding self-provisioners        # dann subject ändern (z.B. neue Gruppe)
