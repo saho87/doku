@@ -414,6 +414,13 @@ oc expose deploy/nginx --type LoadBalancer --port 8554  # Deployment über Load 
 oc get metallb -n metallb-system                        # CR anschauen
 oc get ipaddresspool -n metallb-system                  # zugeordneten IP-Adresspool anzeigen
 
+# Secondary Networks
+# 1. neuen Namespace mit richtigem Label anlegen -> Label: k8s.ovn.org/primary-user-defined-network: ""
+# 2. UDN oder CUDN (falls mehrere NS in selben NW) erstellen über Konsole oder CLI
+
+
+oc debug node/master01 -- chroot /host ip addr    # Zeigt NW-Interfaces des Nodes (nicht des Containers an)
+
 # Selfservice und Templating
 
 oc edit clusterrolebinding self-provisioners        # dann subject ändern (z.B. neue Gruppe)
