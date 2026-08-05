@@ -414,9 +414,11 @@ oc expose deploy/nginx --type LoadBalancer --port 8554  # Deployment über Load 
 oc get metallb -n metallb-system                        # CR anschauen
 oc get ipaddresspool -n metallb-system                  # zugeordneten IP-Adresspool anzeigen
 
-# Secondary Networks
-# ip/dev über chroot des Nodes herausfinden:
-oc debug node/master01 -- chroot /host ip addr
+# Multiple Networks
+
+# NetworkAttachmentDefinition erstellen und annotieren:
+# Helfer: ip/dev über chroot des Nodes herausfinden:
+oc debug node/master01 -- chroot /host ip addr    # Zeigt NW-Interfaces des Nodes (nicht des Containers an)
 # kind: NetworkAttachmentDefinition für NW-Device erstellen mit name custom -> definiert neues Netzwerk im Cluster
 apiVersion: k8s.cni.cncf.io/v1
 kind: NetworkAttachmentDefinition
@@ -438,11 +440,24 @@ spec:
 }
 # im Deployment unter spec.template.annotations das neue Netzwerk annotieren:
 k8s.v1.cni.cncf.io/networks: custom
-# 1. neuen Namespace mit richtigem Label anlegen -> Label: k8s.ovn.org/primary-user-defined-network: ""
+
+# User Defined Network erstllen (über Konsole uder Web-Gui)
+# 1. neuen Namespace muss mit richtigem Label angelegt sein -> Label: k8s.ovn.org/primary-user-defined-network: ""
 # 2. UDN oder CUDN (falls mehrere NS in selben NW) erstellen über Konsole oder CLI
+Web Console öffnen → Networking → UserDefinedNetworks
+# Navigiert zur UDN-Verwaltung
+
+Projekt "network-udn" auswählen → Create → UserDefinedNetwork
+# Neues UDN im Zielprojekt anlegen
+
+Subnetz 10.0.0.0/16 konfigurieren → Create
+# UDN mit eigenem IP-Adressraum erstellen
+
+Conditions prüfen: NetworkCreated / NetworkAllocationSucceeded = True
+# Erfolgreiche Erstellung des UDN verifizieren
 
 
-oc debug node/master01 -- chroot /host ip addr    # Zeigt NW-Interfaces des Nodes (nicht des Containers an)
+
 
 # Selfservice und Templating
 
