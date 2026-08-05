@@ -415,6 +415,29 @@ oc get metallb -n metallb-system                        # CR anschauen
 oc get ipaddresspool -n metallb-system                  # zugeordneten IP-Adresspool anzeigen
 
 # Secondary Networks
+# ip/dev über chroot des Nodes herausfinden:
+oc debug node/master01 -- chroot /host ip addr
+# kind: NetworkAttachmentDefinition für NW-Device erstellen mit name custom -> definiert neues Netzwerk im Cluster
+apiVersion: k8s.cni.cncf.io/v1
+kind: NetworkAttachmentDefinition
+metadata:
+  name: custom
+spec:
+  config: |-
+  {
+    "cniVersion": "0.3.1",
+    "name": "custom",
+    "type": "host-device",
+    "device": "ens4",
+    "ipam": {
+      "type": "static",
+      "addresses": [
+        {"address": "192.168.51.10/24"}
+      ]
+  }
+}
+# im Deployment unter spec.template.annotations das neue Netzwerk annotieren:
+k8s.v1.cni.cncf.io/networks: custom
 # 1. neuen Namespace mit richtigem Label anlegen -> Label: k8s.ovn.org/primary-user-defined-network: ""
 # 2. UDN oder CUDN (falls mehrere NS in selben NW) erstellen über Konsole oder CLI
 
