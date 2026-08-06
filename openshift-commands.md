@@ -417,6 +417,7 @@ oc get ipaddresspool -n metallb-system                  # zugeordneten IP-Adress
 # Multiple Networks
 
 # NetworkAttachmentDefinition erstellen und annotieren:
+# Doku: unter OpenShift Doku nach Secondary Networks suchen
 # Helfer: ip/dev über chroot des Nodes herausfinden:
 oc debug node/master01 -- chroot /host ip addr    # Zeigt NW-Interfaces des Nodes (nicht des Containers an)
 # kind: NetworkAttachmentDefinition für NW-Device erstellen mit name custom -> definiert neues Netzwerk im Cluster
