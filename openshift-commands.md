@@ -457,8 +457,24 @@ Subnetz 10.0.0.0/16 konfigurieren → Create
 Conditions prüfen: NetworkCreated / NetworkAllocationSucceeded = True
 # Erfolgreiche Erstellung des UDN verifizieren
 
+# Project und Cluster Quotas (legen die Obergrenze für Ressourcen in NS fest)
 
+# ResourceQuota: legt Obergrenzen für Ressourcenverbrauch innerhalb eines NS fest -> CPU/Mem, Anzahl Pods, Storage
+# ClusterResourceQuota: über Namespaces hinweg (über Label auf NS) z.B. für Teams
+# LimitRange: Regeln für einzelne Objekte (min/max pro Container)
 
+oc describe node master01 # Erklärung
+# Capacity= physisch vorhandene Hardware REssorce z.B. 6 Kerne
+# Allocatable: was steht tatsächlich für Pods zur Verfügung (Kubelet, Runtime reservieren bereits)
+# Allocated resources: wieviel der Allocatable werden durch Requests und Limits in % genutzt
+
+oc set resources deployment test --requests=cpu=1 # Ressourcen eines Deployments in KOnsole anpassen
+
+oc adm top node  # Auslastung der Nodes anzeigen
+oc get events --sort-by .metadata.creationTimestamp  # Events anschauen
+
+# Erstellung einer Quota: requests müssen nun angegeben werden und dürfen im Namespace nicht Überschritten werden
+oc create quota one-cpu --hard=requests.cpu=1
 
 # Selfservice und Templating
 
