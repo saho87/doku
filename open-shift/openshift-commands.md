@@ -408,6 +408,74 @@ oc create configmap ca-bundle                  # leere CM erzeugen
 oc annotate configmap ca-bundle \              # CM wird mit CA-bundle (Zertifikatskette) befüllt
 service.beta.openshift.io/inject-cabundle=true  # muss anschließend im Deploy/Pod gemounted werden
 
+# Load-Balancer | MetalLB
+# Service bekommt IP aus Adresspool und kann damit von Außen erreicht werden
+oc expose deploy/nginx --type LoadBalancer --port 8554  # Deployment über Load Balancer (feste IP + Port) zur Verfügung stellen
+oc get metallb -n metallb-system                        # CR anschauen
+oc get ipaddresspool -n metallb-system                  # zugeordneten IP-Adresspool anzeigen
+
+# Multiple Networks
+
+# NetworkAttachmentDefinition erstellen und annotieren:
+# Doku: unter OpenShift Doku nach Secondary Networks suchen
+# Helfer: ip/dev über chroot des Nodes herausfinden:
+oc debug node/master01 -- chroot /host ip addr    # Zeigt NW-Interfaces des Nodes (nicht des Containers an)
+# kind: NetworkAttachmentDefinition für NW-Device erstellen mit name custom -> definiert neues Netzwerk im Cluster
+apiVersion: k8s.cni.cncf.io/v1
+kind: NetworkAttachmentDefinition
+metadata:
+  name: custom
+spec:
+  config: |-
+  {
+    "cniVersion": "0.3.1",
+    "name": "custom",
+    "type": "host-device",
+    "device": "ens4",
+    "ipam": {
+      "type": "static",
+      "addresses": [
+        {"address": "192.168.51.10/24"}
+      ]
+  }
+}
+# im Deployment unter spec.template.annotations das neue Netzwerk annotieren:
+k8s.v1.cni.cncf.io/networks: custom
+
+# User Defined Network erstllen (über Konsole uder Web-Gui)
+# 1. neuen Namespace muss mit richtigem Label angelegt sein -> Label: k8s.ovn.org/primary-user-defined-network: ""
+# 2. UDN oder CUDN (falls mehrere NS in selben NW) erstellen über Konsole oder CLI
+Web Console öffnen → Networking → UserDefinedNetworks
+# Navigiert zur UDN-Verwaltung
+
+Projekt "network-udn" auswählen → Create → UserDefinedNetwork
+# Neues UDN im Zielprojekt anlegen
+
+Subnetz 10.0.0.0/16 konfigurieren → Create
+# UDN mit eigenem IP-Adressraum erstellen
+
+Conditions prüfen: NetworkCreated / NetworkAllocationSucceeded = True
+# Erfolgreiche Erstellung des UDN verifizieren
+
+# Project und Cluster Quotas (legen die Obergrenze für Ressourcen in NS fest)
+
+# ResourceQuota: legt Obergrenzen für Ressourcenverbrauch innerhalb eines NS fest -> CPU/Mem, Anzahl Pods, Storage
+# ClusterResourceQuota: über Namespaces hinweg (über Label auf NS) z.B. für Teams
+# LimitRange: Regeln für einzelne Objekte (min/max pro Container)
+
+oc describe node master01 # Erklärung
+# Capacity= physisch vorhandene Hardware REssorce z.B. 6 Kerne
+# Allocatable: was steht tatsächlich für Pods zur Verfügung (Kubelet, Runtime reservieren bereits)
+# Allocated resources: wieviel der Allocatable werden durch Requests und Limits in % genutzt
+
+oc set resources deployment test --requests=cpu=1 # Ressourcen eines Deployments in KOnsole anpassen
+
+oc adm top node  # Auslastung der Nodes anzeigen
+oc get events --sort-by .metadata.creationTimestamp  # Events anschauen
+
+# Erstellung einer Quota: requests müssen nun angegeben werden und dürfen im Namespace nicht Überschritten werden
+oc create quota one-cpu --hard=requests.cpu=1
+
 # Selfservice und Templating
 
 oc edit clusterrolebinding self-provisioners        # dann subject ändern (z.B. neue Gruppe)
