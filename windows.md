@@ -58,4 +58,5 @@ Ideal für die Arbeit auf Windows-Servern oder -Clients.
 |--------|--------------|
 | `Get-History` | Zeigt die letzten PowerShell-Befehle an. |
 | `Get-Clipboard` | Zeigt den Inhalt der Zwischenablage. |
-| `Set-Clipboard "Hallo Welt"` | Schreibt Text in die Zwischena
+| `Set-Clipboard "Hallo Welt"` | Schreibt Text in die Zwischenablage
+| `WIN + R "shell:startup"` | Öffnet Ordner für Ablage in den Autostart
