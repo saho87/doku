@@ -22,7 +22,8 @@ Dozentin: Esther Merkels
 - K&K ist eine Grundlagenschulung
 - Aufbauschulung -> Konflikte lösen
 
-2. Faktoren der konstruktiven Gesprächshaltung
+# 2. Faktoren der konstruktiven Gesprächshaltung
+
 1. Echtheit (Kongruenz): 
     - Ich bin ganz ich selbst (authentisch) und trete meinem Gegenüber ohne Fassade entgegen.
 2. Positive Wertschätzung:
