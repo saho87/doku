@@ -8,7 +8,8 @@ Dozentin: Esther Merkels
 - [1. Allgemeine Informationen](#1-Allgemeine-Informationen)
 - [2. Faktoren der konstruktiven Gesprächshaltung](#2-Faktoren-der-konstruktiven-Gesprächshaltung)
 - [3. Du- und Ich-Botschaften](#3-Du-undIch-Botschaften)
-- [4. Deploy Managed and Networked Applications on Kubernetes](#4-Deploy-Managed-and-Networked-Applications-on-Kubernetes)
+
+- [4. Das Kommunikationsmodell von Schulz von Thun](#4-Das-Kommunikationsmodell-von-Schulz-von-Thun)
 - [5. Manage Storage for Application Configuration and Data](#5-Manage-Storage-for-Application-Configuration-and-Data)
 - [6. Configure Applications for Reliability)](#6-Configure-Applications-for-Reliability)
 - [7. Manage Application Updates](#7-Manage-Application-Updates)
@@ -34,6 +35,8 @@ Dozentin: Esther Merkels
 
 
 # 3. Du- und Ich-Botschaften
+- ersetzen der Schuldzuweisungen durch Ich-Botschaften
+- es wird immer noch eine Kritik formuliert, aber es wird keine persönliche Wertung vorgenommen
 
 ## Grundgefühle:
 
@@ -55,9 +58,12 @@ Dozentin: Esther Merkels
 
 ## Ich-Botschaften:
 
-- Botschaften, in denen eine Person die eigene Wahrnehmung beschreibt
-- klare Mitteilung von eigenen Gefühlen und Empfindungen
-- Wunsch nach Veränderung (zukunftsorientiert)
+Diese Komponenten machen eine vollständige Ich-Botschaft aus:
+
+1. exakte Verhaltens- oder Situationsbeschreibung: beschreibt das Verhalten der anderen Person oder die Umstände, die ein Problem verursachen ohne Wertung. Beispiel: „Sie sind zu unseren letzten drei Besprechungen zu spät gekommen.“
+2. Beschreibung der eigenen Gefühle: beschreibt wie sich diese Tatsachen emotional auf mich auswirken. Beispiel: „Das hat mich sehr gestört…,“
+3. Beschreibung der Auswirkungen/Konsequenzen des Verhaltens/des Problems für mich. Beispiel: „..., weil uns dadurch Zeit verloren gegangen ist.“
+4. Wunsch nach Veränderung (zukunftsorientiert): Beispiel: „Ich bitte Sie, zukünftig pünktlich zu sein.“
 
 ### Tipps für Ich-Botschaften
 
@@ -65,3 +71,19 @@ Dozentin: Esther Merkels
 - Vermeiden Sie Reizwörter wie „wieder” oder „immer”
 - Vermeiden Sie Verharmlosungen und Abschwächungen wie „manchmal” oder „irgendwie”
 
+# 4. Das Kommunikationsmodell von Schulz von Thun
+
+Die Anatomie einer Nachricht
+Nach Schulz von Thun besitzt eine Nachricht vier Dimensionen und damit vier potenzielle
+
+## Problembereiche:
+
+1. Sachinhalt (worüber ich informiere): Sachinformation
+2. Selbstoffenbarung (was ich von mir selbst kundgebe): Information über die Sender-
+Person: gewollte Selbstdarstellung und unfreiwillige Selbstenthüllung, Ich-
+Botschaften, Absichten, Gefühle etc.
+3.  Beziehung (was ich von dir halte und wie wir zueinander stehen): Haltung der
+Sender-Person zur Empfänger-Person (ist oft in nonverbalen Signalen, z. B. über die
+Art der Formulierung, den Tonfall oder die Mimik) enthalten)
+4. Appell (wozu ich dich veranlassen möchte): offene oder versteckte Einflussnahme auf
+die Empfänger-Person (ggf. manipulierend)
