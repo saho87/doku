@@ -177,11 +177,10 @@ Beispiel. Du sollst eine zusätzliche Aufgabe übernehmen. Innen melden sich:
 - Das Team ist zerstritten, man wirkt unentschlossen oder widersprüchlich.
 - Innere Stimmen werden verdrängt und melden sich später durch Ärger, Rückzug oder Überreaktionen.
 
-Bezug zu deinem Thema. Das Modell erklärt, warum Kommunikation oft misslingt: Nach außen kommt nur ein Teil dessen an, was innen los ist. Ein Teil davon liegt unter der Wasserlinie des Eisbergs. Bei Killerphrasen sprechen oft nur einzelne Teammitglieder („Wir haben wichtigeres zu tun” ist der überlastete Teil), während andere Stimmen schweigen.
 
 ## Vorgehen im „Inneren Team” (Kurzform).
 
-Stimmen sammeln und benennen.
-Jede anhören, ohne sie zu bewerten.
-Als Oberhaupt abwägen und entscheiden.
-Das Ergebnis klar nach außen kommunizieren, am besten als Ich-Botschaft.
+1. Stimmen sammeln und benennen.
+2. Jede anhören, ohne sie zu bewerten.
+3. Als Oberhaupt abwägen und entscheiden.
+4. Das Ergebnis klar nach außen kommunizieren, am besten als Ich-Botschaft.
