@@ -116,7 +116,7 @@ Konzentrieren wir uns bitte auf die Fähigkeiten der Person, nicht auf das Gesch
 1. Aha, und was ist wichtiger als mein Anliegen?
 2. Ich weiß, dass bei euch viel zu tun ist. Mir ist das Thema wichtig und ich möchte dich bitten mit mir das Thema zu bearbeiten
 
-# 5. Möglichkeiten um schlagfertig zu reagieren:
+# 5. Möglichkeiten um schlagfertig zu reagieren
 
 1. Verständnisfrage / Rückfrage stellen
 
