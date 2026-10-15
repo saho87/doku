@@ -8,11 +8,9 @@ Dozentin: Esther Merkels
 - [1. Allgemeine Informationen](#1-Allgemeine-Informationen)
 - [2. Faktoren der konstruktiven Gesprächshaltung](#2-Faktoren-der-konstruktiven-Gesprächshaltung)
 - [3. Du- und Ich-Botschaften](#3-Du-undIch-Botschaften)
-
 - [4. Das Kommunikationsmodell von Schulz von Thun](#4-Das-Kommunikationsmodell-von-Schulz-von-Thun)
 - [5. Möglichkeiten um schlagfertig zu reagieren](#5-Möglichkeiten-um-schlagfertig-zu-reagieren)
 - [6. Das Innere Team](#6-Das-Innere-Team)
-- [7. Manage Application Updates](#7-Manage-Application-Updates)
 
 
 ---
@@ -184,3 +182,12 @@ Beispiel. Du sollst eine zusätzliche Aufgabe übernehmen. Innen melden sich:
 2. Jede anhören, ohne sie zu bewerten.
 3. Als Oberhaupt abwägen und entscheiden.
 4. Das Ergebnis klar nach außen kommunizieren, am besten als Ich-Botschaft.
+
+
+
+# Bewertung:
+
+- gute Mischung aus Theorie, Praxis insbesondere Situationen zum Arbeitsalltag
+- nie langweilig geworden
+- gute Modelle, die mich im Arbeitsalltag weiterbringen
+- 
