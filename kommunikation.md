@@ -11,7 +11,7 @@ Dozentin: Esther Merkels
 
 - [4. Das Kommunikationsmodell von Schulz von Thun](#4-Das-Kommunikationsmodell-von-Schulz-von-Thun)
 - [5. Möglichkeiten um schlagfertig zu reagieren](#5-Möglichkeiten-um-schlagfertig-zu-reagieren)
-- [6. Configure Applications for Reliability)](#6-Configure-Applications-for-Reliability)
+- [6. Das "Innere Team"](#6-Das-"Innere-Team")
 - [7. Manage Application Updates](#7-Manage-Application-Updates)
 
 
