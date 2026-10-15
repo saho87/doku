@@ -11,7 +11,7 @@ Dozentin: Esther Merkels
 
 - [4. Das Kommunikationsmodell von Schulz von Thun](#4-Das-Kommunikationsmodell-von-Schulz-von-Thun)
 - [5. Möglichkeiten um schlagfertig zu reagieren](#5-Möglichkeiten-um-schlagfertig-zu-reagieren)
-- [6. Das "Innere Team"](#6-Das-"Innere-Team")
+- [6. Das Innere Team](#6-Das-Innere-Team)
 - [7. Manage Application Updates](#7-Manage-Application-Updates)
 
 
@@ -151,7 +151,7 @@ Beispiele:
 Auch Kurzes wie „Das sehe ich anders.” funktioniert.
 
 
-# 6. Das "Innere Team"
+# 6. Das Innere Team
 
 - Modell von Friedemann Schulz von Thun
 - Grundidee: In jedem Menschen „sitzen” mehrere Stimmen, die sich zu einer Situation gleichzeitig melden, oft mit unterschiedlichen Meinungen. Wie in einem Team am Konferenztisch.
