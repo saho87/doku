@@ -158,28 +158,28 @@ Auch Kurzes wie „Das sehe ich anders.” funktioniert.
 
 Beispiel. Du sollst eine zusätzliche Aufgabe übernehmen. Innen melden sich:
 
-„Das schaffst du locker, zeig, was du kannst.” (Ehrgeiz)
-„Du bist schon ausgelastet, sag Nein.” (Vorsicht)
-„Wenn du ablehnst, denken die anderen, du bist faul.” (Angst vor Ablehnung)
-„Hilf dem Team, du bist doch nett.” (Harmoniebedürfnis)
+- „Das schaffst du locker, zeig, was du kannst.” (Ehrgeiz)
+- „Du bist schon ausgelastet, sag Nein.” (Vorsicht)
+- „Wenn du ablehnst, denken die anderen, du bist faul.” (Angst vor Ablehnung)
+- „Hilf dem Team, du bist doch nett.” (Harmoniebedürfnis)
 
-Die wichtigsten Bestandteile.
+## Die wichtigsten Bestandteile.
 
-Innere Teammitglieder: die einzelnen Stimmen, etwa „der Perfektionist”, „die Vorsichtige”, „der Rebell”. Sie sind nicht gut oder schlecht, jede hat eine Funktion.
-Oberhaupt (Teamleitung): das Ich, das die Stimmen anhört, abwägt und eine Entscheidung trifft.
-Innere Pluralität: Dass man „hin- und hergerissen” ist, ist normal und kein Zeichen von Schwäche.
+1. **Innere Teammitglieder**: die einzelnen Stimmen, etwa „der Perfektionist”, „die Vorsichtige”, „der Rebell”. Sie sind nicht gut oder schlecht, jede hat eine Funktion.
+2. **Oberhaupt** (Teamleitung): das Ich, das die Stimmen anhört, abwägt und eine Entscheidung trifft.
+3. **Innere Pluralität**: Dass man „hin- und hergerissen” ist, ist normal und kein Zeichen von Schwäche.
 
-Ziel. Ein gut geführtes inneres Team führt zu einer klaren, stimmigen Entscheidung. Das entspricht dem Begriff der Echtheit (Kongruenz) aus der Rogers-Liste: Ich sage nach außen, was ich innerlich wirklich vertrete, und nicht nur die Stimme, die gerade am lautesten ist.
+**Ziel:** Ein gut geführtes inneres Team führt zu einer klaren, stimmigen Entscheidung. Das entspricht dem Begriff der Echtheit (Kongruenz) aus der Rogers-Liste: Ich sage nach außen, was ich innerlich wirklich vertrete, und nicht nur die Stimme, die gerade am lautesten ist.
 
-Typische Probleme.
+## Typische Probleme
 
-Eine Stimme dominiert und übertönt die anderen (z. B. der Harmoniebedürftige sagt immer Ja).
-Das Team ist zerstritten, man wirkt unentschlossen oder widersprüchlich.
-Innere Stimmen werden verdrängt und melden sich später durch Ärger, Rückzug oder Überreaktionen.
+- Eine Stimme dominiert und übertönt die anderen (z. B. der Harmoniebedürftige sagt immer Ja).
+- Das Team ist zerstritten, man wirkt unentschlossen oder widersprüchlich.
+- Innere Stimmen werden verdrängt und melden sich später durch Ärger, Rückzug oder Überreaktionen.
 
 Bezug zu deinem Thema. Das Modell erklärt, warum Kommunikation oft misslingt: Nach außen kommt nur ein Teil dessen an, was innen los ist. Ein Teil davon liegt unter der Wasserlinie des Eisbergs. Bei Killerphrasen sprechen oft nur einzelne Teammitglieder („Wir haben wichtigeres zu tun” ist der überlastete Teil), während andere Stimmen schweigen.
 
-Vorgehen im „Inneren Team” (Kurzform).
+## Vorgehen im „Inneren Team” (Kurzform).
 
 Stimmen sammeln und benennen.
 Jede anhören, ohne sie zu bewerten.
