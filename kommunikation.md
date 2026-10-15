@@ -118,7 +118,7 @@ Konzentrieren wir uns bitte auf die Fähigkeiten der Person, nicht auf das Gesch
 
 # 5. Möglichkeiten um schlagfertig zu reagieren
 
-1. Verständnisfrage / Rückfrage stellen
+## 1. Verständnisfrage / Rückfrage stellen
 
 Du reagierst auf die Aussage mit einer Frage, statt zu kontern oder dich zu rechtfertigen. Das hat drei Effekte:
 
@@ -134,7 +134,7 @@ Beispiele zu euren Killerphrasen:
 
 Dein eigener Entwurf „Und was geht in der Praxis nicht?” ist genau diese Technik.
 
-2. Kurzes Statement ohne zu argumentieren
+## 2. Kurzes Statement ohne zu argumentieren
 
 Du setzt eine kurze, klare Aussage, ohne zu begründen, zu erklären oder zu diskutieren. Das ist vor allem sinnvoll, wenn die Aussage unter der Gürtellinie liegt oder unsachlich ist. Eine Diskussion würde sie nur aufwerten.
 
