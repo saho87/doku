@@ -189,5 +189,6 @@ Beispiel. Du sollst eine zusätzliche Aufgabe übernehmen. Innen melden sich:
 
 - gute Mischung aus Theorie, Praxis insbesondere Situationen zum Arbeitsalltag
 - nie langweilig geworden
-- gute Modelle, die mich im Arbeitsalltag weiterbringen
+- es finde es manchmal schwierig auf Beziehungsebene diverse
+- gute Modelle, die mich im Arbeitsalltag und vielleich auch im privaten Bereich weiterbringen
 - 
