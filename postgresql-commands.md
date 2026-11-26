@@ -20,6 +20,7 @@
 11. [Tablespaces](#11-tablespaces)
 12. [Lösungsweg Aufgaben 4.1 und 4.2](#12-lösungsweg-aufgaben-41-und-42)
 13. [Postgres zum Ausprobieren per Docker](#13-postgres-zum-ausprobieren-per-docker)
+14. [Backup mit pgBackRest](#14-backup-mit-pgbackrest)
 
 ---
 
@@ -520,3 +521,148 @@ docker exec -it pg psql -U postgres
 Grafische Clients: **DBeaver** oder **pgAdmin** (`localhost:5432`, User `postgres`).
 
 Lernquellen: offizielles Tutorial unter postgresql.org/docs, Übungen auf pgexercises.com.
+
+<p align="right"><a href="#inhalt">↑ nach oben</a></p>
+
+---
+
+## 14. Backup mit pgBackRest
+
+### Grundprinzip: WAL
+
+Postgres schreibt jede Änderung zuerst ins **WAL** (Write-Ahead Log, Dateien in `pg_wal/`) und erst danach in die Tabellendateien. Das WAL ist ein lückenloses Protokoll aller Änderungen.
+
+```text
+Vollbackup (Sonntag)  +  alle WAL-Dateien seitdem  =  jeder beliebige Zeitpunkt danach
+```
+
+Das ist **Point-in-Time-Recovery (PITR)**: z. B. den Stand von Mittwoch 14:03 Uhr wiederherstellen, kurz bevor eine Tabelle gelöscht wurde.
+
+### Was pgBackRest macht
+
+1. **WAL-Archivierung:** Jede volle WAL-Datei wird sofort komprimiert ins Repository kopiert (über `archive_command`).
+2. **Backups des Datenverzeichnisses:**
+
+| Typ | Inhalt |
+|---|---|
+| `full` | alles |
+| `diff` | Änderungen seit dem letzten **Full**-Backup |
+| `incr` | Änderungen seit dem letzten **beliebigen** Backup (kleinster, schnellster Typ) |
+
+Dazu kommen Restore (inkl. PITR), Aufbewahrung (Retention), Kompression, Verschlüsselung, Parallelität sowie S3/Azure als Ziel.
+
+### Begriffe
+
+| Begriff | Bedeutung | In der Übung |
+|---|---|---|
+| **Stanza** | Konfiguration für **einen** Postgres-Cluster (was wird wohin gesichert) | `pg-stanza` |
+| **Repository** (`repo1`) | Ablageort der Backups und WAL-Dateien; mehrere möglich (`repo1`, `repo2`) | `/var/lib/pgbackrest` |
+| **pg1-path** | Datenverzeichnis des Clusters | `/var/lib/pgsql/17/data` |
+
+### Konfiguration
+
+`/etc/pgbackrest/pgbackrest.conf`:
+
+```ini
+[global]
+repo1-path=/var/lib/pgbackrest
+repo1-retention-full=2
+log-level-console=info
+
+[pg-stanza]
+pg1-path=/var/lib/pgsql/17/data
+```
+
+`postgresql.conf` (danach Neustart nötig, weil `archive_mode` geändert wird):
+
+```ini
+archive_mode = on
+archive_command = 'pgbackrest --stanza=pg-stanza archive-push %p'
+```
+
+### WAL-Dateinamen lesen
+
+Jede WAL-Datei ist 16 MB groß. Der Name besteht aus drei Teilen à 8 Hex-Zeichen:
+
+```text
+00000001 00000000 0000000A
+│        │        └─ Segment-Nummer (zählt hoch: …0A, …0B, …0C)
+│        └────────── logische Log-Datei (springt nach Segment …FF um)
+└─────────────────── Timeline (erhöht sich nach einem PITR-Restore)
+```
+
+> [!NOTE]
+> Postgres **recycelt** alte WAL-Dateien und benennt sie für die Zukunft um. Deshalb können Dateien mit höherer Nummer ein älteres Datum haben.
+
+### Aufbau des Repositorys
+
+```text
+/var/lib/pgbackrest/
+├── archive/pg-stanza/
+│   ├── archive.info                 ← Metadaten (Postgres-Version, System-ID)
+│   └── 17-1/                        ← Postgres-Version 17, Archiv-Generation 1
+│       └── 0000000100000000/        ← Timeline + Log-Datei
+│           └── 00000001000000000000000A-<prüfsumme>.gz
+└── backup/pg-stanza/                ← die eigentlichen Backups
+```
+
+### Befehle (als OS-User postgres)
+
+```bash
+# Einmalig: Stanza im Repository anlegen
+pgbackrest --stanza=pg-stanza stanza-create
+
+# Prüfen, ob Konfiguration und WAL-Archivierung funktionieren
+pgbackrest --stanza=pg-stanza check
+
+# Backups
+pgbackrest --stanza=pg-stanza --type=full backup
+pgbackrest --stanza=pg-stanza --type=diff backup
+pgbackrest --stanza=pg-stanza --type=incr backup
+
+# Übersicht über Backups und archivierten WAL-Bereich
+pgbackrest --stanza=pg-stanza info
+```
+
+`check` erzwingt einen WAL-Wechsel und wartet, bis die Datei im Repository ankommt. Erfolgreich sieht das so aus:
+
+```text
+INFO: check repo1 configuration (primary)
+INFO: check repo1 archive for WAL (primary)
+INFO: WAL segment 00000001000000000000000A successfully archived to '…' on repo1
+INFO: check command end: completed successfully
+```
+
+### Restore
+
+> [!WARNING]
+> Postgres muss vor einem Restore **gestoppt** sein.
+
+```bash
+sudo /bin/systemctl stop postgresql-17.service
+
+# Auf den neuesten Stand zurückspielen
+pgbackrest --stanza=pg-stanza --delta restore
+
+# Point-in-Time-Restore
+pgbackrest --stanza=pg-stanza --delta \
+  --type=time --target="2026-11-26 09:30:00+01" \
+  --target-action=promote restore
+
+sudo /bin/systemctl start postgresql-17.service
+```
+
+- `--delta`: Nur abweichende Dateien werden zurückgeschrieben. Ohne `--delta` muss das Datenverzeichnis leer sein.
+- `--target-action=promote`: Nach Erreichen des Zeitpunkts wird der Server wieder normal beschreibbar.
+- Nach einem PITR startet eine **neue Timeline** (`00000002…`).
+
+### Übungsablauf PITR
+
+1. `pgbackrest info`: Ohne Backup steht dort „no valid backups“.
+2. Erstes `full`-Backup erstellen, danach erneut `info`.
+3. Daten ändern, **Uhrzeit notieren**, dann eine Tabelle löschen.
+4. Server stoppen, PITR auf die notierte Uhrzeit, Server starten.
+5. Prüfen: Die Tabelle ist wieder da, und die neuen WAL-Dateien beginnen mit `00000002`.
+
+> [!TIP]
+> Im Kubernetes-Kontext (z. B. Helm-Chart mit eigenem Postgres) macht pgBackRest genau dasselbe. Dort ruft nur der Operator bzw. ein CronJob die Befehle auf.
